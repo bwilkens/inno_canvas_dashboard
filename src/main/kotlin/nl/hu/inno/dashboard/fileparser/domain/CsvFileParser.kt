@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile
 @Component
 class CsvFileParser : FileParser {
     override fun supports(file: MultipartFile): Boolean {
-        TODO("Not yet implemented")
+        return file.originalFilename?.endsWith(".csv", true) == true
     }
 
     override fun parse(file: MultipartFile): List<Array<String>> {
