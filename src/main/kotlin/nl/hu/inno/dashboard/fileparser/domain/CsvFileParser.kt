@@ -1,7 +1,10 @@
 package nl.hu.inno.dashboard.fileparser.domain
 
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.CSVParser
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
+import java.io.InputStreamReader
 
 @Component
 class CsvFileParser : FileParser {
@@ -10,6 +13,14 @@ class CsvFileParser : FileParser {
     }
 
     override fun parse(file: MultipartFile): List<Array<String>> {
-        TODO("Not yet implemented")
+        val result = mutableListOf<Array<String>>()
+        InputStreamReader(file.inputStream).use { reader ->
+            CSVParser.parse(reader, CSVFormat.DEFAULT).use { csvParser ->
+                for (record in csvParser) {
+                    result.add(record.map { it.trim() }.toTypedArray())
+                }
+            }
+        }
+        return result
     }
 }
