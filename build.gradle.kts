@@ -28,6 +28,7 @@ dependencies {
 	implementation("com.azure.spring:spring-cloud-azure-starter-keyvault")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.apache.commons:commons-csv:1.14.1")
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
