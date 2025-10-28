@@ -4,5 +4,5 @@ import org.springframework.web.multipart.MultipartFile
 
 interface FileParser {
     fun supports(file : MultipartFile) : Boolean
-    fun parse(file : MultipartFile) : List<Array<String>>
+    fun parse(file : MultipartFile) : List<List<String>>
 }

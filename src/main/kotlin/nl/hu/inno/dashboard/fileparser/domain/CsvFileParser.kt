@@ -12,12 +12,12 @@ class CsvFileParser : FileParser {
         return file.originalFilename?.endsWith(".csv", true) == true
     }
 
-    override fun parse(file: MultipartFile): List<Array<String>> {
-        val result = mutableListOf<Array<String>>()
+    override fun parse(file: MultipartFile): List<List<String>> {
+        val result = mutableListOf<List<String>>()
         InputStreamReader(file.inputStream).use { reader ->
             CSVParser.parse(reader, CSVFormat.DEFAULT).use { csvParser ->
                 for (record in csvParser) {
-                    result.add(record.map { it.trim() }.toTypedArray())
+                    result.add(record.map { it.trim() }.toList())
                 }
             }
         }

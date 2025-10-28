@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile
 class FileParserService(
     private val fileParsers: List<FileParser>,
 ) {
-    fun parseFile(multipartFile: MultipartFile): List<Array<String>> {
+    fun parseFile(multipartFile: MultipartFile): List<List<String>> {
         val parser = selectParser(multipartFile)
         return parser.parse(multipartFile)
     }
