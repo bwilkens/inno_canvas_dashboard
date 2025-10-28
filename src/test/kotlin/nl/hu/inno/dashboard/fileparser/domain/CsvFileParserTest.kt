@@ -28,6 +28,15 @@ class CsvFileParserTest {
     }
 
     @Test
+    fun doesNotSupportNullFilename() {
+        val mockFile = Mockito.mock(MultipartFile::class.java)
+
+        Mockito.`when`(mockFile.originalFilename).thenReturn(null)
+
+        assertFalse(parser.supports(mockFile))
+    }
+
+    @Test
     fun parseValidCSV() {
         val csvContent = Fixture.fromFile("users-01.csv")
         val file = MockMultipartFile("file", "users-01.csv", "text/csv", csvContent.toByteArray())
