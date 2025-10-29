@@ -3,6 +3,7 @@ package nl.hu.inno.dashboard.dashboard.domain
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.Table
 import java.time.LocalDate
 
@@ -23,5 +24,8 @@ data class Course(
     val startDate: LocalDate = LocalDate.MIN,
 
     @Column(name = "END_DATE")
-    val endDate: LocalDate = LocalDate.MIN
+    val endDate: LocalDate = LocalDate.MIN,
+
+    @ManyToMany(mappedBy = "courses")
+    val users: Set<Users> = emptySet()
 )

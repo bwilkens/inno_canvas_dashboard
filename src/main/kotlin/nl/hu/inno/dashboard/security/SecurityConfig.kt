@@ -1,4 +1,4 @@
-package nl.hu.inno.dashboard.Security
+package nl.hu.inno.dashboard.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
