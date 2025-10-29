@@ -14,14 +14,11 @@ import jakarta.persistence.ManyToMany
 @Table(name = "USERS")
 data class Users (
     @Id
-    @Column(name = "FIRST_NAME")
-    val firstName: String = "",
-
-    @Column(name = "LAST_NAME")
-    val lastName: String = "",
-
     @Column(name = "EMAIL_ADDRESS")
     val emailAdress: String = "",
+
+    @Column(name = "NAME")
+    val name: String = "",
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
