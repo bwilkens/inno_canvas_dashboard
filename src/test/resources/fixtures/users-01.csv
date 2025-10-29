@@ -1,3 +1,3 @@
-email_address,first_name,last_name,role,courses
-john.doe@student.hu.nl,john,doe,STUDENT,"2600;2601"
-jane.doe@hu.nl,jane,doe,TEACHER,"2600;2700"
+canvas_course_id,course_name,start_date,end_date,user_name,user_email,user_role
+50304,Innovation Semester - September 2025,2025-09-01 00:00:00+02:00,2026-01-30 23:59:59+01:00,John Doe,john.doe@student.hu.nl,STUDENT
+50304,Innovation Semester - September 2025,2025-09-01 00:00:00+02:00,2026-01-30 23:59:59+01:00,Jane Doe,jane.doe@hu.nl,TEACHER
