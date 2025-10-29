@@ -8,6 +8,8 @@ import nl.hu.inno.dashboard.fileparser.application.FileParserService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
+import java.time.LocalDate
+import nl.hu.inno.dashboard.dashboard.domain.Role
 
 @Service
 class DashboardServiceImpl(
@@ -22,6 +24,14 @@ class DashboardServiceImpl(
     override fun parseAndPersistCanvasData(file: MultipartFile) {
         val rows = fileParserService.parseFile(file)
 
+        rows.forEachIndexed { index, row ->
+            if (row.size != 7) {
+                throw IllegalArgumentException(
+                    "Invalid CSV format on row ${index + 1}: expected 7 columns, found ${row.size}"
+                )
+            }
+        }
+
         val courseList = rows.map { parseCourseList(it) }
         val userList = rows.map { parseUserList(it) }
 
@@ -30,10 +40,35 @@ class DashboardServiceImpl(
     }
 
     private fun parseUserList(columns: List<String>): Users {
+        val name = columns[4]
+        val emailAdress = columns[5]
+        val role = when (columns[6].uppercase()) {
+            "STUDENT" -> Role.STUDENT
+            "TEACHER" -> Role.TEACHER
+            "ADMIN" -> Role.ADMIN
+            else -> throw IllegalArgumentException("Invalid role: ${columns[6]}")
+        }
 
+        return Users(
+            name = name,
+            emailAdress = emailAdress,
+            role = role
+        )
     }
 
     private fun parseCourseList(columns: List<String>): Course {
+        val canvasId = columns[0].toInt()
+        val title = columns[1]
+        val courseCode = title
+        val startDate = LocalDate.parse(columns[2].substring(0, 10))
+        val endDate = LocalDate.parse(columns[3].substring(0, 10))
 
+        return Course(
+            canvasId = canvasId,
+            title = title,
+            courseCode = courseCode,
+            startDate = startDate,
+            endDate = endDate
+        )
     }
 }
