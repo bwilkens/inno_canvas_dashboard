@@ -19,17 +19,14 @@ class FileParserServiceImplTest {
 
         val actualResult = service.parseFile(file)
 
-        val expectedResultSize = 3
-        val expectedFirstRow = listOf("email_address", "first_name", "last_name", "role", "courses")
+        val expectedResultSize = 2
+        val expectedFirstRow = listOf("john.doe@student.hu.nl","john","doe","STUDENT","2600;2601")
         val firstResultRow = 0
-        val expectedSecondRow = listOf("john.doe@student.hu.nl", "john", "doe", "STUDENT", "2600;2601")
+        val expectedSecondRow = listOf("jane.doe@hu.nl","jane","doe","TEACHER","2600;2700")
         val secondResultRow = 1
-        val expectedThirdRow = listOf("jane.doe@hu.nl", "jane", "doe", "TEACHER", "2600;2700")
-        val thirdResultRow = 2
         assertEquals(expectedResultSize, actualResult.size)
         assertEquals(expectedFirstRow, actualResult[firstResultRow])
         assertEquals(expectedSecondRow, actualResult[secondResultRow])
-        assertEquals(expectedThirdRow, actualResult[thirdResultRow])
     }
 
     @Test
