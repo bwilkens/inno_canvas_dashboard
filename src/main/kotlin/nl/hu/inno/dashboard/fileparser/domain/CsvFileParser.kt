@@ -22,7 +22,12 @@ class CsvFileParser : FileParser {
         try {
             file.inputStream.use { inputStream ->
                 InputStreamReader(inputStream, Charsets.UTF_8).use { reader ->
-                    val format = CSVFormat.DEFAULT.builder().setTrim(true).get()
+                    val format = CSVFormat.DEFAULT
+                        .builder()
+                        .setTrim(true)
+                        .setHeader()
+                        .setSkipHeaderRecord(true)
+                        .get()
                     val parser = CSVParser.parse(reader, format)
                     return parser.records.map { it.toList() }
                 }
