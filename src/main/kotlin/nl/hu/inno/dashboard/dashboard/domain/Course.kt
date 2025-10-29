@@ -27,5 +27,5 @@ data class Course(
     val endDate: LocalDate = LocalDate.MIN,
 
     @ManyToMany(mappedBy = "courses")
-    val users: Set<User> = emptySet()
+    val users: Set<Users> = emptySet()
 )

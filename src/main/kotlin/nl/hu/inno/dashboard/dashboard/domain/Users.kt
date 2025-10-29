@@ -11,8 +11,8 @@ import jakarta.persistence.Table
 import jakarta.persistence.ManyToMany
 
 @Entity
-@Table(name = "USER")
-data class User (
+@Table(name = "USERS")
+data class Users (
     @Id
     @Column(name = "FIRST_NAME")
     val firstName: String = "",
