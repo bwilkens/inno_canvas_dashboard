@@ -59,14 +59,12 @@ class DashboardServiceImpl(
     private fun parseCourseList(columns: List<String>): Course {
         val canvasId = columns[0].toInt()
         val title = columns[1]
-        val courseCode = title
         val startDate = LocalDate.parse(columns[2].substring(0, 10))
         val endDate = LocalDate.parse(columns[3].substring(0, 10))
 
         return Course(
             canvasId = canvasId,
             title = title,
-            courseCode = courseCode,
             startDate = startDate,
             endDate = endDate
         )

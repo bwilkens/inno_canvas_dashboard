@@ -17,9 +17,6 @@ data class Course(
     @Column(name = "TITLE")
     val title: String = "",
 
-    @Column(name = "COURSE_CODE")
-    val courseCode: String = "",
-
     @Column(name = "START_DATE")
     val startDate: LocalDate = LocalDate.MIN,
 
