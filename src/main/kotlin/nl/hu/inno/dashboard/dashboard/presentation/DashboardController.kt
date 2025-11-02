@@ -21,10 +21,20 @@ class DashboardController(
             ResponseEntity.notFound().build()
     }
 
-    @PostMapping("/parse")
-    fun parseFile(@RequestParam("file") file: MultipartFile) : ResponseEntity<Void> {
+    @PostMapping("/update-course")
+    fun updateUsersInCourse(@RequestParam("file") file: MultipartFile): ResponseEntity<Void> {
         return try {
             service.updateUsersInCourse(file)
+            ResponseEntity.ok().build()
+        } catch (e: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @PostMapping("/replace-course")
+    fun replaceUsersInCourse(@RequestParam("file") file: MultipartFile): ResponseEntity<Void> {
+        return try {
+            service.replaceUsersInCourse(file)
             ResponseEntity.ok().build()
         } catch (e: Exception) {
             ResponseEntity.internalServerError().build()
