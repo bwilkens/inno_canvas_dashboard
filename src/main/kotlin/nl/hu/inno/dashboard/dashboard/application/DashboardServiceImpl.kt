@@ -24,7 +24,7 @@ class DashboardServiceImpl(
         return courseDB.findByIdOrNull(id)
     }
 
-    override fun updateExistingCourseData(file: MultipartFile) {
+    override fun updateUsersInCourse(file: MultipartFile) {
         val records = fileParserService.parseFile(file)
 
         val userCache = mutableMapOf<String, Users>()
@@ -34,7 +34,7 @@ class DashboardServiceImpl(
         usersDB.saveAll(userCache.values)
     }
 
-    override fun replaceCourseData(file: MultipartFile) {
+    override fun replaceUsersInCourse(file: MultipartFile) {
         val records = fileParserService.parseFile(file)
 
         val course = retrieveCourseFromRecords(records)

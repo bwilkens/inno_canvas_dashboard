@@ -5,6 +5,6 @@ import org.springframework.web.multipart.MultipartFile
 
 interface DashboardService {
     fun findCourseById(id: Int): Course?
-    fun updateExistingCourseData(file: MultipartFile)
-    fun replaceCourseData(file: MultipartFile)
+    fun updateUsersInCourse(file: MultipartFile)
+    fun replaceUsersInCourse(file: MultipartFile)
 }

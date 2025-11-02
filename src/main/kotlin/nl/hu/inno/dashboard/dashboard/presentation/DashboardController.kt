@@ -24,7 +24,7 @@ class DashboardController(
     @PostMapping("/parse")
     fun parseFile(@RequestParam("file") file: MultipartFile) : ResponseEntity<Void> {
         return try {
-            service.updateExistingCourseData(file)
+            service.updateUsersInCourse(file)
             ResponseEntity.ok().build()
         } catch (e: Exception) {
             ResponseEntity.internalServerError().build()
