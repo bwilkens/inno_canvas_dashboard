@@ -24,7 +24,7 @@ class DashboardServiceImpl(
         return courseDB.findByIdOrNull(id)
     }
 
-    override fun updateExistingCourseData(file: MultipartFile) {
+    override fun updateUsersInCourse(file: MultipartFile) {
         val records = fileParserService.parseFile(file)
 
         val userCache = mutableMapOf<String, Users>()
@@ -34,15 +34,27 @@ class DashboardServiceImpl(
         usersDB.saveAll(userCache.values)
     }
 
-    override fun replaceCourseData(file: MultipartFile) {
-        TODO("Not yet implemented")
+    override fun replaceUsersInCourse(file: MultipartFile) {
+        val records = fileParserService.parseFile(file)
+
+        val course = retrieveOrCreateCourse(records)
+        val userEmailsInFile = records.map { it[5] }.toSet()
+        val currentUsers = course.users
+
+        val newUsers = updateUsersStillInCourse(userEmailsInFile, records)
+
+        val updatedCourse = course.copy(users = newUsers)
+        courseDB.save(updatedCourse)
+
+        val updatedUsers = updateUsersCourseAssociations(newUsers, course, updatedCourse, currentUsers, userEmailsInFile)
+        usersDB.saveAll(updatedUsers)
     }
 
     private fun updateCourseUserData(
         records: List<List<String>>,
         userCache: MutableMap<String, Users>
     ): Course {
-        var updatedCourse = retrieveCourseFromRecords(records)
+        var updatedCourse = retrieveOrCreateCourse(records)
 
         for (record in records) {
             if (record.size != 7) {
@@ -60,6 +72,39 @@ class DashboardServiceImpl(
         }
 
         return updatedCourse
+    }
+
+    private fun updateUsersStillInCourse(
+        userEmailsInFile: Set<String>,
+        records: List<List<String>>
+    ): Set<Users> {
+        val newUsers = userEmailsInFile.map { email ->
+            usersDB.findByIdOrNull(email) ?: convertToUser(records.find { it[5] == email }!!)
+        }.toSet()
+        return newUsers
+    }
+
+    private fun updateUsersCourseAssociations(
+        newUsers: Set<Users>,
+        course: Course,
+        updatedCourse: Course,
+        currentUsers: Set<Users>,
+        userEmailsInFile: Set<String>
+    ): MutableSet<Users> {
+        val updatedUsers = mutableSetOf<Users>()
+
+        for (user in newUsers) {
+            val updatedUserInCourse =
+                user.copy(courses = user.courses.filter { it.canvasId != course.canvasId }.toSet() + updatedCourse)
+            updatedUsers.add(updatedUserInCourse)
+        }
+
+        val usersNoLongerInCourse = currentUsers.filter { it.emailAddress !in userEmailsInFile }
+        for (user in usersNoLongerInCourse) {
+            val updatedUser = user.copy(courses = user.courses.filter { it.canvasId != course.canvasId }.toSet())
+            updatedUsers.add(updatedUser)
+        }
+        return updatedUsers
     }
 
     private fun convertToUser(record: List<String>): Users {
@@ -84,7 +129,7 @@ class DashboardServiceImpl(
         return Course.of(canvasId, title, startDate, endDate)
     }
 
-    private fun retrieveCourseFromRecords(records: List<List<String>>): Course {
+    private fun retrieveOrCreateCourse(records: List<List<String>>): Course {
         val firstRecord = records[0]
         val courseId = firstRecord[0].toInt()
 
