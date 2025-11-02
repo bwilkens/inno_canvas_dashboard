@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToMany
 data class Users (
     @Id
     @Column(name = "EMAIL_ADDRESS")
-    val emailAdress: String = "",
+    val emailAddress: String = "",
 
     @Column(name = "NAME")
     val name: String = "",

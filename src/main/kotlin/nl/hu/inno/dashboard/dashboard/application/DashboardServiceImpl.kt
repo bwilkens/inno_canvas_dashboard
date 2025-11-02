@@ -41,7 +41,7 @@ class DashboardServiceImpl(
 
     private fun parseUserList(columns: List<String>): Users {
         val name = columns[4]
-        val emailAdress = columns[5]
+        val emailAddress = columns[5]
         val role = when (columns[6].uppercase()) {
             "STUDENT" -> Role.STUDENT
             "TEACHER" -> Role.TEACHER
@@ -51,7 +51,7 @@ class DashboardServiceImpl(
 
         return Users(
             name = name,
-            emailAdress = emailAdress,
+            emailAddress = emailAddress,
             role = role
         )
     }
