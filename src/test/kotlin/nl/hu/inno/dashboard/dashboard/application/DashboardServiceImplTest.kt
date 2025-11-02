@@ -35,7 +35,7 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun updateExistingCourseData() {
+    fun updateUsersInCourse() {
         val mockFile = MockMultipartFile(
             "file",
             "test.csv",
@@ -72,7 +72,7 @@ class DashboardServiceImplTest {
             users
         }.`when`(usersDB).saveAll(anyList())
 
-        service.updateExistingCourseData(mockFile)
+        service.updateUsersInCourse(mockFile)
 
         verify(fileParserService, times(1)).parseFile(mockFile)
         verify(courseDB, times(1)).save(any(Course::class.java))
