@@ -35,7 +35,29 @@ class DashboardServiceImpl(
     }
 
     override fun replaceCourseData(file: MultipartFile) {
-        TODO("Not yet implemented")
+        val records = fileParserService.parseFile(file)
+
+        val course = retrieveCourseFromRecords(records)
+        val userEmailsInFile = records.map { it[5] }.toSet()
+        val currentUsers = course.users
+
+        val newUsers = updateUsersStillInCourse(userEmailsInFile, records)
+
+        val updatedCourse = course.copy(users = newUsers)
+        courseDB.save(updatedCourse)
+
+        val updatedUsers = updateUsersCourseAssociations(newUsers, course, updatedCourse, currentUsers, userEmailsInFile)
+        usersDB.saveAll(updatedUsers)
+    }
+
+    private fun updateUsersStillInCourse(
+        userEmailsInFile: Set<String>,
+        records: List<List<String>>
+    ): Set<Users> {
+        val newUsers = userEmailsInFile.map { email ->
+            usersDB.findByIdOrNull(email) ?: convertToUser(records.find { it[5] == email }!!)
+        }.toSet()
+        return newUsers
     }
 
     private fun updateCourseUserData(
@@ -60,6 +82,29 @@ class DashboardServiceImpl(
         }
 
         return updatedCourse
+    }
+
+    private fun updateUsersCourseAssociations(
+        newUsers: Set<Users>,
+        course: Course,
+        updatedCourse: Course,
+        currentUsers: Set<Users>,
+        userEmailsInFile: Set<String>
+    ): MutableSet<Users> {
+        val updatedUsers = mutableSetOf<Users>()
+
+        for (user in newUsers) {
+            val updatedUserInCourse =
+                user.copy(courses = user.courses.filter { it.canvasId != course.canvasId }.toSet() + updatedCourse)
+            updatedUsers.add(updatedUserInCourse)
+        }
+
+        val usersNoLongerInCourse = currentUsers.filter { it.emailAddress !in userEmailsInFile }
+        for (user in usersNoLongerInCourse) {
+            val updatedUser = user.copy(courses = user.courses.filter { it.canvasId != course.canvasId }.toSet())
+            updatedUsers.add(updatedUser)
+        }
+        return updatedUsers
     }
 
     private fun convertToUser(record: List<String>): Users {
