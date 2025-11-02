@@ -64,14 +64,14 @@ class DashboardServiceImpl(
         }
     }
 
-    private fun convertToUser(columns: List<String>): Users {
-        val name = columns[4]
-        val emailAddress = columns[5]
-        val role = when (columns[6].uppercase()) {
+    private fun convertToUser(record: List<String>): Users {
+        val name = record[4]
+        val emailAddress = record[5]
+        val role = when (record[6].uppercase()) {
             "STUDENT" -> Role.STUDENT
             "TEACHER" -> Role.TEACHER
             "ADMIN" -> Role.ADMIN
-            else -> throw IllegalArgumentException("Invalid role: ${columns[6]}")
+            else -> throw IllegalArgumentException("Invalid role: ${record[6]}")
         }
 
         return Users(
@@ -81,11 +81,11 @@ class DashboardServiceImpl(
         )
     }
 
-    private fun convertToCourse(columns: List<String>): Course {
-        val canvasId = columns[0].toInt()
-        val title = columns[1]
-        val startDate = LocalDate.parse(columns[2].substring(0, 10))
-        val endDate = LocalDate.parse(columns[3].substring(0, 10))
+    private fun convertToCourse(record: List<String>): Course {
+        val canvasId = record[0].toInt()
+        val title = record[1]
+        val startDate = LocalDate.parse(record[2].substring(0, 10))
+        val endDate = LocalDate.parse(record[3].substring(0, 10))
 
         return Course(
             canvasId = canvasId,
