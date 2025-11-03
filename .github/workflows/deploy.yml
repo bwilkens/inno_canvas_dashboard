@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
       - name: Build backend
         run: ./gradlew build
 
