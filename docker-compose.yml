@@ -1,13 +1,32 @@
+version: '3.8'
 services:
-  innodb:
-    image: postgres
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: inno-dashboard
+      POSTGRES_PASSWORD: inno-dashboard
+      POSTGRES_DB: inno-dashboard
     ports:
       - "15432:5432"
-    environment:
-      - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=postgres"
-      - "DB_APP_NAME=inno-dashboard"
-      - "DB_APP_USER=inno-dashboard"
-      - "DB_APP_PASS=inno-dashboard"
     volumes:
-      - "./development/db:/docker-entrypoint-initdb.d"
+      - ./development/db:/docker-entrypoint-initdb.d
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/inno-dashboard
+      SPRING_DATASOURCE_USERNAME: inno-dashboard
+      SPRING_DATASOURCE_PASSWORD: inno-dashboard
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./frontend/canvas_dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
