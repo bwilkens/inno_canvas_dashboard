@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './css/navbar.css';
-import CursusOverzicht from './pages/cursus-overzicht';
+import CursusOverview from './pages/cursus-overview.jsx';
 import NotFoundPage from './pages/not-found-page.jsx';
 
 function Home() {
@@ -16,14 +16,14 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/cursus-overzicht">Dashboard</Link>
+            <Link to="/cursus-overview">Dashboard</Link>
           </li>
         </ul>
       </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cursus-overzicht" element={<CursusOverzicht />} />
+        <Route path="/cursus-overview" element={<CursusOverview />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
