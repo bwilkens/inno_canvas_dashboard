@@ -1,39 +1,33 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import './css/navbar.css';
+import CursusOverzicht from './pages/cursus-overzicht';
+import NotFoundPage from './pages/not-found-page.jsx';
 
 function Home() {
     return <h1>Home Page</h1>;
 }
 
-function Dashboard() {
-    return <h1>Dashboard Page</h1>;
-}
-
-function NotFoundPage() {
-    return (
-        <div>
-            <h1>404 - Page Not Found</h1>
-            <Link to="/">
-                <button>Go back to Home</button>
-            </Link>
-        </div>
-    );
-}
-
 function App() {
-    return (
-        <BrowserRouter>
-            <nav>
-                <Link to="/">Home</Link>
-                <Link to="/dashboard">Dashboard</Link>
-            </nav>
+  return (
+    <BrowserRouter>
+      <nav id="navbar">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/cursus-overzicht">Dashboard</Link>
+          </li>
+        </ul>
+      </nav>
 
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-        </BrowserRouter>
-    )
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cursus-overzicht" element={<CursusOverzicht />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App
