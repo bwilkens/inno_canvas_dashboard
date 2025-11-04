@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './css/navbar.css';
-import CursusOverview from './pages/cursus-overview.jsx';
+import './css/header.css';
+import CourseOverview from './pages/course-overview.jsx';
 import NotFoundPage from './pages/not-found-page.jsx';
+import HuLogo from './assets/hu-logo-transparent.png';
 
 function Home() {
     return <h1>Home Page</h1>;
 }
+var pageTitle = "Voortgang";
 
 function App() {
   return (
@@ -16,14 +19,19 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/cursus-overview">Dashboard</Link>
+            <Link to="/course-overview">Dashboard</Link>
           </li>
         </ul>
       </nav>
 
+    <header id="page-header">
+        <img src={HuLogo} alt="" />
+        <h2>{pageTitle}</h2>
+    </header>
+
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cursus-overview" element={<CursusOverview />} />
+        <Route path="/course-overview" element={<CourseOverview />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
