@@ -25,7 +25,7 @@ const CardGrid = () => {
           <a href="">
             <div key={index} className="card">
               <h3>{item.title}</h3>
-              <p>Datum: {item.date}</p>
+              <p>Start datum: {item.date}</p>
               <p>Laatste update: {item.last_update}</p>
               <p>Cursus Code: {item.course_code}</p>
             </div>
@@ -41,7 +41,7 @@ const CardGrid = () => {
           <a href="">
             <div key={index} className="card outdated">
               <h3>{item.title}</h3>
-              <p>Datum: {item.date}</p>
+              <p>Start datum: {item.date}</p>
               <p>Laatste update: {item.last_update}</p>
               <p>Cursus Code: {item.course_code}</p>
             </div>
