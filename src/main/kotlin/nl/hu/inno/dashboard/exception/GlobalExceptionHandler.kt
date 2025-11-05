@@ -1,7 +1,8 @@
 package nl.hu.inno.dashboard.exception
 
 import nl.hu.inno.dashboard.dashboard.domain.exception.InvalidParseListException
-import nl.hu.inno.dashboard.fileparser.domain.exception.CsvFileCannotBeReadException
+import nl.hu.inno.dashboard.fileparser.domain.exception.EmptyFileException
+import nl.hu.inno.dashboard.fileparser.domain.exception.FileCannotBeReadException
 import nl.hu.inno.dashboard.fileparser.domain.exception.FileTypeNotSupportedException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -24,8 +25,20 @@ class RestExceptionHandler {
         return ResponseEntity.status(status).body(body)
     }
 
-    @ExceptionHandler(CsvFileCannotBeReadException::class)
-    fun handleCsvFileCannotBeRead(ex: CsvFileCannotBeReadException, request: WebRequest): ResponseEntity<ExceptionBody> {
+    @ExceptionHandler(FileCannotBeReadException::class)
+    fun handleFileCannotBeRead(ex: FileCannotBeReadException, request: WebRequest): ResponseEntity<ExceptionBody> {
+        val status = HttpStatus.BAD_REQUEST
+        val body = ExceptionBody(
+            status = status.value(),
+            error = status.reasonPhrase,
+            message = ex.message,
+            path = request.getDescription(false).removePrefix("uri=")
+        )
+        return ResponseEntity.status(status).body(body)
+    }
+
+    @ExceptionHandler(EmptyFileException::class)
+    fun handleEmptyFile(ex: EmptyFileException, request: WebRequest): ResponseEntity<ExceptionBody> {
         val status = HttpStatus.BAD_REQUEST
         val body = ExceptionBody(
             status = status.value(),

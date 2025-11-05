@@ -1,6 +1,7 @@
 package nl.hu.inno.dashboard.fileparser.domain
 
-import nl.hu.inno.dashboard.fileparser.domain.exception.CsvFileCannotBeReadException
+import nl.hu.inno.dashboard.fileparser.domain.exception.EmptyFileException
+import nl.hu.inno.dashboard.fileparser.domain.exception.FileCannotBeReadException
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.springframework.core.io.Resource
@@ -16,7 +17,7 @@ class CsvFileParser : FileParser {
 
     override fun parse(resource: Resource): List<List<String>> {
         if (!resource.exists() || resource.contentLength() == 0L) {
-            throw CsvFileCannotBeReadException("File is empty or does not exist")
+            throw EmptyFileException("File is empty or does not exist")
         }
 
         try {
@@ -34,7 +35,7 @@ class CsvFileParser : FileParser {
             }
 
         } catch (e: IOException) {
-            throw CsvFileCannotBeReadException("File cannot be read")
+            throw FileCannotBeReadException("File cannot be read")
         }
     }
 }
