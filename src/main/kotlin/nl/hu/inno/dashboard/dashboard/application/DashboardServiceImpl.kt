@@ -25,11 +25,24 @@ class DashboardServiceImpl(
     }
 
     override fun addUsersToCourse() {
-        TODO("Not yet implemented")
+        // call to new integration component to fetch csv file
+
+        // call to fileParserService to read MultiPartFile and return List<List<String>> data
+
+        // add associations between users and course (only add users/courses here)
+
+        // persist courses, users and their associations in the database
     }
 
     override fun updateUsersInCourse() {
         TODO("Not yet implemented")
+        // call to new integration component to fetch csv file
+
+        // call to fileParserServic to read MultiPartFile and return List<List<String>> data
+
+        // update associations between users and course (add AND remove associations for users and courses)
+
+        // persist changes in courses, users and their associations
     }
 
     private fun convertToUser(record: List<String>): Users {
