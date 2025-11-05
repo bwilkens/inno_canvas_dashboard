@@ -30,7 +30,29 @@ class DashboardServiceImpl(
 
         val courseCache = mutableMapOf<Int, Course>()
         val usersCache = mutableMapOf<String, Users>()
+        addNewCoursesAndUsers(records, courseCache, usersCache)
 
+        courseDB.saveAll(courseCache.values)
+        usersDB.saveAll(usersCache.values)
+    }
+
+
+    override fun updateUsersInCourse() {
+        TODO("Not yet implemented")
+        // call to new integration component to fetch csv file
+
+        // call to fileParserServic to read MultiPartFile and return List<List<String>> data
+
+        // update associations between users and course (add AND remove associations for users and courses)
+
+        // persist changes in courses, users and their associations
+    }
+
+    private fun addNewCoursesAndUsers(
+        records: List<List<String>>,
+        courseCache: MutableMap<Int, Course>,
+        usersCache: MutableMap<String, Users>
+    ) {
         for (record in records) {
             val courseId = record[0].toInt()
             val email = record[5]
@@ -47,20 +69,15 @@ class DashboardServiceImpl(
             course.users.add(user)
             user.courses.add(course)
         }
-
-        courseDB.saveAll(courseCache.values)
-        usersDB.saveAll(usersCache.values)
     }
 
-    override fun updateUsersInCourse() {
-        TODO("Not yet implemented")
-        // call to new integration component to fetch csv file
+    private fun convertToCourse(record: List<String>): Course {
+        val canvasId = record[0].toInt()
+        val title = record[1]
+        val startDate = LocalDate.parse(record[2].substring(0, 10))
+        val endDate = LocalDate.parse(record[3].substring(0, 10))
 
-        // call to fileParserServic to read MultiPartFile and return List<List<String>> data
-
-        // update associations between users and course (add AND remove associations for users and courses)
-
-        // persist changes in courses, users and their associations
+        return Course.of(canvasId, title, startDate, endDate)
     }
 
     private fun convertToUser(record: List<String>): Users {
@@ -74,21 +91,5 @@ class DashboardServiceImpl(
         }
 
         return Users.of(emailAddress, name, role)
-    }
-
-    private fun convertToCourse(record: List<String>): Course {
-        val canvasId = record[0].toInt()
-        val title = record[1]
-        val startDate = LocalDate.parse(record[2].substring(0, 10))
-        val endDate = LocalDate.parse(record[3].substring(0, 10))
-
-        return Course.of(canvasId, title, startDate, endDate)
-    }
-
-    private fun retrieveOrCreateCourse(records: List<List<String>>): Course {
-        val firstRecord = records[0]
-        val courseId = firstRecord[0].toInt()
-
-        return courseDB.findByIdOrNull(courseId) ?: convertToCourse(firstRecord)
     }
 }
