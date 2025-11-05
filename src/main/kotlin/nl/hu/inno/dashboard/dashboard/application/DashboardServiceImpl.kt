@@ -3,16 +3,14 @@ package nl.hu.inno.dashboard.dashboard.application
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
+import nl.hu.inno.dashboard.dashboard.domain.Role
 import nl.hu.inno.dashboard.dashboard.domain.Users
+import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
 import nl.hu.inno.dashboard.fileparser.application.FileParserService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import org.springframework.web.multipart.MultipartFile
-import java.time.LocalDate
-import nl.hu.inno.dashboard.dashboard.domain.Role
-import nl.hu.inno.dashboard.dashboard.domain.exception.InvalidParseListException
-import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 
 @Service
 @Transactional

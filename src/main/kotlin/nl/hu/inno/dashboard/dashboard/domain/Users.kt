@@ -1,15 +1,6 @@
 package nl.hu.inno.dashboard.dashboard.domain
 
-import jakarta.persistence.CascadeType
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.JoinTable
-import jakarta.persistence.Table
-import jakarta.persistence.ManyToMany
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "USERS")

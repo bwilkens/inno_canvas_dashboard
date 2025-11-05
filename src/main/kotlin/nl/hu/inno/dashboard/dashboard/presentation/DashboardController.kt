@@ -4,7 +4,6 @@ import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.domain.Course
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/api/v1/dashboard/")
