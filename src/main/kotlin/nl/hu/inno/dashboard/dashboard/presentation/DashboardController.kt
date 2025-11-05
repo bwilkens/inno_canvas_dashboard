@@ -21,22 +21,26 @@ class DashboardController(
             ResponseEntity.notFound().build()
     }
 
-    @PostMapping("/update-course")
-    fun updateUsersInCourse(@RequestParam("file") file: MultipartFile): ResponseEntity<Void> {
+    @PostMapping("/add")
+    fun addCourse(): ResponseEntity<Void> {
         return try {
-            service.updateUsersInCourse(file)
+            service.addUsersToCourse()
             ResponseEntity.ok().build()
         } catch (e: Exception) {
+            println("exception occurred for /add; " + e.message)
+            e.printStackTrace()
             ResponseEntity.internalServerError().build()
         }
     }
 
-    @PostMapping("/replace-course")
-    fun replaceUsersInCourse(@RequestParam("file") file: MultipartFile): ResponseEntity<Void> {
+    @PostMapping("/update")
+    fun updateCourse(): ResponseEntity<Void> {
         return try {
-            service.replaceUsersInCourse(file)
+            service.updateUsersInCourse()
             ResponseEntity.ok().build()
         } catch (e: Exception) {
+            println("exception occurred for /update; "  + e.message)
+            e.printStackTrace()
             ResponseEntity.internalServerError().build()
         }
     }

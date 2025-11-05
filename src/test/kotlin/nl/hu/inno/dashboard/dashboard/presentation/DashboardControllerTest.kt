@@ -42,7 +42,7 @@ class DashboardControllerTest {
 
         val response = controller.replaceUsersInCourse(file)
 
-        verify(service).replaceUsersInCourse(file)
+        verify(service).addUsersToCourse(file)
         assertEquals(ResponseEntity.ok().build<Void>(), response)
     }
 
@@ -52,7 +52,7 @@ class DashboardControllerTest {
         val controller = DashboardController(service)
         val file = mock(MultipartFile::class.java)
 
-        doThrow(RuntimeException("fail")).`when`(service).replaceUsersInCourse(file)
+        doThrow(RuntimeException("fail")).`when`(service).addUsersToCourse(file)
         val response = controller.replaceUsersInCourse(file)
 
         assertEquals(ResponseEntity.internalServerError().build<Void>(), response)

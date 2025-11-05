@@ -85,7 +85,7 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun replaceUsersInCourseTest() {
+    fun addUsersToCourseTest() {
         val mockFile = MockMultipartFile(
             "file",
             "test.csv",
@@ -123,7 +123,7 @@ class DashboardServiceImplTest {
             users
         }.`when`(usersDB).saveAll(anyList())
 
-        service.replaceUsersInCourse(mockFile)
+        service.addUsersToCourse(mockFile)
 
         verify(fileParserService, times(1)).parseFile(mockFile)
         verify(courseDB, times(1)).save(argThat { it.users.size == 2 })
