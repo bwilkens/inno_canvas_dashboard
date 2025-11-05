@@ -3,24 +3,24 @@ package nl.hu.inno.dashboard.fileparser.domain
 import nl.hu.inno.dashboard.fileparser.domain.exception.CsvFileCannotBeReadException
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
+import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
-import org.springframework.web.multipart.MultipartFile
 import java.io.IOException
 import java.io.InputStreamReader
 
 @Component
 class CsvFileParser : FileParser {
-    override fun supports(file: MultipartFile): Boolean {
-        return file.originalFilename?.endsWith(suffix = ".csv", ignoreCase = true) == true
+    override fun supports(resource: Resource): Boolean {
+        return resource.filename?.endsWith(suffix = ".csv", ignoreCase = true) == true
     }
 
-    override fun parse(file: MultipartFile): List<List<String>> {
-        if (file.isEmpty) {
-            throw CsvFileCannotBeReadException("File is empty")
+    override fun parse(resource: Resource): List<List<String>> {
+        if (!resource.exists() || resource.contentLength() == 0L) {
+            throw CsvFileCannotBeReadException("File is empty or does not exist")
         }
 
         try {
-            file.inputStream.use { inputStream ->
+            resource.inputStream.use { inputStream ->
                 InputStreamReader(inputStream, Charsets.UTF_8).use { reader ->
                     val format = CSVFormat.DEFAULT
                         .builder()
