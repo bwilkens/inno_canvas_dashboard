@@ -1,59 +1,50 @@
 package nl.hu.inno.dashboard.dashboard.presentation
 
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.doThrow
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.springframework.http.ResponseEntity
-import org.springframework.web.multipart.MultipartFile
 
 class DashboardControllerTest {
+    private lateinit var service: DashboardServiceImpl
+    private lateinit var controller: DashboardController
+
+    @BeforeEach
+    fun setUp() {
+        service = mock(DashboardServiceImpl::class.java)
+        controller = DashboardController(service)
+    }
+
     @Test
-    fun updateUsersInCourse_callsServiceAndReturnsOk() {
-        val service = mock(DashboardServiceImpl::class.java)
-        val controller = DashboardController(service)
-        val file = mock(MultipartFile::class.java)
+    fun addCourse_callsServiceAndReturnsOk() {
+        val response = controller.addCourse()
 
-        val response = controller.updateUsersInCourse(file)
-
-        verify(service).updateUsersInCourse(file)
+        verify(service).addUsersToCourse()
         assertEquals(ResponseEntity.ok().build<Void>(), response)
     }
 
     @Test
-    fun updateUsersInCourse_handlesException() {
-        val service = mock(DashboardServiceImpl::class.java)
-        val controller = DashboardController(service)
-        val file = mock(MultipartFile::class.java)
-
-        doThrow(RuntimeException("fail")).`when`(service).updateUsersInCourse(file)
-        val response = controller.updateUsersInCourse(file)
+    fun addCourse_handlesException() {
+        doThrow(RuntimeException("fail")).`when`(service).addUsersToCourse()
+        val response = controller.addCourse()
 
         assertEquals(ResponseEntity.internalServerError().build<Void>(), response)
     }
 
     @Test
-    fun replaceUsersInCourse_callsServiceAndReturnsOk() {
-        val service = mock(DashboardServiceImpl::class.java)
-        val controller = DashboardController(service)
-        val file = mock(MultipartFile::class.java)
+    fun updateCourse_callsServiceAndReturnsOk() {
+        val response = controller.updateCourse()
 
-        val response = controller.replaceUsersInCourse(file)
-
-        verify(service).replaceUsersInCourse(file)
+        verify(service).updateUsersInCourse()
         assertEquals(ResponseEntity.ok().build<Void>(), response)
     }
 
     @Test
-    fun replaceUsersInCourse_handlesException() {
-        val service = mock(DashboardServiceImpl::class.java)
-        val controller = DashboardController(service)
-        val file = mock(MultipartFile::class.java)
-
-        doThrow(RuntimeException("fail")).`when`(service).replaceUsersInCourse(file)
-        val response = controller.replaceUsersInCourse(file)
+    fun updateCourse_handlesException() {
+        doThrow(RuntimeException("fail")).`when`(service).updateUsersInCourse()
+        val response = controller.updateCourse()
 
         assertEquals(ResponseEntity.internalServerError().build<Void>(), response)
     }

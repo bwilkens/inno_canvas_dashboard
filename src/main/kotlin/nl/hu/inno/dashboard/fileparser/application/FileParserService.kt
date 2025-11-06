@@ -1,7 +1,7 @@
 package nl.hu.inno.dashboard.fileparser.application
 
-import org.springframework.web.multipart.MultipartFile
+import org.springframework.core.io.Resource
 
 interface FileParserService {
-    fun parseFile(multipartFile: MultipartFile): List<List<String>>
+    fun parseFile(resource: Resource): List<List<String>>
 }

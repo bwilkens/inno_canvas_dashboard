@@ -3,108 +3,81 @@ package nl.hu.inno.dashboard.dashboard.application
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
+import nl.hu.inno.dashboard.dashboard.domain.Role
 import nl.hu.inno.dashboard.dashboard.domain.Users
+import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
 import nl.hu.inno.dashboard.fileparser.application.FileParserService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import org.springframework.web.multipart.MultipartFile
-import java.time.LocalDate
-import nl.hu.inno.dashboard.dashboard.domain.Role
-import nl.hu.inno.dashboard.dashboard.domain.exception.InvalidParseListException
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 
 @Service
 @Transactional
 class DashboardServiceImpl(
     private val courseDB: CourseRepository,
     private val usersDB: UsersRepository,
-    private val fileParserService: FileParserService
+    private val fileParserService: FileParserService,
+    private val fileFetcherService: FileFetcherService,
 ) : DashboardService {
     override fun findCourseById(id: Int): Course? {
         return courseDB.findByIdOrNull(id)
     }
 
-    override fun updateUsersInCourse(file: MultipartFile) {
-        val records = fileParserService.parseFile(file)
+    override fun addUsersToCourse() {
+        val resource = fileFetcherService.fetchCsvFile()
+        val records = fileParserService.parseFile(resource)
 
-        val userCache = mutableMapOf<String, Users>()
-        val updatedCourse = updateCourseUserData(records, userCache)
+        val courseCache = mutableMapOf<Int, Course>()
+        val usersCache = mutableMapOf<String, Users>()
+        addNewCoursesAndUsers(records, courseCache, usersCache)
 
-        courseDB.save(updatedCourse)
-        usersDB.saveAll(userCache.values)
+        courseDB.saveAll(courseCache.values)
+        usersDB.saveAll(usersCache.values)
     }
 
-    override fun replaceUsersInCourse(file: MultipartFile) {
-        val records = fileParserService.parseFile(file)
 
-        val course = retrieveOrCreateCourse(records)
-        val userEmailsInFile = records.map { it[5] }.toSet()
-        val currentUsers = course.users
+    override fun updateUsersInCourse() {
+        TODO("Not yet implemented")
+        // call to new integration component to fetch csv file
 
-        val newUsers = updateUsersStillInCourse(userEmailsInFile, records)
+        // call to fileParserServic to read MultiPartFile and return List<List<String>> data
 
-        val updatedCourse = course.copy(users = newUsers)
-        courseDB.save(updatedCourse)
+        // update associations between users and course (add AND remove associations for users and courses)
 
-        val updatedUsers = updateUsersCourseAssociations(newUsers, course, updatedCourse, currentUsers, userEmailsInFile)
-        usersDB.saveAll(updatedUsers)
+        // persist changes in courses, users and their associations
     }
 
-    private fun updateCourseUserData(
+    private fun addNewCoursesAndUsers(
         records: List<List<String>>,
-        userCache: MutableMap<String, Users>
-    ): Course {
-        var updatedCourse = retrieveOrCreateCourse(records)
-
+        courseCache: MutableMap<Int, Course>,
+        usersCache: MutableMap<String, Users>
+    ) {
         for (record in records) {
-            if (record.size != 7) {
-                throw InvalidParseListException("Expected record to have 7 columns, got ${record.size}")
+            val courseId = record[0].toInt()
+            val email = record[5]
+            if (email.isBlank() || email.lowercase() == "null") continue
+
+            val course = courseCache.getOrPut(courseId) {
+                courseDB.findByIdOrNull(courseId) ?: convertToCourse(record)
             }
 
-            val userEmail = record[5]
-            val user = userCache.getOrPut(userEmail) {
-                usersDB.findByIdOrNull(userEmail) ?: convertToUser(record)
+            val user = usersCache.getOrPut(email) {
+                usersDB.findByIdOrNull(email) ?: convertToUser(record)
             }
 
-            val updatedUser = user.copy(courses = user.courses + updatedCourse)
-            updatedCourse = updatedCourse.copy(users = updatedCourse.users + updatedUser)
-            userCache[userEmail] = updatedUser
+            course.users.add(user)
+            user.courses.add(course)
         }
-
-        return updatedCourse
     }
 
-    private fun updateUsersStillInCourse(
-        userEmailsInFile: Set<String>,
-        records: List<List<String>>
-    ): Set<Users> {
-        val newUsers = userEmailsInFile.map { email ->
-            usersDB.findByIdOrNull(email) ?: convertToUser(records.find { it[5] == email }!!)
-        }.toSet()
-        return newUsers
-    }
+    private fun convertToCourse(record: List<String>): Course {
+        val canvasId = record[0].toInt()
+        val title = record[1]
+        val startDate = LocalDate.parse(record[2].substring(0, 10))
+        val endDate = LocalDate.parse(record[3].substring(0, 10))
 
-    private fun updateUsersCourseAssociations(
-        newUsers: Set<Users>,
-        course: Course,
-        updatedCourse: Course,
-        currentUsers: Set<Users>,
-        userEmailsInFile: Set<String>
-    ): MutableSet<Users> {
-        val updatedUsers = mutableSetOf<Users>()
-
-        for (user in newUsers) {
-            val updatedUserInCourse =
-                user.copy(courses = user.courses.filter { it.canvasId != course.canvasId }.toSet() + updatedCourse)
-            updatedUsers.add(updatedUserInCourse)
-        }
-
-        val usersNoLongerInCourse = currentUsers.filter { it.emailAddress !in userEmailsInFile }
-        for (user in usersNoLongerInCourse) {
-            val updatedUser = user.copy(courses = user.courses.filter { it.canvasId != course.canvasId }.toSet())
-            updatedUsers.add(updatedUser)
-        }
-        return updatedUsers
+        return Course.of(canvasId, title, startDate, endDate)
     }
 
     private fun convertToUser(record: List<String>): Users {
@@ -118,21 +91,5 @@ class DashboardServiceImpl(
         }
 
         return Users.of(emailAddress, name, role)
-    }
-
-    private fun convertToCourse(record: List<String>): Course {
-        val canvasId = record[0].toInt()
-        val title = record[1]
-        val startDate = LocalDate.parse(record[2].substring(0, 10))
-        val endDate = LocalDate.parse(record[3].substring(0, 10))
-
-        return Course.of(canvasId, title, startDate, endDate)
-    }
-
-    private fun retrieveOrCreateCourse(records: List<List<String>>): Course {
-        val firstRecord = records[0]
-        val courseId = firstRecord[0].toInt()
-
-        return courseDB.findByIdOrNull(courseId) ?: convertToCourse(firstRecord)
     }
 }

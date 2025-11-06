@@ -1,2 +1,11 @@
 ### Get a course by id
 GET http://localhost:8080/dashboard/1
+
+### Get a course by id (live)
+GET http://10.3.0.67/api/v1/dashboard/1
+
+### Process CSV and persist data
+POST http://localhost:8080/api/v1/dashboard/add
+
+### Process CSV and persist data (live)
+POST http://10.3.0.67/api/v1/dashboard/add

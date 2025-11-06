@@ -1,8 +1,8 @@
 package nl.hu.inno.dashboard.fileparser.domain
 
-import org.springframework.web.multipart.MultipartFile
+import org.springframework.core.io.Resource
 
 interface FileParser {
-    fun supports(file: MultipartFile): Boolean
-    fun parse(file: MultipartFile): List<List<String>>
+    fun supports(resource: Resource): Boolean
+    fun parse(resource: Resource): List<List<String>>
 }

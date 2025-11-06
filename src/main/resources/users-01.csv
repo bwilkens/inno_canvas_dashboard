@@ -1,6 +1,5 @@
 canvas_course_id,course_name,start_date,end_date,user_name,user_email,user_role
 50304,Innovation Semester - September 2025,2025-09-01 00:00:00+02:00,2026-01-30 23:59:59+01:00,John Doe,john.doe@student.hu.nl,STUDENT
-50304,Innovation Semester - September 2025,2025-09-01 00:00:00+02:00,2026-01-30 23:59:59+01:00,John Doe,john.doe@student.hu.nl,STUDENT
 9999,Test cursus - September 2010,2010-09-01 00:00:00+02:00,2011-01-30 23:59:59+01:00,John Doe,john.doe@student.hu.nl,STUDENT
 50304,Innovation Semester - September 2025,2025-09-01 00:00:00+02:00,2026-01-30 23:59:59+01:00,Jane Doe,jane.doe@hu.nl,TEACHER
 50304,Innovation Semester - September 2025,2025-09-01 00:00:00+02:00,2026-01-30 23:59:59+01:00,User Null,null,STUDENT
