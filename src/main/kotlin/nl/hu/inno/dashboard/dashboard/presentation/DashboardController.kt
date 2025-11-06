@@ -4,7 +4,6 @@ import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.domain.Course
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/api/v1/dashboard/")
@@ -21,20 +20,20 @@ class DashboardController(
             ResponseEntity.notFound().build()
     }
 
-    @PostMapping("/update-course")
-    fun updateUsersInCourse(@RequestParam("file") file: MultipartFile): ResponseEntity<Void> {
+    @PostMapping("/add")
+    fun addCourse(): ResponseEntity<Void> {
         return try {
-            service.updateUsersInCourse(file)
+            service.addUsersToCourse()
             ResponseEntity.ok().build()
         } catch (e: Exception) {
             ResponseEntity.internalServerError().build()
         }
     }
 
-    @PostMapping("/replace-course")
-    fun replaceUsersInCourse(@RequestParam("file") file: MultipartFile): ResponseEntity<Void> {
+    @PostMapping("/update")
+    fun updateCourse(): ResponseEntity<Void> {
         return try {
-            service.replaceUsersInCourse(file)
+            service.updateUsersInCourse()
             ResponseEntity.ok().build()
         } catch (e: Exception) {
             ResponseEntity.internalServerError().build()
