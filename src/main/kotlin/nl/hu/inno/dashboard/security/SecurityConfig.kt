@@ -16,6 +16,9 @@ class SecurityConfig {
                     .anyRequest().permitAll()
 //                    .anyRequest().authenticated()
             }
+            .oauth2ResourceServer { resourceServer ->
+                resourceServer.jwt { }
+            }
             .csrf { csrf -> csrf.disable() }
             .headers { headers -> headers.frameOptions().disable() }
         return http.build()
