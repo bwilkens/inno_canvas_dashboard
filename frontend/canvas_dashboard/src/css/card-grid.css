@@ -1,0 +1,33 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 60px;
+}
+
+.grid-container a {
+  color: white;
+}
+
+.card {
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+@media (prefers-color-scheme: light) {
+  .grid-container a {
+    color: black;
+  }
+  .card {
+    border: 1px solid #000000;
+  }
+}
+
+.separator-line {
+  border-top: 2px solid #000000;
+  margin: 5px 0 5px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}

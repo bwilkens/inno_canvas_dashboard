@@ -1,0 +1,16 @@
+#page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+}
+
+#page-header img {
+  height: 120px;
+  width: auto;
+}
+
+#page-header h2 {
+  font-size: 60px;
+  margin: 0;
+}
