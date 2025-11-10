@@ -92,4 +92,15 @@ class DashboardServiceImpl(
 
         return Users.of(emailAddress, name, role)
     }
+
+    private object CsvHeaders {
+        const val CANVAS_COURSE_ID = 0
+        const val COURSE_NAME = 1
+        const val INSTANCE_NAME = 2
+        const val START_DATE = 3
+        const val END_DATE = 4
+        const val USER_NAME = 5
+        const val USER_EMAIL = 6
+        const val USER_ROLE = 7
+    }
 }
