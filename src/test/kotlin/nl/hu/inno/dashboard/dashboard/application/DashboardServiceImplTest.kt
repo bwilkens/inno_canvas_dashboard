@@ -70,8 +70,8 @@ class DashboardServiceImplTest {
         service.addUsersToCourse()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
-            courses.count { it.canvasId == 50304 } == 1 &&
-                    courses.count { it.canvasId == 9999 } == 1
+            courses.count { it.canvasCourseId == 50304 } == 1 &&
+                    courses.count { it.canvasCourseId == 9999 } == 1
         })
     }
 
@@ -80,9 +80,9 @@ class DashboardServiceImplTest {
         service.addUsersToCourse()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
-            users.count { it.emailAddress == "john.doe@student.hu.nl"} == 1 &&
-                    users.count { it.emailAddress == "jane.doe@hu.nl"} == 1 &&
-                    users.count { it.emailAddress == "test.user@student.hu.nl"} == 1
+            users.count { it.email == "john.doe@student.hu.nl"} == 1 &&
+                    users.count { it.email == "jane.doe@hu.nl"} == 1 &&
+                    users.count { it.email == "test.user@student.hu.nl"} == 1
         })
     }
 
@@ -91,13 +91,13 @@ class DashboardServiceImplTest {
         service.addUsersToCourse()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
-            val userJohn = users.find { it.emailAddress == "john.doe@student.hu.nl"}
-            val userJane = users.find { it.emailAddress == "jane.doe@hu.nl"}
-            val userTest = users.find { it.emailAddress == "test.user@student.hu.nl" }
+            val userJohn = users.find { it.email == "john.doe@student.hu.nl"}
+            val userJane = users.find { it.email == "jane.doe@hu.nl"}
+            val userTest = users.find { it.email == "test.user@student.hu.nl" }
             userJohn != null && userJane != null && userTest != null &&
-                    userJohn.courses.map { it.canvasId }.toSet() == setOf(50304, 9999) &&
-                    userJane.courses.map { it.canvasId }.toSet() == setOf(50304) &&
-                    userTest.courses.map { it.canvasId }.toSet() == setOf(9999)
+                    userJohn.courses.map { it.canvasCourseId }.toSet() == setOf(50304, 9999) &&
+                    userJane.courses.map { it.canvasCourseId }.toSet() == setOf(50304) &&
+                    userTest.courses.map { it.canvasCourseId }.toSet() == setOf(9999)
         })
     }
 
@@ -106,11 +106,11 @@ class DashboardServiceImplTest {
         service.addUsersToCourse()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
-            val course1 = courses.find { it.canvasId == 50304 }
-            val course2 = courses.find { it.canvasId == 9999 }
+            val course1 = courses.find { it.canvasCourseId == 50304 }
+            val course2 = courses.find { it.canvasCourseId == 9999 }
             course1 != null && course2 != null &&
-                    course1.users.map { it.emailAddress }.toSet() == setOf("john.doe@student.hu.nl", "jane.doe@hu.nl") &&
-                    course2.users.map { it.emailAddress }.toSet() == setOf("john.doe@student.hu.nl", "test.user@student.hu.nl")
+                    course1.users.map { it.email }.toSet() == setOf("john.doe@student.hu.nl", "jane.doe@hu.nl") &&
+                    course2.users.map { it.email }.toSet() == setOf("john.doe@student.hu.nl", "test.user@student.hu.nl")
         })
     }
 
@@ -119,7 +119,7 @@ class DashboardServiceImplTest {
         service.addUsersToCourse()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
-            val user = users.find { it.emailAddress == "john.doe@student.hu.nl" }
+            val user = users.find { it.email == "john.doe@student.hu.nl" }
             user != null && user.courses.size == 2
         })
     }
@@ -129,7 +129,7 @@ class DashboardServiceImplTest {
         service.addUsersToCourse()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
-            val course = courses.find { it.canvasId == 50304 }
+            val course = courses.find { it.canvasCourseId == 50304 }
             course != null && course.users.size == 2
         })
     }
@@ -139,7 +139,7 @@ class DashboardServiceImplTest {
         service.addUsersToCourse()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
-            users.none { it.emailAddress == "null"}
+            users.none { it.email == "null"}
         })
     }
 
