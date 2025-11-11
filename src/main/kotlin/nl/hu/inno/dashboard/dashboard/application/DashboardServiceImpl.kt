@@ -28,19 +28,15 @@ class DashboardServiceImpl(
         val resource = fileFetcherService.fetchCsvFile()
         val records = fileParserService.parseFile(resource)
 
-        val courseIds = records.map { it[CsvColumns.CANVAS_COURSE_ID].toInt() }.toSet()
-        val emails = records.map { it[CsvColumns.USER_EMAIL] }
-            .filter { it.isNotBlank() && it.lowercase() != "null" }
-            .toSet()
-
-        val courseCache = courseDB.findAllById(courseIds).associateBy { it.canvasCourseId }.toMutableMap()
-        val usersCache = usersDB.findAllById(emails).associateBy { it.email }.toMutableMap()
+        val courseIds = extractCourseIdsFrom(records)
+        val emails = extractUserEmailsFrom(records)
+        val courseCache = fillCourseCacheWithExistingCourses(courseIds)
+        val usersCache = fillUsersCacheWithExistingUsers(emails)
         addNewCoursesAndUsers(records, courseCache, usersCache)
 
         courseDB.saveAll(courseCache.values)
         usersDB.saveAll(usersCache.values)
     }
-
 
     override fun updateUsersInCourse() {
         TODO("Not yet implemented")
@@ -51,6 +47,28 @@ class DashboardServiceImpl(
         // update associations between users and course (add AND remove associations for users and courses)
 
         // persist changes in courses, users and their associations
+    }
+
+    private fun extractCourseIdsFrom(records: List<List<String>>): Set<Int> {
+        val courseIds = records.map { it[CsvColumns.CANVAS_COURSE_ID].toInt() }.toSet()
+        return courseIds
+    }
+
+    private fun extractUserEmailsFrom(records: List<List<String>>): Set<String> {
+        val emails = records.map { it[CsvColumns.USER_EMAIL] }
+            .filter { it.isNotBlank() && it.lowercase() != "null" }
+            .toSet()
+        return emails
+    }
+
+    private fun fillCourseCacheWithExistingCourses(courseIds: Set<Int>): MutableMap<Int, Course> {
+        val courseCache = courseDB.findAllById(courseIds).associateBy { it.canvasCourseId }.toMutableMap()
+        return courseCache
+    }
+
+    private fun fillUsersCacheWithExistingUsers(emails: Set<String>): MutableMap<String, Users> {
+        val usersCache = usersDB.findAllById(emails).associateBy { it.email }.toMutableMap()
+        return usersCache
     }
 
     private fun addNewCoursesAndUsers(
