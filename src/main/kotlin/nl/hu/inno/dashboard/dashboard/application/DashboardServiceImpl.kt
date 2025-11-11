@@ -49,27 +49,19 @@ class DashboardServiceImpl(
         // persist changes in courses, users and their associations
     }
 
-    private fun extractCourseIdsFrom(records: List<List<String>>): Set<Int> {
-        val courseIds = records.map { it[CsvColumns.CANVAS_COURSE_ID].toInt() }.toSet()
-        return courseIds
-    }
+    private fun extractCourseIdsFrom(records: List<List<String>>): Set<Int> =
+        records.map { it[CsvColumns.CANVAS_COURSE_ID].toInt() }.toSet()
 
-    private fun extractUserEmailsFrom(records: List<List<String>>): Set<String> {
-        val emails = records.map { it[CsvColumns.USER_EMAIL] }
+    private fun extractUserEmailsFrom(records: List<List<String>>): Set<String> =
+        records.map { it[CsvColumns.USER_EMAIL] }
             .filter { it.isNotBlank() && it.lowercase() != "null" }
             .toSet()
-        return emails
-    }
 
-    private fun fillCourseCacheWithExistingCourses(courseIds: Set<Int>): MutableMap<Int, Course> {
-        val courseCache = courseDB.findAllById(courseIds).associateBy { it.canvasCourseId }.toMutableMap()
-        return courseCache
-    }
+    private fun fillCourseCacheWithExistingCourses(courseIds: Set<Int>): MutableMap<Int, Course> =
+        courseDB.findAllById(courseIds).associateBy { it.canvasCourseId }.toMutableMap()
 
-    private fun fillUsersCacheWithExistingUsers(emails: Set<String>): MutableMap<String, Users> {
-        val usersCache = usersDB.findAllById(emails).associateBy { it.email }.toMutableMap()
-        return usersCache
-    }
+    private fun fillUsersCacheWithExistingUsers(emails: Set<String>): MutableMap<String, Users> =
+        usersDB.findAllById(emails).associateBy { it.email }.toMutableMap()
 
     private fun addNewCoursesAndUsers(
         records: List<List<String>>,
