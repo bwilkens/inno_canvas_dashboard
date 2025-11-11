@@ -28,8 +28,13 @@ class DashboardServiceImpl(
         val resource = fileFetcherService.fetchCsvFile()
         val records = fileParserService.parseFile(resource)
 
-        val courseCache = mutableMapOf<Int, Course>()
-        val usersCache = mutableMapOf<String, Users>()
+        val courseIds = records.map { it[CsvColumns.CANVAS_COURSE_ID].toInt() }.toSet()
+        val emails = records.map { it[CsvColumns.USER_EMAIL] }
+            .filter { it.isNotBlank() && it.lowercase() != "null" }
+            .toSet()
+
+        val courseCache = courseDB.findAllById(courseIds).associateBy { it.canvasCourseId }.toMutableMap()
+        val usersCache = usersDB.findAllById(emails).associateBy { it.email }.toMutableMap()
         addNewCoursesAndUsers(records, courseCache, usersCache)
 
         courseDB.saveAll(courseCache.values)
@@ -59,11 +64,11 @@ class DashboardServiceImpl(
             if (email.isBlank() || email.lowercase() == "null") continue
 
             val course = courseCache.getOrPut(canvasCourseId) {
-                courseDB.findByIdOrNull(canvasCourseId) ?: convertToCourse(record)
+                convertToCourse(record)
             }
 
             val user = usersCache.getOrPut(email) {
-                usersDB.findByIdOrNull(email) ?: convertToUser(record)
+                convertToUser(record)
             }
 
             course.users.add(user)
