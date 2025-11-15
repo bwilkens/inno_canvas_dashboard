@@ -11,9 +11,7 @@ services:
       - ./prod/db:/docker-entrypoint-initdb.d
 
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/Overgrown9363/canvas-backend:latest
     depends_on:
       - db
     environment:
@@ -24,8 +22,6 @@ services:
       - "8080:8080"
 
   frontend:
-    build:
-      context: ./frontend/canvas_dashboard
-      dockerfile: Dockerfile
+    image: ghcr.io/Overgrown9363/canvas-frontend:latest
     ports:
       - "80:80"
