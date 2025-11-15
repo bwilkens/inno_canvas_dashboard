@@ -75,7 +75,7 @@ jobs:
         run: |
           docker build \
             -f Dockerfile \
-            -t $REGISTRY/$IMAGE_BACKEND:latest \
+            -t $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-backend:latest \
             .
 
         # ---- BUILD FRONTEND IMAGE ----
@@ -83,14 +83,14 @@ jobs:
         run: |
           docker build \
             -f frontend/canvas_dashboard/Dockerfile \
-            -t $REGISTRY/$IMAGE_FRONTEND:latest \
+            -t $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-frontend:latest \
             .
 
         # ---- PUSH IMAGES ----
       - name: Push images
         run: |
-          docker push $REGISTRY/$IMAGE_BACKEND:latest
-          docker push $REGISTRY/$IMAGE_FRONTEND:latest
+          docker push $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-backend:latest
+          docker push $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-frontend:latest
   
   deploy:
     # ---- RUNS ON SERVER ----
