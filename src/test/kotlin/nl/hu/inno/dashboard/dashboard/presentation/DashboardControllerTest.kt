@@ -19,7 +19,7 @@ class DashboardControllerTest {
 
     @Test
     fun addCourse_callsServiceAndReturnsOk() {
-        val response = controller.addCourse()
+        val response = controller.addUsersAndCourses()
 
         verify(service).addUsersToCourse()
         assertEquals(ResponseEntity.ok().build<Void>(), response)
@@ -28,14 +28,14 @@ class DashboardControllerTest {
     @Test
     fun addCourse_handlesException() {
         doThrow(RuntimeException("fail")).`when`(service).addUsersToCourse()
-        val response = controller.addCourse()
+        val response = controller.addUsersAndCourses()
 
         assertEquals(ResponseEntity.internalServerError().build<Void>(), response)
     }
 
     @Test
     fun updateCourse_callsServiceAndReturnsOk() {
-        val response = controller.updateCourse()
+        val response = controller.updateUsersAndCourses()
 
         verify(service).updateUsersInCourse()
         assertEquals(ResponseEntity.ok().build<Void>(), response)
@@ -44,7 +44,7 @@ class DashboardControllerTest {
     @Test
     fun updateCourse_handlesException() {
         doThrow(RuntimeException("fail")).`when`(service).updateUsersInCourse()
-        val response = controller.updateCourse()
+        val response = controller.updateUsersAndCourses()
 
         assertEquals(ResponseEntity.internalServerError().build<Void>(), response)
     }

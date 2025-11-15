@@ -26,7 +26,7 @@ class DashboardControllerIntegrationTest {
     @Test
     fun addCourse_returnsOk() {
         mockMvc.perform(
-            post("/api/v1/dashboard/add")
+            post("/api/v1/dashboard/internal/users/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf())
                 .with(user("testuser"))
@@ -40,7 +40,7 @@ class DashboardControllerIntegrationTest {
         doThrow(RuntimeException("fail")).`when`(service).addUsersToCourse()
 
         mockMvc.perform(
-            post("/api/v1/dashboard/add")
+            post("/api/v1/dashboard/internal/users/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf())
                 .with(user("testuser"))
@@ -52,7 +52,7 @@ class DashboardControllerIntegrationTest {
     @Test
     fun updateCourse_returnsOk() {
         mockMvc.perform(
-            post("/api/v1/dashboard/update")
+            post("/api/v1/dashboard/internal/users/update")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf())
                 .with(user("testuser"))
@@ -66,7 +66,7 @@ class DashboardControllerIntegrationTest {
         doThrow(RuntimeException("fail")).`when`(service).updateUsersInCourse()
 
         mockMvc.perform(
-            post("/api/v1/dashboard/update")
+            post("/api/v1/dashboard/internal/users/update")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf())
                 .with(user("testuser"))
