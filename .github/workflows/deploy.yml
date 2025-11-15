@@ -13,6 +13,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+        # ---- CACHING FRONTEND ----
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: frontend/canvas_dashboard/node_modules
+          key: node-${{ runner.os }}-${{ hashFiles('frontend/canvas_dashboard/package-lock.json') }}
+          restore-keys: node-${{ runner.os }}-
       
         # ---- BUILD REQUIREMENTS ----
       - name: Set up JDK
