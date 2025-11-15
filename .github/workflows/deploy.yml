@@ -6,9 +6,15 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_BACKEND: ${{ github.repository_owner }}/canvas-backend
+  IMAGE_FRONTEND: ${{ github.repository_owner }}/canvas-frontend
+
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted
+  build:
+    # ---- RUNS ON GITHUB ----
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -38,14 +44,14 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-        # ---- BACKEND ----
+        # ---- BUILD BACKEND ----
       - name: Run backend tests
         run: ./gradlew test
 
       - name: Build backend JAR
         run: ./gradlew bootJar --no-daemon
 
-        # ---- FRONTEND ----
+        # ---- BUILD FRONTEND ----
       - name: Install frontend dependencies
         working-directory: frontend/canvas_dashboard
         run: npm ci
@@ -54,7 +60,57 @@ jobs:
         working-directory: frontend/canvas_dashboard
         run: npm run build
 
-      - name: Build and start containers
+        # ---- LOGIN TO GHCR ----
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+        # ---- BUILD BACKEND IMAGE ----
+      - name: Build backend image
         run: |
-          docker compose down
-          docker compose -f docker-compose.prod.yml up --build -d
+          docker build \
+            -f Dockerfile \
+            -t $REGISTRY/$IMAGE_BACKEND:latest \
+            .
+
+        # ---- BUILD FRONTEND IMAGE ----
+      - name: Build frontend image
+        run: |
+          docker build \
+            -f frontend/canvas_dashboard/Dockerfile \
+            -t $REGISTRY/$IMAGE_FRONTEND:latest \
+            .
+
+        # ---- PUSH IMAGES ----
+      - name: Push images
+        run: |
+          docker push $REGISTRY/$IMAGE_BACKEND:latest
+          docker push $REGISTRY/$IMAGE_FRONTEND:latest
+  
+  deploy:
+    # ---- RUNS ON SERVER ----
+    runs-on: self-hosted
+    needs: build
+
+    steps:
+        # ---- LOGIN TO GHCR ----
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+    
+        # ---- PULL IMAGES ----
+      - name: Pull images
+        run: |
+          docker pull ghcr.io/${{ github.repository }}/backend:latest
+          docker pull ghcr.io/${{ github.repository }}/frontend:latest
+
+        # ---- START CONTAINERS ----
+      - name: Start containers
+        run: |
+          docker compose -f docker-compose.prod.yml up -d --remove-orphans
