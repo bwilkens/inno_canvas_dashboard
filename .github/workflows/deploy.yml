@@ -1,4 +1,4 @@
-name: Deploy on Self-hosted Runner
+name: Build on GitHub and deploy to server
 
 on:
   push:
