@@ -14,11 +14,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
+        # ---- BUILD REQUIREMENTS ----
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache: 'gradle'
     
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -33,7 +35,7 @@ jobs:
         run: ./gradlew test
 
       - name: Build backend JAR
-        run: ./gradlew bootJar
+        run: ./gradlew bootJar --no-daemon
 
         # ---- FRONTEND ----
       - name: Install frontend dependencies
