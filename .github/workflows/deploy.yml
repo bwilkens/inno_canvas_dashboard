@@ -78,7 +78,7 @@ jobs:
         run: |
           docker build \
             -f Dockerfile \
-            -t $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-backend:latest \
+            -t $REGISTRY/${REPO_OWNER_LOWERCASE}/inno-canvas-dashboard/backend:latest \
             .
 
         # ---- BUILD FRONTEND IMAGE ----
@@ -86,14 +86,14 @@ jobs:
         run: |
           docker build \
             -f frontend/canvas_dashboard/Dockerfile \
-            -t $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-frontend:latest \
+            -t $REGISTRY/${REPO_OWNER_LOWERCASE}/inno-canvas-dashboard/frontend:latest \
             frontend/canvas_dashboard
 
         # ---- PUSH IMAGES ----
       - name: Push images
         run: |
-          docker push $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-backend:latest
-          docker push $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-frontend:latest
+          docker push $REGISTRY/${REPO_OWNER_LOWERCASE}/inno-canvas-dashboard/backend:latest
+          docker push $REGISTRY/${REPO_OWNER_LOWERCASE}/inno-canvas-dashboard/frontend:latest
   
   deploy:
     # ---- RUNS ON SERVER ----
@@ -118,8 +118,8 @@ jobs:
         # ---- PULL IMAGES ----
       - name: Pull images
         run: |
-          docker pull $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-backend:latest
-          docker pull $REGISTRY/${REPO_OWNER_LOWERCASE}/canvas-frontend:latest
+          docker pull $REGISTRY/${REPO_OWNER_LOWERCASE}/inno-canvas-dashboard/backend:latest
+          docker pull $REGISTRY/${REPO_OWNER_LOWERCASE}/inno-canvas-dashboard/frontend:latest
 
         # ---- START CONTAINERS ----
       - name: Start containers
