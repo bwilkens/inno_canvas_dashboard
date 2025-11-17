@@ -103,9 +103,6 @@ jobs:
       packages: read
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
         # ---- SETUP LOWERCASE OWNER ----
       - name: Get lowercase repository owner
         run: echo "REPO_OWNER_LOWERCASE=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
