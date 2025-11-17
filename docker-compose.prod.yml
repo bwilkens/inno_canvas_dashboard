@@ -23,5 +23,7 @@ services:
 
   frontend:
     image: ghcr.io/Overgrown9363/inno_canvas_dashboard-frontend:latest
+    depends_on:
+      - backend
     ports:
       - "80:80"
