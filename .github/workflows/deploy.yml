@@ -105,7 +105,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
         # ---- SETUP LOWERCASE OWNER ----
       - name: Get lowercase repository owner
         run: echo "REPO_OWNER_LOWERCASE=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
@@ -126,5 +126,6 @@ jobs:
 
         # ---- START CONTAINERS ----
       - name: Start containers
+        working-directory: inno_canvas_dashboard
         run: |
           docker compose -f docker-compose.prod.yml up -d --remove-orphans
