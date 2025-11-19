@@ -32,9 +32,9 @@ services:
     expose:
       - "80"
     environment:
-      VIRTUAL_HOST=inno-dashboard.duckdns.org
-      LETSENCRYPT_HOST=inno-dashboard.duckdns.org
-      LETSENCRYPT_EMAIL=nick.schneiders@student.hu.nl
+      VIRTUAL_HOST: inno-dashboard.duckdns.org
+      LETSENCRYPT_HOST: inno-dashboard.duckdns.org
+      LETSENCRYPT_EMAIL: nick.schneiders@student.hu.nl
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -57,4 +57,4 @@ services:
       - ./vhost.d:/etc/nginx/vhost.d
       - ./html:/usr/share/nginx/html
     environment:
-      DEFAULT_EMAIL=nick.schneiders@student.hu.nl
+      DEFAULT_EMAIL: nick.schneiders@student.hu.nl
