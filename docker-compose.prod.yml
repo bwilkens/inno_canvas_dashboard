@@ -27,6 +27,8 @@ services:
       - "traefik.http.routers.backend.rule=Host(`api.inno-dashboard.duckdns.org`)"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
+    networks:
+      - inno-network
 
   frontend:
     build:
@@ -39,3 +41,9 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`inno-dashboard.duckdns.org`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+    networks:
+      - inno-network
+
+networks:
+  inno-network:
+    driver: bridge
