@@ -11,9 +11,7 @@ services:
       - ./prod/db:/docker-entrypoint-initdb.d
 
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/overgrown9363/inno_canvas_dashboard-backend:latest
     depends_on:
       - db
     environment:
@@ -24,9 +22,7 @@ services:
       - "8080"
 
   frontend:
-    build:
-      context: ./frontend/canvas_dashboard
-      dockerfile: Dockerfile
+    image: ghcr.io/overgrown9363/inno_canvas_dashboard-frontend:latest
     depends_on:
       - backend
     expose:
