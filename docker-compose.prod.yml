@@ -20,8 +20,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/inno-dashboard
       SPRING_DATASOURCE_USERNAME: inno-dashboard
       SPRING_DATASOURCE_PASSWORD: inno-dashboard
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
 
   frontend:
     build:
@@ -32,9 +32,9 @@ services:
     expose:
       - "80"
     environment:
-      VIRTUAL_HOST: inno-dashboard.duckdns.org
-      LETSENCRYPT_HOST: inno-dashboard.duckdns.org
-      LETSENCRYPT_EMAIL: nick.schneiders@student.hu.nl
+      VIRTUAL_HOST=inno-dashboard.duckdns.org
+      LETSENCRYPT_HOST=inno-dashboard.duckdns.org
+      LETSENCRYPT_EMAIL=nick.schneiders@student.hu.nl
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -58,3 +58,4 @@ services:
       - ./html:/usr/share/nginx/html
     environment:
       DEFAULT_EMAIL: nick.schneiders@student.hu.nl
+      NGINX_PROXY_CONTAINER: nginx-proxy 
