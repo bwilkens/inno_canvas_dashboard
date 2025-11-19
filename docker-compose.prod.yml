@@ -24,10 +24,9 @@ services:
       - "8080"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`api.inno-dashboard.duckdns.org`)
+      - "traefik.http.routers.backend.rule=Host(`api.inno-dashboard.duckdns.org`)"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
-
 
   frontend:
     build:
