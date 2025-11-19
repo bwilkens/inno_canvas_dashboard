@@ -9,9 +9,6 @@ services:
       - "15432:5432"
     volumes:
       - ./prod/db:/docker-entrypoint-initdb.d
-      - db-data:/var/lib/postgresql/data
-    networks:
-      - inno-network
 
   backend:
     build:
@@ -23,16 +20,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/inno-dashboard
       SPRING_DATASOURCE_USERNAME: inno-dashboard
       SPRING_DATASOURCE_PASSWORD: inno-dashboard
-    expose:
-      - "8080"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`api.inno-dashboard.duckdns.org`)"
-      - "traefik.http.routers.backend.entrypoints=websecure"
-      - "traefik.http.routers.backend.tls.certresolver=myresolver"
-      - "traefik.http.services.backend.loadbalancer.server.port=8080"
-    networks:
-      - inno-network
+    ports:
+      - "8080:8080"
 
   frontend:
     build:
@@ -40,26 +29,5 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - backend
-    expose:
-      - "80"
-    labels:
-      - "traefik.enable=true"
-      # Normale router voor domein
-      - "traefik.http.routers.frontend.rule=Host(`inno-dashboard.duckdns.org`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
-      - "traefik.http.services.frontend.loadbalancer.server.port=80"
-      # Fallback router voor IP of onbekende hosts
-      - "traefik.http.routers.fallback.rule=HostRegexp(`{host:.+}`)"
-      - "traefik.http.routers.fallback.entrypoints=websecure"
-      - "traefik.http.routers.fallback.tls.certresolver=myresolver"
-      - "traefik.http.routers.fallback.service=frontend"
-    networks:
-      - inno-network
-
-volumes:
-  db-data:
-
-networks:
-  inno-network:
-    driver: bridge
+    ports:
+      - "80:80"
