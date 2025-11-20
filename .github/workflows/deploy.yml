@@ -1,9 +1,6 @@
-name: Build on GitHub and deploy to server
+name: Deploy to server
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 env:
@@ -13,7 +10,6 @@ jobs:
   deploy:
     # ---- RUNS ON SERVER ----
     runs-on: self-hosted
-    # needs: build
     permissions:
       packages: read
       contents: read
