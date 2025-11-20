@@ -46,6 +46,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Grant gradlew permissions
+        run: chmod +x ./gradlew
+
         # ---- BUILD BACKEND ----
       - name: Run backend tests
         run: ./gradlew test
