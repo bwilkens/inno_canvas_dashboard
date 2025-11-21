@@ -1,29 +1,31 @@
 import { useEffect } from "react";
 
-export default function useAuthCheck() {
-    useEffect(() => {
-        fetch("/api/v1/user/me", { credentials: "include" })
-            .then((res) => {
-                if (res.status === 401 || res.status === 403) {
-                    const returnTo = encodeURIComponent(window.location.href);
+const VITE_AUTH_URL = import.meta.env.VITE_AUTH_URL;
 
-                    fetch("/auth/save-redirect?url=" + returnTo, {
-                        credentials: "include",
-                    }).finally(() => {
-                        window.location.href =
-                            "http://localhost:8080/oauth2/authorization/azure"; // TODO: should not be hardcoded
-                    });
+function redirectToLogin() {
+    const returnTo = encodeURIComponent(window.location.href);
+    fetch("/api/v1/security/redirect", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        credentials: "include",
+        body: "url=" + returnTo
+    }).finally(() => {
+        window.location.href = VITE_AUTH_URL;
+    });
+}
+
+function useAuthCheck() {
+    useEffect(() => {
+        fetch("/api/v1/security/users/me", { credentials: "include" })
+            .then((response) => {
+                if (response.status === 401 || response.status === 403) {
+                    redirectToLogin();
                 }
             })
-            .catch(() => {
-                const returnTo = encodeURIComponent(window.location.href);
-
-                fetch("/auth/save-redirect?url=" + returnTo, {
-                    credentials: "include",
-                }).finally(() => {
-                    window.location.href =
-                        "http://localhost:8080/oauth2/authorization/azure"; // TODO: should not be hardcoded
-                });
-            });
+            .catch(redirectToLogin);
     }, []);
 }
+
+export default useAuthCheck;

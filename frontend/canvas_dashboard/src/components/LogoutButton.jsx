@@ -1,11 +1,16 @@
-export default function LogoutButton() {
-    const handleLogout = () => {
-        window.location.href = "http://localhost:8080/logout"; // TODO: should not be hardcoded
+const VITE_LOGOUT_URL = import.meta.env.VITE_LOGOUT_URL;
+
+function LogoutButton() {
+    const handleLogout = (event) => {
+        event.preventDefault();
+        window.location.href = VITE_LOGOUT_URL;
     };
 
     return (
-        <button onClick={handleLogout}>
+        <a href={VITE_LOGOUT_URL} onClick={handleLogout}>
             Logout
-        </button>
+        </a>
     );
 }
+
+export default LogoutButton;
