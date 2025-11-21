@@ -1,4 +1,4 @@
-package nl.hu.inno.dashboard.security.presentation
+package nl.hu.inno.dashboard.dashboard.security.presentation
 
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.PostMapping
