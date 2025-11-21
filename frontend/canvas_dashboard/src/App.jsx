@@ -3,6 +3,7 @@ import './css/navbar.css';
 import './css/header.css';
 import CourseOverview from './pages/course-overview.jsx';
 import NotFoundPage from './pages/not-found-page.jsx';
+import TokenPage from './pages/token-page.jsx';
 import HuLogo from './assets/hu-logo-transparent.png';
 import NavBar from './components/NavBar.jsx';
 
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/course-overview" element={<CourseOverview />} />
+          <Route path="/token" element={<TokenPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
