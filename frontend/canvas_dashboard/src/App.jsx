@@ -10,14 +10,13 @@ import NavBar from './components/NavBar.jsx';
 function Home() {
     return <h1>Home Page</h1>;
 }
-var pageTitle = "Voortgang";
+var pageTitle = "Course Overzicht";
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar />
     <header id="page-header">
-        <img src={HuLogo} alt="" />
         <h2>{pageTitle}</h2>
     </header>
 

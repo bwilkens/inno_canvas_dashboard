@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCourses } from "../api/getCourses.js";
+import { getUserData } from "../api/getUserData.js";
 import CardGridSkeleton from "./CardGridSkeleton";
 import "../css/card-grid.css";
 
@@ -10,7 +10,7 @@ const CardGrid = () => {
   useEffect(() => {
     async function loadData() {
       try {
-        const data = await getCourses();
+        const data = await getUserData();
         console.log("API result:", data);
         setCourses(data.courses);
       } catch (err) {
