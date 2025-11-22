@@ -10,7 +10,7 @@ import NavBar from './components/NavBar.jsx';
 function Home() {
     return <h1>Home Page</h1>;
 }
-var pageTitle = "Course Overzicht";
+var pageTitle = "Cursus Overzicht";
 
 function App() {
   return (
