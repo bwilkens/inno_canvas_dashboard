@@ -32,7 +32,7 @@ class DashboardControllerIntegrationTest {
     @Test
     fun getCurrentUser_returnsUser_whenEmailPresentAndUserFound() {
         val userDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "STUDENT")
-        `when`(service.findUserById("john.doe@student.hu.nl")).thenReturn(userDTO)
+        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(userDTO)
 
         mockMvc.perform(
             get("/api/v1/dashboard/users/")
@@ -57,7 +57,7 @@ class DashboardControllerIntegrationTest {
 
     @Test
     fun getCurrentUser_returnsNotFound_whenUserNotFoundInDatabase() {
-        `when`(service.findUserById("john.doe@student.hu.nl")).thenReturn(null)
+        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(null)
 
         mockMvc.perform(
             get("/api/v1/dashboard/users/")
