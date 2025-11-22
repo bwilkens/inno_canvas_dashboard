@@ -66,11 +66,11 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun findUserById_returnsUsersDTO_whenUserExists() {
+    fun findUserByEmail_returnsUsersDTO_whenUserExists() {
         val user = Users.of("john.doe@student.hu.nl", "John Doe", Role.STUDENT)
 
         `when`(usersDB.findById("john.doe@student.hu.nl")).thenReturn(Optional.of(user))
-        val result = service.findUserById("john.doe@student.hu.nl")
+        val result = service.findUserByEmail("john.doe@student.hu.nl")
 
         assertNotNull(result)
         val expectedEmail = "john.doe@student.hu.nl"
@@ -82,9 +82,9 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun findUserById_returnsNull_whenUserDoesNotExist() {
+    fun findUserByEmail_returnsNull_whenUserDoesNotExist() {
         `when`(usersDB.findById("not.exists@hu.nl")).thenReturn(Optional.empty())
-        val result = service.findUserById("not.exists@hu.nl")
+        val result = service.findUserByEmail("not.exists@hu.nl")
 
         assertNull(result)
     }

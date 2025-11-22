@@ -23,7 +23,7 @@ class DashboardController(
             return ResponseEntity.notFound().build()
         }
 
-        val userDTO = service.findUserById(email)
+        val userDTO = service.findUserByEmail(email)
         return if (userDTO != null) {
             ResponseEntity.ok(userDTO)
         } else {

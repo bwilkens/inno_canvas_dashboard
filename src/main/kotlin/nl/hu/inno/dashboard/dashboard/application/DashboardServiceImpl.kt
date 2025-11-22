@@ -21,8 +21,8 @@ class DashboardServiceImpl(
     private val fileParserService: FileParserService,
     private val fileFetcherService: FileFetcherService,
 ) : DashboardService {
-    override fun findUserById(id: String): UsersDTO? {
-        val user = usersDB.findByIdOrNull(id)
+    override fun findUserByEmail(email: String): UsersDTO? {
+        val user = usersDB.findByIdOrNull(email)
         return UsersDTO.of(user)
     }
 

@@ -24,7 +24,7 @@ class DashboardControllerTest {
         val mockUser = mock(OAuth2User::class.java)
         `when`(mockUser.attributes).thenReturn(mapOf("email" to "John.Doe@student.hu.nl"))
         val expectedMockUserDTO = mock(UsersDTO::class.java)
-        `when`(service.findUserById("john.doe@student.hu.nl")).thenReturn(expectedMockUserDTO)
+        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(expectedMockUserDTO)
 
         val actualResponse = controller.getCurrentUser(mockUser)
 
@@ -45,7 +45,7 @@ class DashboardControllerTest {
     fun getCurrentUser_returnsNotFound_whenUserNotFoundInDatabase() {
         val user = mock(OAuth2User::class.java)
         `when`(user.attributes).thenReturn(mapOf("email" to "john.doe@student.hu.nl"))
-        `when`(service.findUserById("john.doe@student.hu.nl")).thenReturn(null)
+        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(null)
 
         val actualResponse = controller.getCurrentUser(user)
 
