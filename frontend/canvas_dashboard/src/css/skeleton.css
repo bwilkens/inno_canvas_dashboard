@@ -7,27 +7,23 @@
   }
 }
 
+.skeleton-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .skeleton {
   background: linear-gradient(
     90deg,
-    #e0e0e0 25%,
-    #f5f5f5 50%,
-    #e0e0e0 75%
+    #0059ff 25%,
+    #004cff 50%,
+    #0400ff 75%
   );
   background-size: 400% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 4px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .skeleton {
-    background: linear-gradient(
-      90deg,
-      #2b2b2b 25%,
-      #3a3a3a 50%,
-      #2b2b2b 75%
-    );
-  }
 }
 
 .skeleton-card {

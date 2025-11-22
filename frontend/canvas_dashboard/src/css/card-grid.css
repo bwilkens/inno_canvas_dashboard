@@ -15,15 +15,6 @@
   padding: 12px;
 }
 
-@media (prefers-color-scheme: light) {
-  .grid-container a {
-    color: black;
-  }
-  .card {
-    border: 1px solid #000000;
-  }
-}
-
 .separator-line {
   border-top: 2px solid #000000;
   margin: 5px 0 5px;

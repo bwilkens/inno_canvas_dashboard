@@ -11,7 +11,6 @@ const CardGrid = () => {
     async function loadData() {
       try {
         const data = await getUserData();
-        console.log("API result:", data);
         setCourses(data.courses);
       } catch (err) {
         console.error("Error loading courses:", err);

@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/skeletonUserInformation.css";
+import "../css/skeleton.css";
 
 const UserInfoSkeleton = () => {
   return (

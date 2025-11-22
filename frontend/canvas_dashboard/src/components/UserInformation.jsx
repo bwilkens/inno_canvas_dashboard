@@ -13,7 +13,6 @@ const UserInfo = () => {
       try {
         const userData = await getUserData();
         setData(userData);
-        console.log("User data loaded:", userData);
       } catch (err) {
         console.error("Error loading user data:", err);
         setError(err);
