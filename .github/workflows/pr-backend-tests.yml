@@ -15,8 +15,6 @@ on:
       - 'Dockerfile'
       - 'Dockerfile.*'
       - '.github/**'
-    paths-ignore:
-      - 'frontend/**'
 
 jobs:
   test-backend:
