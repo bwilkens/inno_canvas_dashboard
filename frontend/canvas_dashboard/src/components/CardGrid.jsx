@@ -1,32 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { data } from "../api/tempHardCodedDataCourses.js";
+import { getCourses } from "../api/getCourses.js";
 import CardGridSkeleton from "./CardGridSkeleton";
 import "../css/card-grid.css";
 
-//TODO fetch actual data based on logged in user
 const CardGrid = () => {
   const [loading, setLoading] = useState(true);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
+    async function loadData() {
+      try {
+        const data = await getCourses();
+        console.log("API result:", data);
+        setCourses(data.courses);
+      } catch (err) {
+        console.error("Error loading courses:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
   }, []);
 
   if (loading) return <CardGridSkeleton />;
 
-  const semesterStartDate = new Date("2025-09-01");
-  const semesterEndDate = new Date("2025-12-31");
+  const currentDate = new Date();
 
-  const activeCards = data.filter(
-    (item) =>
-      new Date(item.date) >= semesterStartDate &&
-      new Date(item.date) <= semesterEndDate
-  );
-  const nonActiveCards = data.filter(
-    (item) =>
-      new Date(item.date) < semesterStartDate ||
-      new Date(item.date) > semesterEndDate
-  );
+  const activeCards = courses.filter((item) => {
+    const start = new Date(item.startDate);
+    const end = new Date(item.endDate);
+    return currentDate >= start && currentDate <= end;
+  });
+
+  const nonActiveCards = courses.filter((item) => {
+    const start = new Date(item.startDate);
+    const end = new Date(item.endDate);
+    return currentDate < start || currentDate > end;
+  });
 
   return (
     <div>
@@ -35,10 +46,10 @@ const CardGrid = () => {
         {activeCards.map((item, index) => (
           <a href="#" key={index} className="card-link">
             <div className="card">
-              <h3>{item.title}</h3>
-              <p>Start datum: {item.date}</p>
-              <p>Laatste update: {item.last_update}</p>
-              <p>Cursus Code: {item.course_code}</p>
+              <h3>{item.courseName}</h3>
+              <p>Start datum: {item.startDate}</p>
+              <p>Eind datum: {item.endDate}</p>
+              <p>Cursus Code: {item.canvasCourseId}</p>
             </div>
           </a>
         ))}
@@ -51,10 +62,10 @@ const CardGrid = () => {
         {nonActiveCards.map((item, index) => (
           <a href="#" key={index} className="card-link">
             <div className="card outdated">
-              <h3>{item.title}</h3>
-              <p>Start datum: {item.date}</p>
-              <p>Laatste update: {item.last_update}</p>
-              <p>Cursus Code: {item.course_code}</p>
+              <h3>{item.courseName}</h3>
+              <p>Start datum: {item.startDate}</p>
+              <p>Eind datum: {item.endDate}</p>
+              <p>Cursus Code: {item.canvasCourseId}</p>
             </div>
           </a>
         ))}
