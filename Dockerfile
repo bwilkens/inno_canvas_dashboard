@@ -1,12 +1,8 @@
 FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /app
 
-COPY build.gradle.kts settings.gradle.kts gradlew ./
-COPY gradle ./gradle
+COPY . .
 RUN chmod +x ./gradlew
-RUN ./gradlew dependencies --no-daemon
-
-COPY src ./src
 RUN ./gradlew bootJar --no-daemon
 
 FROM eclipse-temurin:21-jre-alpine
