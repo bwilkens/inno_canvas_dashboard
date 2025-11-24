@@ -44,5 +44,5 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./caddyfile.yml:/etc/caddy/Caddyfile
+      - ./caddyfile.yml:/etc/caddy/caddyfile.yml
       - ./caddy_data:/data
