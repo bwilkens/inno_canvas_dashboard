@@ -45,4 +45,4 @@ services:
       - "443:443"
     volumes:
       - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy_data:/data
+      - /etc/caddy/caddy_data:/data
