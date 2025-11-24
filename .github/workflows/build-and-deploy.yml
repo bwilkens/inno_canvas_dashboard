@@ -99,8 +99,17 @@ jobs:
         run: |
           docker pull ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-backend:latest
           docker pull ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-frontend:latest
+        
+          # ---- MAKE SECRETS AVAILABLE ----
+      - name: Write secrets to .env file
+        run: |
+          cat <<EOF > .env
+          AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
+          EOF
 
-        # ---- START CONTAINERS ----
+          # ---- START CONTAINERS ----
       - name: Start containers
         run: |
           docker compose -f docker-compose.prod.yml up -d --remove-orphans
