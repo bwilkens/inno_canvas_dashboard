@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { getUserData } from "../api/getUserData.js";
 import CardGridSkeleton from "./CardGridSkeleton";
+import { getDashboardUrl } from "../utils/dashboardUrl.js";
 import "../css/card-grid.css";
 
 const CardGrid = () => {
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     async function loadData() {
       try {
         const data = await getUserData();
         setCourses(data.courses);
+        setUserRole(data.role);
       } catch (err) {
         console.error("Error loading courses:", err);
       } finally {
@@ -21,7 +24,6 @@ const CardGrid = () => {
 
     loadData();
   }, []);
-
   if (loading) return <CardGridSkeleton />;
 
   const currentDate = new Date();
@@ -43,7 +45,11 @@ const CardGrid = () => {
       {/* Active cards */}
       <div className="grid-container">
         {activeCards.map((item, index) => (
-          <a href="#" key={index} className="card-link">
+          <a
+            href={getDashboardUrl(item.instanceName, userRole)}
+            key={index}
+            className="card-link"
+          >
             <div className="card">
               <h3>{item.courseName}</h3>
               <p>Start datum: {item.startDate}</p>
@@ -59,7 +65,11 @@ const CardGrid = () => {
       {/* Non-active cards */}
       <div className="grid-container">
         {nonActiveCards.map((item, index) => (
-          <a href="#" key={index} className="card-link">
+          <a
+            href={getDashboardUrl(item.instanceName, userRole)}
+            key={index}
+            className="card-link"
+          >
             <div className="card outdated">
               <h3>{item.courseName}</h3>
               <p>Start datum: {item.startDate}</p>
