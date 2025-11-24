@@ -2,6 +2,7 @@ package nl.hu.inno.dashboard.dashboard.presentation
 
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.OAuth2User
@@ -20,7 +21,7 @@ class DashboardController(
     fun getCurrentUser(@AuthenticationPrincipal user: OAuth2User): ResponseEntity<UsersDTO> {
         val email = (user.attributes["email"] as? String)?.lowercase()
         if (email.isNullOrBlank()) {
-            return ResponseEntity.notFound().build()
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
         val userDTO = service.findUserByEmail(email)

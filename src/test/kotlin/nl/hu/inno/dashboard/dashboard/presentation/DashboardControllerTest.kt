@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.core.user.OAuth2User
 
@@ -32,22 +33,22 @@ class DashboardControllerTest {
     }
 
     @Test
-    fun getCurrentUser_returnsNotFound_whenEmailMissing() {
+    fun getCurrentUser_returnsUnauthorized_whenEmailMissing() {
         val mockUser = mock(OAuth2User::class.java)
         `when`(mockUser.attributes).thenReturn(emptyMap<String, Any>())
 
         val actualResponse = controller.getCurrentUser(mockUser)
 
-        assertEquals(ResponseEntity.notFound().build<UsersDTO>(), actualResponse)
+        assertEquals(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build<UsersDTO>(), actualResponse)
     }
 
     @Test
     fun getCurrentUser_returnsNotFound_whenUserNotFoundInDatabase() {
-        val user = mock(OAuth2User::class.java)
-        `when`(user.attributes).thenReturn(mapOf("email" to "john.doe@student.hu.nl"))
+        val mockUser = mock(OAuth2User::class.java)
+        `when`(mockUser.attributes).thenReturn(mapOf("email" to "john.doe@student.hu.nl"))
         `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(null)
 
-        val actualResponse = controller.getCurrentUser(user)
+        val actualResponse = controller.getCurrentUser(mockUser)
 
         assertEquals(ResponseEntity.notFound().build<UsersDTO>(), actualResponse)
     }

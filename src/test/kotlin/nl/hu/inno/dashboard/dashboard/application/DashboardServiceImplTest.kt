@@ -1,5 +1,6 @@
 package nl.hu.inno.dashboard.dashboard.application
 
+import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
@@ -68,25 +69,20 @@ class DashboardServiceImplTest {
     @Test
     fun findUserByEmail_returnsUsersDTO_whenUserExists() {
         val user = Users.of("john.doe@student.hu.nl", "John Doe", Role.STUDENT)
-
         `when`(usersDB.findById("john.doe@student.hu.nl")).thenReturn(Optional.of(user))
-        val result = service.findUserByEmail("john.doe@student.hu.nl")
+        val actualDTO = service.findUserByEmail("john.doe@student.hu.nl")
 
-        assertNotNull(result)
-        val expectedEmail = "john.doe@student.hu.nl"
-        val expectedName = "John Doe"
-        val expectedRole = "STUDENT"
-        assertEquals(expectedEmail, result.email)
-        assertEquals(expectedName, result.name)
-        assertEquals(expectedRole, result.role)
+        assertNotNull(actualDTO)
+        val expectedDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "STUDENT")
+        assertEquals(expectedDTO, actualDTO)
     }
 
     @Test
     fun findUserByEmail_returnsNull_whenUserDoesNotExist() {
         `when`(usersDB.findById("not.exists@hu.nl")).thenReturn(Optional.empty())
-        val result = service.findUserByEmail("not.exists@hu.nl")
+        val actualResult = service.findUserByEmail("not.exists@hu.nl")
 
-        assertNull(result)
+        assertNull(actualResult)
     }
 
     @Test

@@ -46,13 +46,13 @@ class DashboardControllerIntegrationTest {
     }
 
     @Test
-    fun getCurrentUser_returnsNotFound_whenEmailMissing() {
+    fun getCurrentUser_returnsUnauthorized_whenEmailMissing() {
         mockMvc.perform(
             get("/api/v1/dashboard/users/")
                 .with(oauth2Login().attributes { })
                 .contentType(MediaType.APPLICATION_JSON)
         )
-            .andExpect(status().isNotFound)
+            .andExpect(status().isUnauthorized)
     }
 
     @Test
