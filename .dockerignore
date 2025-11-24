@@ -1,0 +1,13 @@
+.git
+.github
+.idea
+.vscode
+*.iml
+build/
+out/
+node_modules/
+frontend/
+*.log
+*.md
+*.env
+docker-compose*.yml
