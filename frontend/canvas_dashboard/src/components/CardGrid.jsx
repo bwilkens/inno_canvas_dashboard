@@ -8,6 +8,7 @@ const CardGrid = () => {
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
   const [userRole, setUserRole] = useState("");
+  const [userEmail, setEmail] = useState("");
 
   useEffect(() => {
     async function loadData() {
@@ -15,6 +16,7 @@ const CardGrid = () => {
         const data = await getUserData();
         setCourses(data.courses);
         setUserRole(data.role);
+        setEmail(data.email);
       } catch (err) {
         console.error("Error loading courses:", err);
       } finally {
@@ -46,7 +48,7 @@ const CardGrid = () => {
       <div className="grid-container">
         {activeCards.map((item, index) => (
           <a
-            href={getDashboardUrl(item.instanceName, userRole)}
+            href={getDashboardUrl(item.instanceName, userRole, userEmail)}
             key={index}
             className="card-link"
           >
@@ -66,7 +68,7 @@ const CardGrid = () => {
       <div className="grid-container">
         {nonActiveCards.map((item, index) => (
           <a
-            href={getDashboardUrl(item.instanceName, userRole)}
+            href={getDashboardUrl(item.instanceName, userRole, userEmail)}
             key={index}
             className="card-link"
           >
