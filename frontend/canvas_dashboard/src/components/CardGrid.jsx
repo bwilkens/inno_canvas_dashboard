@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUserData } from "../api/getUserData.js";
 import CardGridSkeleton from "./CardGridSkeleton";
 import { getDashboardUrl } from "../utils/dashboardUrl.js";
+import { Link } from "react-router-dom";
 import "../css/card-grid.css";
 
 const CardGrid = () => {
@@ -47,8 +48,8 @@ const CardGrid = () => {
       {/* Active cards */}
       <div className="grid-container">
         {activeCards.map((item, index) => (
-          <a
-            href={getDashboardUrl(item.instanceName, userRole, userEmail)}
+          <Link
+            to={`/dashboard/${item.instanceName}`}
             key={index}
             className="card-link"
           >
@@ -58,7 +59,7 @@ const CardGrid = () => {
               <p>Eind datum: {item.endDate}</p>
               <p>Cursus code: {item.instanceName}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
 
@@ -67,8 +68,8 @@ const CardGrid = () => {
       {/* Non-active cards */}
       <div className="grid-container">
         {nonActiveCards.map((item, index) => (
-          <a
-            href={getDashboardUrl(item.instanceName, userRole, userEmail)}
+          <Link
+            to={`/dashboard/${item.instanceName}`}
             key={index}
             className="card-link"
           >
@@ -78,7 +79,7 @@ const CardGrid = () => {
               <p>Eind datum: {item.endDate}</p>
               <p>Cursus Code: {item.instanceName}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
