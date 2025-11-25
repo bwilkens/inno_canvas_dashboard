@@ -31,9 +31,6 @@ services:
     image: ghcr.io/overgrown9363/inno_canvas_dashboard-frontend:latest
     depends_on:
       - backend
-    environment:
-      - VITE_LOGOUT_URL=http://145.89.192.173:8080/logout
-      - VITE_AUTH_URL=http://145.89.192.173:8080/oauth2/authorization/azure
     expose:
       - "80"
 
