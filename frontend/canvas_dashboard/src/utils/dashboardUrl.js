@@ -2,7 +2,6 @@
 const BASE_URL = import.meta.env.VITE_DASHBOARD_BASE_URL || "http://localhost:5000";
 
 export const getDashboardUrl = (instanceName, role, email) => {
-  console.log(instanceName, role);
   if (role === "ADMIN" || role === "TEACHER") {
     return `${BASE_URL}/${instanceName}/dashboard_${instanceName}/index.html`;
   } else if (role === "STUDENT") {

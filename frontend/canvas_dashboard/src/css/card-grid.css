@@ -13,6 +13,12 @@
   border: 1px solid #000000;
   border-radius: 8px;
   padding: 12px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  border-color: #000dff;
+  box-shadow: 0 0 0 4px #00a2ff33, 0 2px 8px #000dff22;
 }
 
 .separator-line {

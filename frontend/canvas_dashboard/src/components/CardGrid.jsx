@@ -1,33 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { getUserData } from "../api/getUserData.js";
 import CardGridSkeleton from "./CardGridSkeleton";
-import { getDashboardUrl } from "../utils/dashboardUrl.js";
 import { Link } from "react-router-dom";
 import "../css/card-grid.css";
 
-const CardGrid = () => {
-  const [loading, setLoading] = useState(true);
-  const [courses, setCourses] = useState([]);
-  const [userRole, setUserRole] = useState("");
-  const [userEmail, setEmail] = useState("");
-
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const data = await getUserData();
-        setCourses(data.courses);
-        setUserRole(data.role);
-        setEmail(data.email);
-      } catch (err) {
-        console.error("Error loading courses:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadData();
-  }, []);
-  if (loading) return <CardGridSkeleton />;
+const CardGrid = ({ courses}) => {
+  if (!courses) return <CardGridSkeleton />;
 
   const currentDate = new Date();
 
