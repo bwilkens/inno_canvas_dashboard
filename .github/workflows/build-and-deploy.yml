@@ -53,6 +53,8 @@ jobs:
         run: |
           docker build \
             -f frontend/canvas_dashboard/Dockerfile \
+            --build-arg VITE_AUTH_URL="${{ vars.VITE_AUTH_URL }}" \
+            --build-arg VITE_LOGOUT_URL="${{ vars.VITE_LOGOUT_URL }}" \
             -t ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-frontend:latest \
             frontend/canvas_dashboard
 
@@ -99,6 +101,14 @@ jobs:
         run: |
           docker pull ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-backend:latest
           docker pull ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-frontend:latest
+        
+        # ---- MAKE SECRETS AVAILABLE ----
+      - name: Write secrets to .env file
+        run: |
+          echo "AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" > .env
+          echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> .env
+          echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> .env
+          echo "APP_HOME_FRONTEND_REDIRECT_URL=${{ vars.APP_HOME_FRONTEND_REDIRECT_URL }}" >> .env
 
         # ---- START CONTAINERS ----
       - name: Start containers

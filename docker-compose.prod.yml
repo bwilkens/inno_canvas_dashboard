@@ -23,6 +23,7 @@ services:
       AZURE_TENANT_ID: ${AZURE_TENANT_ID}
       AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
       AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      APP_HOME_FRONTEND_REDIRECT_URL: ${APP_HOME_FRONTEND_REDIRECT_URL}
     expose:
       - "8080"
 
@@ -44,5 +45,5 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./caddyfile.yml:/etc/caddy/Caddyfile
-      - ./caddy_data:/data
+      - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /etc/caddy/caddy_data:/data

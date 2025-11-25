@@ -17,9 +17,6 @@ class SecurityConfig(
     @Value("\${azure.tenant-id}")
     private val tenantId: String,
 
-    @Value("\${app.login-frontend-redirect-url}")
-    private val loginRedirectUrl: String,
-
     @Value("\${app.home-frontend-redirect-url}")
     private val homeRedirectUrl: String
 ) {
