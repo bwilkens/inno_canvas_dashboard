@@ -30,6 +30,7 @@ const CourseOverview = () => {
 
     return (
         <div>
+            <h1>Cursus Overzicht</h1>
             <UserInfo data={userData} />
             <CardsGrid courses={userData.courses} />
         </div>

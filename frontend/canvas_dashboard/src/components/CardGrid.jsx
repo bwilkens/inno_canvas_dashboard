@@ -1,4 +1,6 @@
 import CardGridSkeleton from "./CardGridSkeleton";
+import { getDashboardUrl } from "../utils/dashboardUrl.js";
+import { Link } from "react-router-dom";
 import "../css/card-grid.css";
 
 const CardGrid = ({ courses}) => {
@@ -23,14 +25,18 @@ const CardGrid = ({ courses}) => {
       {/* Active cards */}
       <div className="grid-container">
         {activeCards.map((item, index) => (
-          <a href="#" key={index} className="card-link">
+          <Link
+            to={`/dashboard/${item.instanceName}`}
+            key={index}
+            className="card-link"
+          >
             <div className="card">
               <h3>{item.courseName}</h3>
               <p>Start datum: {item.startDate}</p>
               <p>Eind datum: {item.endDate}</p>
               <p>Cursus code: {item.instanceName}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
 
@@ -39,14 +45,18 @@ const CardGrid = ({ courses}) => {
       {/* Non-active cards */}
       <div className="grid-container">
         {nonActiveCards.map((item, index) => (
-          <a href="#" key={index} className="card-link">
+          <Link
+            to={`/dashboard/${item.instanceName}`}
+            key={index}
+            className="card-link"
+          >
             <div className="card outdated">
               <h3>{item.courseName}</h3>
               <p>Start datum: {item.startDate}</p>
               <p>Eind datum: {item.endDate}</p>
               <p>Cursus Code: {item.instanceName}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
