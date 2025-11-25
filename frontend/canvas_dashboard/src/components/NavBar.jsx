@@ -13,9 +13,6 @@ function NavBar() {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
                     <Link to="/course-overview">Dashboard</Link>
                 </li>
                 <li>
