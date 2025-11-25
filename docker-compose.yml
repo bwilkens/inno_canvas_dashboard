@@ -9,3 +9,8 @@ services:
       - "15432:5432"
     volumes:
       - ./development/db:/docker-entrypoint-initdb.d
+
+  static-service:
+      build: ./src/test-data/courses
+      ports:
+        - "5000:80"

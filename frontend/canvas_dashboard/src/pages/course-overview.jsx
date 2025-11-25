@@ -7,6 +7,7 @@ const CourseOverview = () => {
 
     return (
         <div>
+            <h1>Cursus Overzicht</h1>
             <UserInfo />
             <CardsGrid />
         </div>
