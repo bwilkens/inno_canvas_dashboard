@@ -12,7 +12,6 @@ import NavBar from "./components/NavBar.jsx";
 function Home() {
   return <h1>Home Page</h1>;
 }
-var pageTitle = "Cursus Overzicht";
 
 function App() {
   const [userRole, setUserRole] = useState("");
@@ -30,9 +29,6 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <header id="page-header">
-        <h2>{pageTitle}</h2>
-      </header>
 
       <Routes>
         <Route path="/" element={<Home />} />
