@@ -32,3 +32,4 @@
 //}
 
 // TODO: implement @profile annotation and make a dev and prod implementation with application.properties and updated deployment to use the correct profile
+// also turn hostName into variable with @value annotation and use different values in prod and dev application.properties
