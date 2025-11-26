@@ -2,11 +2,13 @@ package nl.hu.inno.dashboard.dashboard.presentation
 
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
+import org.springframework.core.io.Resource
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -25,11 +27,18 @@ class DashboardController(
         }
 
         val userDTO = service.findUserByEmail(email)
-        return if (userDTO != null) {
-            ResponseEntity.ok(userDTO)
-        } else {
-            ResponseEntity.notFound().build()
+        return ResponseEntity.ok(userDTO)
+    }
+
+    @GetMapping(("/{instanceName}"))
+    fun getDashboard(@PathVariable instanceName: String, @AuthenticationPrincipal user: OAuth2User): ResponseEntity<Resource> {
+        val email = user.attributes["email"] as? String
+        if (email.isNullOrBlank()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
+
+        val resource = service.getDashboardHtml(email, instanceName)
+        return ResponseEntity.ok(resource)
     }
 
     @PostMapping("/internal/users/new")
