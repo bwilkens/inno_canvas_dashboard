@@ -30,6 +30,12 @@ class Users (
         }
     }
 
+    fun linkWithCourse(course: Course) {
+        if (courses.add(course)) {
+            course.users.add(this)
+        }
+    }
+
     override fun equals(other: Any?): Boolean =
         this === other || (other is Users && email == other.email)
 

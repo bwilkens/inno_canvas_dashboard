@@ -3,6 +3,7 @@ package nl.hu.inno.dashboard.dashboard.presentation
 import com.fasterxml.jackson.databind.ObjectMapper
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
+import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -57,7 +58,7 @@ class DashboardControllerIntegrationTest {
 
     @Test
     fun getCurrentUser_returnsNotFound_whenUserNotFoundInDatabase() {
-        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(null)
+        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenThrow(UserNotFoundException("User with email john.doe@student.hu.nl not found"))
 
         mockMvc.perform(
             get("/api/v1/dashboard/users/")
@@ -70,7 +71,7 @@ class DashboardControllerIntegrationTest {
     }
 
     @Test
-    fun addCourse_returnsOk() {
+    fun refreshUsersAndCourses_returnsOk() {
         mockMvc.perform(
             post("/api/v1/dashboard/internal/users/new")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -78,12 +79,12 @@ class DashboardControllerIntegrationTest {
                 .with(user("testuser"))
         ).andExpect(status().isOk)
 
-        verify(service).addUsersToCourse()
+        verify(service).refreshUsersAndCourses()
     }
 
     @Test
-    fun addCourse_handlesException() {
-        doThrow(RuntimeException("fail")).`when`(service).addUsersToCourse()
+    fun refreshUsersAndCourses_handlesException() {
+        doThrow(RuntimeException("fail")).`when`(service).refreshUsersAndCourses()
 
         mockMvc.perform(
             post("/api/v1/dashboard/internal/users/new")
@@ -92,32 +93,6 @@ class DashboardControllerIntegrationTest {
                 .with(user("testuser"))
         ).andExpect(status().isInternalServerError)
 
-        verify(service).addUsersToCourse()
-    }
-
-    @Test
-    fun updateCourse_returnsOk() {
-        mockMvc.perform(
-            post("/api/v1/dashboard/internal/users/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(csrf())
-                .with(user("testuser"))
-        ).andExpect(status().isOk)
-
-        verify(service).updateUsersInCourse()
-    }
-
-    @Test
-    fun updateCourse_handlesException() {
-        doThrow(RuntimeException("fail")).`when`(service).updateUsersInCourse()
-
-        mockMvc.perform(
-            post("/api/v1/dashboard/internal/users/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(csrf())
-                .with(user("testuser"))
-        ).andExpect(status().isInternalServerError)
-
-        verify(service).updateUsersInCourse()
+        verify(service).refreshUsersAndCourses()
     }
 }

@@ -42,19 +42,9 @@ class DashboardController(
     }
 
     @PostMapping("/internal/users/new")
-    fun addUsersAndCourses(): ResponseEntity<Void> {
+    fun refreshUsersAndCourses(): ResponseEntity<Void> {
         return try {
-            service.addUsersToCourse()
-            ResponseEntity.ok().build()
-        } catch (e: Exception) {
-            ResponseEntity.internalServerError().build()
-        }
-    }
-
-    @PostMapping("/internal/users/update")
-    fun updateUsersAndCourses(): ResponseEntity<Void> {
-        return try {
-            service.updateUsersInCourse()
+            service.refreshUsersAndCourses()
             ResponseEntity.ok().build()
         } catch (e: Exception) {
             ResponseEntity.internalServerError().build()

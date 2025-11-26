@@ -2,9 +2,12 @@ package nl.hu.inno.dashboard.dashboard.presentation
 
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
+import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -24,12 +27,12 @@ class DashboardControllerTest {
     fun getCurrentUser_returnsUser_whenEmailPresentAndUserFound() {
         val mockUser = mock(OAuth2User::class.java)
         `when`(mockUser.attributes).thenReturn(mapOf("email" to "John.Doe@student.hu.nl"))
-        val expectedMockUserDTO = mock(UsersDTO::class.java)
-        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(expectedMockUserDTO)
+        val expectedUserDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "STUDENT")
+        `when`(service.findUserByEmail("John.Doe@student.hu.nl")).thenReturn(expectedUserDTO)
 
         val actualResponse = controller.getCurrentUser(mockUser)
 
-        assertEquals(ResponseEntity.ok(expectedMockUserDTO), actualResponse)
+        assertEquals(ResponseEntity.ok(expectedUserDTO), actualResponse)
     }
 
     @Test
@@ -43,44 +46,29 @@ class DashboardControllerTest {
     }
 
     @Test
-    fun getCurrentUser_returnsNotFound_whenUserNotFoundInDatabase() {
+    fun getCurrentUser_throwsUserNotFoundException_whenUserNotFoundInDatabase() {
         val mockUser = mock(OAuth2User::class.java)
         `when`(mockUser.attributes).thenReturn(mapOf("email" to "john.doe@student.hu.nl"))
-        `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(null)
+        `when`(service.findUserByEmail("john.doe@student.hu.nl"))
+            .thenThrow(UserNotFoundException("User with email john.doe@student.hu.nl not found"))
 
-        val actualResponse = controller.getCurrentUser(mockUser)
-
-        assertEquals(ResponseEntity.notFound().build<UsersDTO>(), actualResponse)
+        assertThrows<UserNotFoundException> {
+            controller.getCurrentUser(mockUser)
+        }
     }
 
     @Test
-    fun addCourse_callsServiceAndReturnsOk() {
-        val actualResponse = controller.addUsersAndCourses()
+    fun refreshUsersAndCourses_callsServiceAndReturnsOk() {
+        val actualResponse = controller.refreshUsersAndCourses()
 
-        verify(service).addUsersToCourse()
+        verify(service).refreshUsersAndCourses()
         assertEquals(ResponseEntity.ok().build<Void>(), actualResponse)
     }
 
     @Test
-    fun addCourse_handlesException() {
-        doThrow(RuntimeException("fail")).`when`(service).addUsersToCourse()
-        val actualResponse = controller.addUsersAndCourses()
-
-        assertEquals(ResponseEntity.internalServerError().build<Void>(), actualResponse)
-    }
-
-    @Test
-    fun updateCourse_callsServiceAndReturnsOk() {
-        val actualResponse = controller.updateUsersAndCourses()
-
-        verify(service).updateUsersInCourse()
-        assertEquals(ResponseEntity.ok().build<Void>(), actualResponse)
-    }
-
-    @Test
-    fun updateCourse_handlesException() {
-        doThrow(RuntimeException("fail")).`when`(service).updateUsersInCourse()
-        val actualResponse = controller.updateUsersAndCourses()
+    fun refreshUsersAndCourses_handlesException() {
+        doThrow(RuntimeException("fail")).`when`(service).refreshUsersAndCourses()
+        val actualResponse = controller.refreshUsersAndCourses()
 
         assertEquals(ResponseEntity.internalServerError().build<Void>(), actualResponse)
     }

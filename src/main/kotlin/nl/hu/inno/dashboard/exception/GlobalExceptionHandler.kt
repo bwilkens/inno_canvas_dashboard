@@ -1,6 +1,8 @@
 package nl.hu.inno.dashboard.exception
 
 import nl.hu.inno.dashboard.dashboard.domain.exception.InvalidParseListException
+import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
+import nl.hu.inno.dashboard.filefetcher.domain.exception.InvalidRoleException
 import nl.hu.inno.dashboard.fileparser.domain.exception.EmptyFileException
 import nl.hu.inno.dashboard.fileparser.domain.exception.FileCannotBeReadException
 import nl.hu.inno.dashboard.fileparser.domain.exception.FileTypeNotSupportedException
@@ -52,6 +54,30 @@ class RestExceptionHandler {
     @ExceptionHandler(FileTypeNotSupportedException::class)
     fun handleFileTypeNotSupported(ex: FileTypeNotSupportedException, request: WebRequest): ResponseEntity<ExceptionBody> {
         val status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
+        val body = ExceptionBody(
+            status = status.value(),
+            error = status.reasonPhrase,
+            message = ex.message,
+            path = request.getDescription(false).removePrefix("uri=")
+        )
+        return ResponseEntity.status(status).body(body)
+    }
+
+    @ExceptionHandler(UserNotFoundException::class)
+    fun handleUserNotFound(ex: UserNotFoundException, request: WebRequest): ResponseEntity<ExceptionBody> {
+        val status = HttpStatus.NOT_FOUND
+        val body = ExceptionBody(
+            status = status.value(),
+            error = status.reasonPhrase,
+            message = ex.message,
+            path = request.getDescription(false).removePrefix("uri=")
+        )
+        return ResponseEntity.status(status).body(body)
+    }
+
+    @ExceptionHandler(InvalidRoleException::class)
+    fun handleUserNotFound(ex: InvalidRoleException, request: WebRequest): ResponseEntity<ExceptionBody> {
+        val status = HttpStatus.FORBIDDEN
         val body = ExceptionBody(
             status = status.value(),
             error = status.reasonPhrase,

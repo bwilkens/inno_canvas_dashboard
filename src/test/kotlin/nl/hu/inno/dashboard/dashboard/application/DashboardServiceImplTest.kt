@@ -6,6 +6,7 @@ import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
 import nl.hu.inno.dashboard.dashboard.domain.Role
 import nl.hu.inno.dashboard.dashboard.domain.Users
+import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
 import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
 import nl.hu.inno.dashboard.fileparser.application.FileParserService
 import org.junit.jupiter.api.*
@@ -78,16 +79,18 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun findUserByEmail_returnsNull_whenUserDoesNotExist() {
+    fun findUserByEmail_throwsException_whenUserDoesNotExist() {
         `when`(usersDB.findById("not.exists@hu.nl")).thenReturn(Optional.empty())
-        val actualResult = service.findUserByEmail("not.exists@hu.nl")
 
-        assertNull(actualResult)
+        val exception = assertThrows<UserNotFoundException> {
+            service.findUserByEmail("not.exists@hu.nl")
+        }
+        assertEquals("User with email not.exists@hu.nl not found", exception.message)
     }
 
     @Test
-    fun addUsersToCourse_persistsEachUniqueCourseOnce() {
-        service.addUsersToCourse()
+    fun refreshUsersAndCourses_persistsEachUniqueCourseOnce() {
+        service.refreshUsersAndCourses()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             courses.count { it.canvasCourseId == 50304 } == 1 &&
@@ -96,8 +99,8 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun addUsersToCourse_persistsEachUniqueUserOnce() {
-        service.addUsersToCourse()
+    fun refreshUsersAndCourses_persistsEachUniqueUserOnce() {
+        service.refreshUsersAndCourses()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             users.count { it.email == "john.doe@student.hu.nl"} == 1 &&
@@ -107,8 +110,8 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun addUsersToCourse_persistsAllUniqueUsersWithTheirCourses() {
-        service.addUsersToCourse()
+    fun refreshUsersAndCourses_persistsAllUniqueUsersWithTheirCourses() {
+        service.refreshUsersAndCourses()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             val userJohn = users.find { it.email == "john.doe@student.hu.nl"}
@@ -122,8 +125,8 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun addUsersToCourse_persistsAllUniqueCoursesWithTheirUsers() {
-        service.addUsersToCourse()
+    fun refreshUsersAndCourses_persistsAllUniqueCoursesWithTheirUsers() {
+        service.refreshUsersAndCourses()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             val course1 = courses.find { it.canvasCourseId == 50304 }
@@ -135,8 +138,8 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun addUsersToCourse_userCanHaveMultipleCourses() {
-        service.addUsersToCourse()
+    fun refreshUsersAndCourses_userCanHaveMultipleCourses() {
+        service.refreshUsersAndCourses()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             val user = users.find { it.email == "john.doe@student.hu.nl" }
@@ -145,8 +148,8 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun addUsersToCourse_courseCanHaveMultipleUsers() {
-        service.addUsersToCourse()
+    fun refreshUsersAndCourses_courseCanHaveMultipleUsers() {
+        service.refreshUsersAndCourses()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             val course = courses.find { it.canvasCourseId == 50304 }
@@ -155,16 +158,11 @@ class DashboardServiceImplTest {
     }
 
     @Test
-    fun addUsersToCourse_skipsUsersWithNullEmailAddress() {
-        service.addUsersToCourse()
+    fun refreshUsersAndCourses_skipsUsersWithNullEmailAddress() {
+        service.refreshUsersAndCourses()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             users.none { it.email == "null"}
         })
-    }
-
-    @Test
-    @Disabled("Not implemented yet")
-    fun updateUsersInCourse() {
     }
 }
