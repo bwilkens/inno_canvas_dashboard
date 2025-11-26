@@ -9,4 +9,8 @@ class FileFetcherServiceLocalResource : FileFetcherService {
     override fun fetchCsvFile(): Resource {
         return ClassPathResource("users-01.csv")
     }
+
+    override fun fetchDashboardHtml(instanceName: String, role: String, email: String): Resource {
+        TODO("Not yet implemented")
+    }
 }
