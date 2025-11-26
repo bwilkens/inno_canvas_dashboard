@@ -33,8 +33,15 @@ jobs:
         # ---- PULL IMAGES ----
       - name: Pull images
         run: |
-          docker pull $REGISTRY/${REPO_OWNER_LOWERCASE}/inno_canvas_dashboard-backend:latest
-          docker pull $REGISTRY/${REPO_OWNER_LOWERCASE}/inno_canvas_dashboard-frontend:latest
+          docker pull ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-backend:latest
+          docker pull ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-frontend:latest
+        
+        # ---- MAKE SECRETS AVAILABLE ----
+      - name: Write secrets to .env file
+        run: |
+          echo "AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" > .env
+          echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> .env
+          echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> .env
 
         # ---- START CONTAINERS ----
       - name: Start containers

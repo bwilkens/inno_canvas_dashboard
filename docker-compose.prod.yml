@@ -16,15 +16,10 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/inno-dashboard
-      SPRING_DATASOURCE_USERNAME: inno-dashboard
-      SPRING_DATASOURCE_PASSWORD: inno-dashboard
-
+      SPRING_PROFILES_ACTIVE: prod
       AZURE_TENANT_ID: ${AZURE_TENANT_ID}
       AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
       AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
-      APP_HOME_FRONTEND_REDIRECT_URL: ${APP_HOME_FRONTEND_REDIRECT_URL}
-      APP_OAUTH_LOGIN: ${APP_OAUTH_LOGIN}
     expose:
       - "8080"
 

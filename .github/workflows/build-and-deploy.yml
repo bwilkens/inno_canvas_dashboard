@@ -108,8 +108,6 @@ jobs:
           echo "AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" > .env
           echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> .env
           echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> .env
-          echo "APP_HOME_FRONTEND_REDIRECT_URL=${{ vars.APP_HOME_FRONTEND_REDIRECT_URL }}" >> .env
-          echo "APP_OAUTH_LOGIN=${{ vars.APP_OAUTH_LOGIN }}" >> .env
 
         # ---- START CONTAINERS ----
       - name: Start containers

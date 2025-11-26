@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service
 import java.net.URI
 
 @Service
-@Profile("prod")
-class FileFetcherServiceImpl(
+@Profile("dev")
+class FileFetcherServiceDev(
     @Value("\${filefetcher.base-url}")
     private val baseUrl: String
 ) : FileFetcherService {
