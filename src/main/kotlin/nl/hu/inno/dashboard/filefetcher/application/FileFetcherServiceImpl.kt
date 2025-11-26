@@ -8,7 +8,7 @@ import java.net.URI
 
 @Service
 class FileFetcherServiceImpl : FileFetcherService {
-    private val hostName = "http://localhost:5000"
+    private val hostName = "http://static-service"
 
     override fun fetchCsvFile(): Resource {
         val path = "${hostName}/user_data.csv"
