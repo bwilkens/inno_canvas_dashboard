@@ -1,4 +1,4 @@
-package nl.hu.inno.dashboard.dashboard.security.presentation
+package nl.hu.inno.dashboard.security.presentation
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.annotation.AuthenticationPrincipal

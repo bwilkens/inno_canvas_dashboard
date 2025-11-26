@@ -24,6 +24,7 @@ services:
       AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
       AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
       APP_HOME_FRONTEND_REDIRECT_URL: ${APP_HOME_FRONTEND_REDIRECT_URL}
+      APP_OAUTH_LOGIN: ${APP_OAUTH_LOGIN}
     expose:
       - "8080"
 
@@ -44,3 +45,8 @@ services:
     volumes:
       - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
       - /etc/caddy/caddy_data:/data
+
+  static-service:
+    build: development/test-data/courses
+    ports:
+      - "5000:80"
