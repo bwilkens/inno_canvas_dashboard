@@ -73,7 +73,7 @@ class DashboardControllerIntegrationTest {
     @Test
     fun refreshUsersAndCourses_returnsOk() {
         mockMvc.perform(
-            post("/api/v1/dashboard/internal/users/new")
+            post("/api/v1/dashboard/internal/db")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf())
                 .with(user("testuser"))
@@ -87,7 +87,7 @@ class DashboardControllerIntegrationTest {
         doThrow(RuntimeException("fail")).`when`(service).refreshUsersAndCourses()
 
         mockMvc.perform(
-            post("/api/v1/dashboard/internal/users/new")
+            post("/api/v1/dashboard/internal/db")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf())
                 .with(user("testuser"))
