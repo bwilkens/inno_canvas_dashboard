@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { getDashboardUrl } from "../utils/dashboardUrl";
 
-const DashboardPage = ({ userRole, userEmail }) => {
+const DashboardPage = () => {
   const { instanceName } = useParams();
-  const dashboardUrl = getDashboardUrl(instanceName, userRole, userEmail);
+  const dashboardUrl = getDashboardUrl(instanceName);
 
   return (
     <div style={{ height: "100vh" }}>
