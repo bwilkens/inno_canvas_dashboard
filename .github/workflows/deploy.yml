@@ -43,6 +43,10 @@ jobs:
           echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> .env
           echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> .env
 
+        # ---- BUILD STATIC-SERVICE IMAGE (temporary step to mock retrieving data from python service) ----
+      - name: Build static-service image
+        run: docker compose -f docker-compose.prod.yml build static-service -d
+
         # ---- START CONTAINERS ----
       - name: Start containers
         run: |
