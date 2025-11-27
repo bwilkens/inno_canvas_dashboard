@@ -1,5 +1,5 @@
 export async function getUserData() {
-  const response = await fetch("/api/v1/dashboard/users/", {
+  const response = await fetch("/api/v1/dashboard/users", {
     method: "GET",
     credentials: "include"
   });

@@ -15,7 +15,7 @@ class DashboardController(
     private val service: DashboardServiceImpl
     ) {
 
-    @GetMapping("/users/")
+    @GetMapping("/users")
     fun getCurrentUser(@AuthenticationPrincipal user: OAuth2User): ResponseEntity<UsersDTO> {
         val email = user.attributes["email"] as? String
         if (email.isNullOrBlank()) {
@@ -39,12 +39,7 @@ class DashboardController(
 
     @PostMapping("/internal/users/refresh")
     fun refreshUsersAndCourses(): ResponseEntity<Void> {
-        return try {
-            service.refreshUsersAndCourses()
-            ResponseEntity.ok().build()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            ResponseEntity.internalServerError().build()
-        }
+        service.refreshUsersAndCourses()
+        return ResponseEntity.ok().build()
     }
 }
