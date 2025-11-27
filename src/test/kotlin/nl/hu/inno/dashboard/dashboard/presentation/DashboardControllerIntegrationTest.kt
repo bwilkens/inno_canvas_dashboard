@@ -36,7 +36,7 @@ class DashboardControllerIntegrationTest {
         `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(userDTO)
 
         mockMvc.perform(
-            get("/api/v1/dashboard/users/")
+            get("/api/v1/dashboard/users")
                 .with(
                     oauth2Login().attributes { it["email"] = "john.doe@student.hu.nl" }
                 )
@@ -49,7 +49,7 @@ class DashboardControllerIntegrationTest {
     @Test
     fun getCurrentUser_returnsUnauthorized_whenEmailMissing() {
         mockMvc.perform(
-            get("/api/v1/dashboard/users/")
+            get("/api/v1/dashboard/users")
                 .with(oauth2Login().attributes { })
                 .contentType(MediaType.APPLICATION_JSON)
         )
@@ -61,7 +61,7 @@ class DashboardControllerIntegrationTest {
         `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenThrow(UserNotFoundException("User with email john.doe@student.hu.nl not found"))
 
         mockMvc.perform(
-            get("/api/v1/dashboard/users/")
+            get("/api/v1/dashboard/users")
                 .with(
                     oauth2Login().attributes { it["email"] = "john.doe@student.hu.nl" }
                 )

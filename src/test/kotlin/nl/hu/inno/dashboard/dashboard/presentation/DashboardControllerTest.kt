@@ -68,8 +68,8 @@ class DashboardControllerTest {
     @Test
     fun refreshUsersAndCourses_handlesException() {
         doThrow(RuntimeException("fail")).`when`(service).refreshUsersAndCourses()
-        val actualResponse = controller.refreshUsersAndCourses()
-
-        assertEquals(ResponseEntity.internalServerError().build<Void>(), actualResponse)
+        assertThrows<RuntimeException> {
+            controller.refreshUsersAndCourses()
+        }
     }
 }
