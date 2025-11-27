@@ -45,7 +45,7 @@ jobs:
 
         # ---- BUILD STATIC-SERVICE IMAGE (temporary step to mock retrieving data from python service) ----
       - name: Build static-service image
-        run: docker compose -f docker-compose.prod.yml build static-service -d
+        run: docker compose -f docker-compose.prod.yml build static-service
 
         # ---- START CONTAINERS ----
       - name: Start containers
