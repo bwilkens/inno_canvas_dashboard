@@ -1,5 +1,6 @@
 package nl.hu.inno.dashboard.dashboard.presentation
 
+import jakarta.servlet.http.HttpServletRequest
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import org.springframework.core.io.Resource
@@ -26,14 +27,18 @@ class DashboardController(
         return ResponseEntity.ok(userDTO)
     }
 
-    @GetMapping(("/{instanceName}"))
-    fun getDashboard(@PathVariable instanceName: String, @AuthenticationPrincipal user: OAuth2User): ResponseEntity<Resource> {
+    @GetMapping(("/{instanceName}/**"))
+    fun getDashboard(@PathVariable instanceName: String, @AuthenticationPrincipal user: OAuth2User, request: HttpServletRequest): ResponseEntity<Resource> {
+        val fullPath = request.requestURI.removePrefix("/api/v1/dashboard/")
+//        TODO: remove prints
+        println("[CONTROLLER] fullPath: $fullPath")
+
         val email = user.attributes["email"] as? String
         if (email.isNullOrBlank()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
-        val resource = service.getDashboardHtml(email, instanceName)
+        val resource = service.getDashboardHtml(email, instanceName, fullPath)
         return ResponseEntity.ok(resource)
     }
 
