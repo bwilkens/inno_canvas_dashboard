@@ -1,0 +1,46 @@
+{
+  "name": "Berend",
+  "actions": [
+    {
+      "name": "course_create_event",
+      "run": [
+        "generate_course.py",
+        "generate_results.py",
+        "generate_dashboard.py",
+        "generate_plotly.py",
+        "generate_portfolio.py"
+      ]
+    },
+    {
+      "name": "course_update_event",
+      "run": [
+        "generate_course.py",
+        "generate_results.py",
+        "generate_dashboard.py",
+        "generate_plotly.py",
+        "generate_portfolio.py",
+        "publish_dashboard.py"
+      ]
+    },
+    {
+      "name": "results_create_event",
+      "run": [
+        "generate_results.py",
+        "generate_dashboard.py",
+        "generate_plotly.py",
+        "generate_portfolio.py",
+        "publish_dashboard.py"
+      ]
+    },
+    {
+      "name": "results_update_event",
+      "run": [
+        "generate_submissions.py",
+        "generate_dashboard.py",
+        "generate_plotly.py",
+        "generate_portfolio.py",
+        "publish_dashboard.py"
+      ]
+    }
+  ]
+}

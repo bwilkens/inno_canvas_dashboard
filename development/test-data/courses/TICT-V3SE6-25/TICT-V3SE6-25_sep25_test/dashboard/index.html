@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Dashboard - TEST - Innovation Semester</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        flag = true
+        last_tab = 0
+        function setDetailName(name, number, role) {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+            document.getElementById("detail_name").innerHTML = name+' ('+number+') - '+role;
+        }
+
+        function toggleFlags() {
+            const all_flaggs = document.getElementsByClassName("icon");
+            for (let el of all_flaggs) {
+                if (flag){
+                    el.style.visibility = "visible";
+                } else {
+                    el.style.visibility = "hidden";
+                }
+            }
+            flag = !flag
+
+        }
+
+        function setStudent(name, number, role, frame_a) {
+            document.getElementById("detail_name").innerHTML = name+' ('+number+') - '+role;
+            document.getElementById("iframe_a").setAttribute("src", frame_a);
+
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function setClassHidden(button_color) {
+            total_classname = "btn btn-sm student "+button_color
+            console.info("Hello! "+button_color);
+            const boxes = document.getElementsByClassName("student");
+            console.info("coll: "+boxes.length);
+            for (let el of boxes) {
+                console.info("check "+ el.className)
+                if (el.className == total_classname) {
+                    console.info("visible " + el.className)
+                    el.style.visibility = "visible";
+                } else {
+                    console.info("hidden " + el.className)
+                    el.style.visibility = "hidden";
+                }
+            }
+        }
+
+        function setRole(role_name) {
+            const views = document.getElementsByClassName("role_view");
+            for (i = views.length - 1; i >= 0; --i) {
+                if (views[i].className.includes(role_name)) {
+                    views[i].style.display = "block";
+                } else {
+                    views[i].style.display = "none";
+                }
+            }
+        }
+
+        function setView(view) {
+            const views = document.getElementsByClassName("dashboard_view");
+            if (view == "Groepen"){
+                if (last_tab == 1) {
+                    toggleFlags()
+                }
+                last_tab = 1
+            } else {
+                last_tab = 0
+            }
+            for (i = views.length - 1; i >= 0; --i) {
+                if (views[i].className.includes(view)) {
+                    views[i].style.display = "block";
+                } else {
+                    views[i].style.display = "none";
+                }
+            }
+
+        }
+
+        function setStudentView(view) {
+            scrollToTop()
+            const views = document.getElementsByClassName("student_view");
+            for (i = views.length - 1; i >= 0; --i) {
+                if (views[i].className.includes(view)) {
+                    views[i].style.display = "block";
+                } else {
+                    views[i].style.display = "none";
+                }
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+        function setCoach(coach_id) {
+            console.info("Coach! "+coach_id);
+            const leer_team = document.getElementsByClassName(" coach");
+            console.info("Boxes: "+leer_team.length);
+            for (i = leer_team.length - 1; i >= 0; --i) {
+                if (leer_team[i].className.includes(coach_id) || coach_id == "0") {
+                    console.info("check " + leer_team[i].className + " block")
+                    leer_team[i].style.display = "block";
+                } else {
+                    console.info("check " + leer_team[i].className + " none")
+                    leer_team[i].style.display = "none";
+                }
+            }
+            // Construct URLSearchParams object instance from current URL querystring.
+            var queryParams = new URLSearchParams(window.location.search);
+            if (coach_id == 0) {
+                queryParams.delete("teacher_id");
+            } else {
+                // Set new or modify existing parameter value.
+                queryParams.set("teacher_id", coach_id);
+            }
+             // Replace current querystring with the new one.
+            history.replaceState(null, null, "?"+queryParams.toString());
+
+        }
+    </script>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4 .gap-2">
+                        <h2 class="mt-4">Dashboard TEST - Innovation Semester</h2>
+                    </div>
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-2 col-md-6 mb-2">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Studenten [Teams]</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">3 [4]</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-2 col-md-6 mb-2">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Inzendingen (nog beoordelen)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0 (0)</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-2 col-md-6 mb-2">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Snapshot 03-12-2025 20:04 [dag] </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div id="semester_day" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">94</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width:61.43790849673203%" aria-valuenow="94" aria-valuemin="0"
+                                                            aria-valuemax="150"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-2">
+    <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        <a onClick="setClassHidden('border-warning');setRole('AI');"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn border-warning btn-icon-split btn-sm">
+        <span class="text">AI</span>
+</a>
+<a onClick="setClassHidden('border-success');setRole('BIM');"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn border-success btn-icon-split btn-sm">
+        <span class="text">BIM</span>
+</a>
+<a onClick="setClassHidden('border-danger');setRole('CSC');"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn border-danger btn-icon-split btn-sm">
+        <span class="text">CSC</span>
+</a>
+<a onClick="setClassHidden('border-dark');setRole('SD');"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn border-dark btn-icon-split btn-sm">
+        <span class="text">SD</span>
+</a>
+<a onClick="setClassHidden('border-primary');setRole('TI');"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn border-primary btn-icon-split btn-sm">
+        <span class="text">TI</span>
+</a>
+
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                        <div class="col-xl-3 col-md-6 mb-2">
+    <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        <a type="button"
+                           class="btn btn-outline-dark"
+                           onClick="setCoach('0');"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="alles selecteren"
+                        >
+                            <span class="text">all</span>
+                        </a>
+                        <a type="button"
+   class="btn btn-outline-dark"
+   onClick="setCoach('257906');"
+   data-toggle="tooltip"
+   data-placement="top"
+   title="Patrick Damkat"
+>
+    <span class="text">PD</span>
+</a>
+
+<a type="button"
+   class="btn btn-outline-dark"
+   onClick="setCoach('277756');"
+   data-toggle="tooltip"
+   data-placement="top"
+   title="Turan Süslü"
+>
+    <span class="text">TS</span>
+</a>
+
+
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+                        <div class="col-lg-12 dashboard_view Groepen">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link active" aria-current="page" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Gilden">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link active" aria-current="page" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Rollen">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link active" aria-current="page" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Voortgang">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link active" aria-current="page" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Werkvoorraad">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link active" aria-current="page" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Release Planning">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link active" aria-current="page" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Leeruitkomsten">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link active" aria-current="page" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Analytics">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link active" aria-current="page" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+<div class="col-lg-12 dashboard_view Analyse">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+    <a onclick="setView('Groepen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Groepen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Gilden')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Gilden</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Rollen')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Rollen</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Voortgang')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/totals_voortgang.html" class="nav-link " aria-current="false" href="#">Voortgang</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Werkvoorraad')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/workload_index.html" class="nav-link " aria-current="false" href="#">Werkvoorraad</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Release Planning')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/overall_opbouw.html" class="nav-link " aria-current="false" href="#">Release Planning</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Leeruitkomsten')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Leeruitkomsten</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analytics')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link " aria-current="false" href="#">Analytics</a>
+</li>
+
+<li class="nav-item">
+    <a onclick="setView('Analyse')" target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/standard.html" class="nav-link active" aria-current="page" href="#">Analyse</a>
+</li>
+
+
+    </ul>
+</div>
+
+                        <div class="col-lg-4 dashboard_view Groepen">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="coach  257906 257906 257906 257906 257906">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">001 - Projectgroep A, Patrick Damkat</h6>
+        </div>
+        <div class="card-body">
+            <a onclick="setStudentView('Gurkan Igçi', '1831230', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Gurkan Igçi</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+
+        </div>
+    </div>
+</div>
+<div class="coach  257906 257906 257906 257906 257906">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">002 - Projectgroep B, Patrick Damkat</h6>
+        </div>
+        <div class="card-body">
+            <a onclick="setStudentView('Matthew Bijlhout', '1833635', 'Full stack developer', './TICT-V3SE6-25_sep25_test/students/matthew.bijlhout_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/matthew.bijlhout_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-dark">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Matthew Bijlhout</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+<a onclick="setStudentView('Nick Schneiders', '1857475', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Nick Schneiders</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+
+        </div>
+    </div>
+</div>
+<div class="coach  257906 257906 257906 257906 257906">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">003 - Projectgroep C, Patrick Damkat</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+<div class="coach  257906 257906 257906 257906 257906">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">004 - Projectgroep D, Patrick Damkat</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="col-lg-4 dashboard_view Gilden">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="coach  277756">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Gilde van Berend, , Turan Süslü</h6>
+        </div>
+        <div class="card-body">
+            <a onclick="setStudentView('Gurkan Igçi', '1831230', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Gurkan Igçi</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+<a onclick="setStudentView('Nick Schneiders', '1857475', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Nick Schneiders</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="col-lg-4 dashboard_view Rollen">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="role_view AI">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">AI and data Engineer, 0 studenten</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+<div class="role_view BIM">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Business Analist, 0 studenten</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+<div class="role_view CSC">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Cloud and Security Engineer, 2 studenten</h6>
+        </div>
+        <div class="card-body">
+            <a onclick="setStudentView('Gurkan Igçi', '1831230', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Gurkan Igçi</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+<a onclick="setStudentView('Nick Schneiders', '1857475', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Nick Schneiders</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+
+        </div>
+    </div>
+</div>
+<div class="role_view SD">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Full stack developer, 1 studenten</h6>
+        </div>
+        <div class="card-body">
+            <a onclick="setStudentView('Matthew Bijlhout', '1833635', 'Full stack developer', './TICT-V3SE6-25_sep25_test/students/matthew.bijlhout_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/matthew.bijlhout_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-dark">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Matthew Bijlhout</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+
+        </div>
+    </div>
+</div>
+<div class="role_view TI">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Embedded engineer, 0 studenten</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="col-lg-4 dashboard_view Voortgang">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="progress_view level">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Voortgang niet bepaald,  studenten</h6>
+        </div>
+        <div class="card-body">
+            <a onclick="setStudentView('Matthew Bijlhout', '1833635', 'Full stack developer', './TICT-V3SE6-25_sep25_test/students/matthew.bijlhout_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/matthew.bijlhout_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-dark">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Matthew Bijlhout</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+<a onclick="setStudentView('Gurkan Igçi', '1831230', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/gurkan.igci_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Gurkan Igçi</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+<a onclick="setStudentView('Nick Schneiders', '1857475', 'Cloud and Security Engineer', './TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html')"
+    target="frame_right"
+    href="./TICT-V3SE6-25_sep25_test/students/nick.schneiders_index.html"
+    style="margin: 2px 0px; border-width: 4px"
+    class="btn btn-sm student border-danger">
+        <span class="icon" style="color: #BFBFBF">
+            <span class="fas fa-flag"></span>
+        </span>
+        <span class="text">Nick Schneiders</span>
+        <span class="badge badge-secondary badge-counter">0</span>
+</a>
+
+
+        </div>
+    </div>
+</div>
+<div class="progress_view level">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Voortgang niet zichtbaar,  studenten</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+<div class="progress_view level">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Onvoldoende voortgang,  studenten</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+<div class="progress_view level">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Voldoende voortgang,  studenten</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+<div class="progress_view level">
+    <div class="card shadow mt-1 mt-1">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Goede voortgang,  studenten</h6>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="col-lg-4 dashboard_view Werkvoorraad">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Docent openstaand</h5>
+    </div>
+    <div class="card-body">
+        <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a
+        type="button"
+        class="btn btn-outline-dark btn-sm"
+        onclick="setDetailName('PD', 'Docent')"
+        target="frame_right"
+        href="./TICT-V3SE6-25_sep25_test/general/teacher_PD.html"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Patrick Damkat"
+>
+    <span class="text">PD</span>
+</a>
+
+<a
+        type="button"
+        class="btn btn-outline-dark btn-sm"
+        onclick="setDetailName('TS', 'Docent')"
+        target="frame_right"
+        href="./TICT-V3SE6-25_sep25_test/general/teacher_TS.html"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Turan Süslü"
+>
+    <span class="text">TS</span>
+</a>
+
+</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+<div class="col-lg-4 dashboard_view Release Planning">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Release Planning, portfolio</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdrachtgroep</th>
+                    <th scope="col">Niveaus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/release_planning_94341.html">Project</a></td>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/level_serie_samen.html">samen</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/release_planning_94909.html">Gilde</a></td>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/level_serie_gilde.html">gilde</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/release_planning_94342.html">Hackathons</a></td>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/level_serie_niveau.html">niveau</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/release_planning_94910.html">LS - Project</a></td>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/level_serie_niveau.html">niveau</a></td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div><div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Release Planning, peil en beoordelingen</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdrachtgroep</th>
+                    <th scope="col">Niveaus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/release_planning_94344.html">Peilmomenten</a></td>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/level_serie_progress.html">progress</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/release_planning_94345.html">Beoordelingsmomenten</a></td>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/level_serie_grade.html">grade</a></td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+</div>
+<div class="col-lg-4 dashboard_view Leeruitkomsten">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Leeruitkomsten</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Leeruitkomst</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/learning_outcome_lu1.html" onclick="scrollToTop()">Onderzoekend</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/learning_outcome_lu2.html" onclick="scrollToTop()">Organiserend</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/learning_outcome_lu3.html" onclick="scrollToTop()">Interactief</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/learning_outcome_lu4.html" onclick="scrollToTop()">Zelflerend</a></td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/learning_outcome_lu5.html" onclick="scrollToTop()">Vakbekwaam</a></td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+
+
+</div>
+<div class="col-lg-4 dashboard_view Analytics">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Project</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdracht</th>
+                    <th scope="col">Sluitingsdatum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377084.html" onclick="scrollToTop()">Startdocument</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">05-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377077.html" onclick="scrollToTop()">Sprint 1 - Verslag</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">19-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377078.html" onclick="scrollToTop()">Sprint 2 - Verslag</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">03-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377079.html" onclick="scrollToTop()">Sprint 3 - Verslag</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">17-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377080.html" onclick="scrollToTop()">Sprint 4 - Verslag</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">07-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377081.html" onclick="scrollToTop()">Sprint 5 - Verslag</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">28-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377082.html" onclick="scrollToTop()">Sprint 6 - Verslag</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">19-12-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377087.html" onclick="scrollToTop()">Team - SDG poster</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">09-01-2026</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377083.html" onclick="scrollToTop()">Sprint 7 - verslag</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">16-01-2026</td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+<!--&lt;!&ndash; Collapsable Card Example &ndash;&gt;-->
+<!--<div class="card shadow mb-2">-->
+<!--&lt;!&ndash; Card Header - Accordion &ndash;&gt;-->
+<!--    <a href="#collapseCard94341" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCard94341">-->
+<!--        <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>-->
+<!--    </a>-->
+<!--    &lt;!&ndash; Card Content - Collapse &ndash;&gt;-->
+<!--    <div class="collapse show" id="collapseCard94341">-->
+<!--        <div class="card-body">-->
+<!--            This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Gilde</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdracht</th>
+                    <th scope="col">Sluitingsdatum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377064.html" onclick="scrollToTop()">Gilde - Iteratie 1 - Opdracht oriëntatie</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">10-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377065.html" onclick="scrollToTop()">Gilde - Iteratie 2 - Verantwoording keuzes</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">24-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377066.html" onclick="scrollToTop()">Gilde - Iteratie 3 - Verantwoording keuzes</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">08-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377067.html" onclick="scrollToTop()">Gilde - Iteratie 4 - Verantwoording beroepsproducten</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">22-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377068.html" onclick="scrollToTop()">Gilde - Iteratie 5 - Verantwoording beroepsproducten</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">12-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377069.html" onclick="scrollToTop()">Gilde - Iteratie 6 - Verantwoording beroepsproducten</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">26-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377063.html" onclick="scrollToTop()">Gilde - Definitief verantwoordingsdocument</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">07-01-2026</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377062.html" onclick="scrollToTop()">Gilde - Deep dive presentatie</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">15-01-2026</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_385760.html" onclick="scrollToTop()">Gilde - Iteratie 3 - Verantwoording keuzes</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">30-01-2026</td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+<!--&lt;!&ndash; Collapsable Card Example &ndash;&gt;-->
+<!--<div class="card shadow mb-2">-->
+<!--&lt;!&ndash; Card Header - Accordion &ndash;&gt;-->
+<!--    <a href="#collapseCard94909" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCard94909">-->
+<!--        <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>-->
+<!--    </a>-->
+<!--    &lt;!&ndash; Card Content - Collapse &ndash;&gt;-->
+<!--    <div class="collapse show" id="collapseCard94909">-->
+<!--        <div class="card-body">-->
+<!--            This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Hackathons</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdracht</th>
+                    <th scope="col">Sluitingsdatum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377070.html" onclick="scrollToTop()">Modellen 1 Visueel samenwerken casus</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">02-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377052.html" onclick="scrollToTop()">Applied-AI 1 Prompting casus</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">18-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377072.html" onclick="scrollToTop()">Modellen 2 Valideren casus</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">30-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377054.html" onclick="scrollToTop()">Applied-AI 2 Ethiek casus</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">14-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_385761.html" onclick="scrollToTop()">Modellen 3 - Alternatieven ontwerpen - Casus</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">04-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377057.html" onclick="scrollToTop()">Applied-AI 3 Verifiëren casus</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">18-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_380086.html" onclick="scrollToTop()">Modellen 4 Overdracht casus</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">02-12-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377059.html" onclick="scrollToTop()">Applied-AI 4 Genereren casus</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">16-12-2025</td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+<!--&lt;!&ndash; Collapsable Card Example &ndash;&gt;-->
+<!--<div class="card shadow mb-2">-->
+<!--&lt;!&ndash; Card Header - Accordion &ndash;&gt;-->
+<!--    <a href="#collapseCard94342" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCard94342">-->
+<!--        <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>-->
+<!--    </a>-->
+<!--    &lt;!&ndash; Card Content - Collapse &ndash;&gt;-->
+<!--    <div class="collapse show" id="collapseCard94342">-->
+<!--        <div class="card-body">-->
+<!--            This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">LS - Project</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdracht</th>
+                    <th scope="col">Sluitingsdatum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377071.html" onclick="scrollToTop()">Modellen 1 Visueel samenwerken project</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">20-09-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377053.html" onclick="scrollToTop()">Applied-AI 1 Prompting in project</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">04-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377073.html" onclick="scrollToTop()">Modellen 2 Valideren in project</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">18-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377055.html" onclick="scrollToTop()">Applied-AI 2 Ethiek in project</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">05-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_380085.html" onclick="scrollToTop()">Modellen 3 Alternatief ontwerp in project </a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">26-11-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377058.html" onclick="scrollToTop()">Applied-AI 3 Verifiëren in project</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">17-12-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377060.html" onclick="scrollToTop()">Applied-AI 4 Genereren in project</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">14-01-2026</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_380087.html" onclick="scrollToTop()">Modellen 4 Overdracht in project</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">14-01-2026</td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+<!--&lt;!&ndash; Collapsable Card Example &ndash;&gt;-->
+<!--<div class="card shadow mb-2">-->
+<!--&lt;!&ndash; Card Header - Accordion &ndash;&gt;-->
+<!--    <a href="#collapseCard94910" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCard94910">-->
+<!--        <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>-->
+<!--    </a>-->
+<!--    &lt;!&ndash; Card Content - Collapse &ndash;&gt;-->
+<!--    <div class="collapse show" id="collapseCard94910">-->
+<!--        <div class="card-body">-->
+<!--            This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Peilmomenten</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdracht</th>
+                    <th scope="col">Sluitingsdatum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377074.html" onclick="scrollToTop()">Peilmoment 1</a></td>
+    <td style="background-color:#ffb3b3;" class="text-nowrap">30-10-2025</td>
+</tr>
+<tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377075.html" onclick="scrollToTop()">Peilmoment 2</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">08-01-2026</td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+<!--&lt;!&ndash; Collapsable Card Example &ndash;&gt;-->
+<!--<div class="card shadow mb-2">-->
+<!--&lt;!&ndash; Card Header - Accordion &ndash;&gt;-->
+<!--    <a href="#collapseCard94344" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCard94344">-->
+<!--        <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>-->
+<!--    </a>-->
+<!--    &lt;!&ndash; Card Content - Collapse &ndash;&gt;-->
+<!--    <div class="collapse show" id="collapseCard94344">-->
+<!--        <div class="card-body">-->
+<!--            This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Beoordelingsmomenten</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdracht</th>
+                    <th scope="col">Sluitingsdatum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+    <td><a target="frame_right" href="./TICT-V3SE6-25_sep25_test/general/analytics_377061.html" onclick="scrollToTop()">Eindbeoordeling</a></td>
+    <td style="background-color:#c6ecd9;" class="text-nowrap">19-01-2026</td>
+</tr>
+
+            </tbody>
+        </table>
+     </div>
+</div>
+<!--&lt;!&ndash; Collapsable Card Example &ndash;&gt;-->
+<!--<div class="card shadow mb-2">-->
+<!--&lt;!&ndash; Card Header - Accordion &ndash;&gt;-->
+<!--    <a href="#collapseCard94345" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCard94345">-->
+<!--        <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>-->
+<!--    </a>-->
+<!--    &lt;!&ndash; Card Content - Collapse &ndash;&gt;-->
+<!--    <div class="collapse show" id="collapseCard94345">-->
+<!--        <div class="card-body">-->
+<!--            This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+</div>
+<div class="col-lg-4 dashboard_view Analyse">
+<!--    <ul class="nav nav-tabs">-->
+<!--        -->
+<!--    </ul>-->
+    <div class="card shadow mt-1 mb-1">
+    <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Momenten</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Opdracht</th>
+                    <th scope="col">Sluitingsdatum</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+     </div>
+</div>
+
+
+
+</div>
+
+                        <script>setView("Groepen")</script>
+                        <div class="col-lg-8">
+                            <div class="embed-responsive embed-responsive-1by1">
+                                <div>
+                                    <iframe class="embed-responsive-item" name="frame_right" id="frame_right" height="820" src=""></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Berend Wilkens 2024 (Hogeschool Utrecht)</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const teacher_id = urlParams.get('teacher_id');
+        console.info("Teacher_id: "+teacher_id);
+        if (teacher_id > 0) {
+            setCoach(teacher_id)
+        } else {
+            setCoach("0")
+        }
+    </script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha512-ahmSZKApTDNd3gVuqL5TQ3MBTj8tL5p2tYV05Xxzcfu6/ecvt1A0j6tfudSGBVuteSoTRMqMljbfdU0g2eDNUA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/js/sb-admin-2.min.js" integrity="sha512-+QnjQxxaOpoJ+AAeNgvVatHiUWEDbvHja9l46BHhmzvP0blLTXC4LsvwDVeNhGgqqGQYBQLFhdKFyjzPX6HGmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+
+</html>
