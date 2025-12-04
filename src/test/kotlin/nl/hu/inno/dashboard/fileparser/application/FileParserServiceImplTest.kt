@@ -2,7 +2,7 @@ package nl.hu.inno.dashboard.fileparser.application
 
 import nl.hu.inno.dashboard.Fixture
 import nl.hu.inno.dashboard.fileparser.domain.CsvFileParser
-import nl.hu.inno.dashboard.fileparser.domain.exception.FileTypeNotSupportedException
+import nl.hu.inno.dashboard.exception.exceptions.FileTypeNotSupportedException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach

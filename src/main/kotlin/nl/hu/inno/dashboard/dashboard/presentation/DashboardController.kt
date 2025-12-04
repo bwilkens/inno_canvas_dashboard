@@ -30,8 +30,6 @@ class DashboardController(
     @GetMapping(("/{instanceName}/**"))
     fun getDashboard(@PathVariable instanceName: String, @AuthenticationPrincipal user: OAuth2User, request: HttpServletRequest): ResponseEntity<Resource> {
         val relativeRequestPath = request.requestURI.removePrefix("/api/v1/dashboard/")
-//        TODO: remove prints
-        println("[CONTROLLER] fullPath: $relativeRequestPath")
 
         val email = user.attributes["email"] as? String
         if (email.isNullOrBlank()) {

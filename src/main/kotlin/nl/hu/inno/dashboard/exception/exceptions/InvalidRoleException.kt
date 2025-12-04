@@ -1,4 +1,4 @@
-package nl.hu.inno.dashboard.filefetcher.domain.exception
+package nl.hu.inno.dashboard.exception.exceptions
 
 class InvalidRoleException(message: String) : RuntimeException(message) {
 }

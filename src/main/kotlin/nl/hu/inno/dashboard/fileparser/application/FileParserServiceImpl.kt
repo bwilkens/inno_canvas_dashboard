@@ -1,7 +1,7 @@
 package nl.hu.inno.dashboard.fileparser.application
 
 import nl.hu.inno.dashboard.fileparser.domain.FileParser
-import nl.hu.inno.dashboard.fileparser.domain.exception.FileTypeNotSupportedException
+import nl.hu.inno.dashboard.exception.exceptions.FileTypeNotSupportedException
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Service
 

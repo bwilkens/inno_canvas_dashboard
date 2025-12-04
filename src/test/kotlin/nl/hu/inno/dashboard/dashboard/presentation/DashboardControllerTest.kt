@@ -2,9 +2,8 @@ package nl.hu.inno.dashboard.dashboard.presentation
 
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
-import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
+import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

@@ -6,7 +6,9 @@ import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
 import nl.hu.inno.dashboard.dashboard.domain.Role
 import nl.hu.inno.dashboard.dashboard.domain.Users
-import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
+import nl.hu.inno.dashboard.exception.exceptions.InvalidRoleException
+import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
+import nl.hu.inno.dashboard.exception.exceptions.UserNotInCourseException
 import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
 import nl.hu.inno.dashboard.fileparser.application.FileParserService
 import org.springframework.core.io.Resource
@@ -31,7 +33,11 @@ class DashboardServiceImpl(
     override fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource {
         val user = findUserInDatabaseByEmail(email)
 
-//        NOTE: we may need to add a check to see if this user has a course in their [user.courses] list with a matching instanceName for safety
+        val userInCourse = user.courses.any { it.instanceName == instanceName }
+        if (!userInCourse) {
+            throw UserNotInCourseException("User with email $email is not in a course with instanceName $instanceName")
+        }
+
         val userRole = user.role.name
         return fileFetcherService.fetchDashboardHtml(email, userRole, instanceName, relativeRequestPath)
     }
@@ -94,7 +100,7 @@ class DashboardServiceImpl(
             "STUDENT" -> Role.STUDENT
             "TEACHER" -> Role.TEACHER
             "ADMIN" -> Role.ADMIN
-            else -> throw IllegalArgumentException("Invalid role: ${record[6]}")
+            else -> throw InvalidRoleException("Invalid role: ${record[CsvColumns.USER_ROLE]}")
         }
 
         return Users.of(email, name, role)

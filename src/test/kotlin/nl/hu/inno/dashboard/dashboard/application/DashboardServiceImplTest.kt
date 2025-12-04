@@ -6,7 +6,7 @@ import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
 import nl.hu.inno.dashboard.dashboard.domain.Role
 import nl.hu.inno.dashboard.dashboard.domain.Users
-import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
+import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
 import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
 import nl.hu.inno.dashboard.fileparser.application.FileParserService
 import org.junit.jupiter.api.*

@@ -1,7 +1,7 @@
 package nl.hu.inno.dashboard.filefetcher.domain
 
-import nl.hu.inno.dashboard.filefetcher.domain.exception.InvalidPathException
-import nl.hu.inno.dashboard.filefetcher.domain.exception.InvalidRoleException
+import nl.hu.inno.dashboard.exception.exceptions.InvalidPathException
+import nl.hu.inno.dashboard.exception.exceptions.InvalidRoleException
 
 object HtmlPathResolver {
     private const val ROLE_TEACHER = "TEACHER"

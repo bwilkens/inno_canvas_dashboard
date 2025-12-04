@@ -3,7 +3,7 @@ package nl.hu.inno.dashboard.dashboard.presentation
 import com.fasterxml.jackson.databind.ObjectMapper
 import nl.hu.inno.dashboard.dashboard.application.DashboardServiceImpl
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
-import nl.hu.inno.dashboard.dashboard.domain.exception.UserNotFoundException
+import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 import org.springframework.beans.factory.annotation.Autowired

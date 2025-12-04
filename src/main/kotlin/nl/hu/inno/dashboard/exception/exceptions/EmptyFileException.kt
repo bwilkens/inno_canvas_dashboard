@@ -1,4 +1,4 @@
-package nl.hu.inno.dashboard.fileparser.domain.exception
+package nl.hu.inno.dashboard.exception.exceptions
 
 class EmptyFileException(message: String) : RuntimeException(message) {
 }

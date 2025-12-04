@@ -1,7 +1,7 @@
 package nl.hu.inno.dashboard.fileparser.domain
 
-import nl.hu.inno.dashboard.fileparser.domain.exception.EmptyFileException
-import nl.hu.inno.dashboard.fileparser.domain.exception.FileCannotBeReadException
+import nl.hu.inno.dashboard.exception.exceptions.EmptyFileException
+import nl.hu.inno.dashboard.exception.exceptions.FileCannotBeReadException
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.springframework.core.io.Resource
