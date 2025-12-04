@@ -5,6 +5,6 @@ import org.springframework.core.io.Resource
 
 interface DashboardService {
     fun findUserByEmail(email: String): UsersDTO
-    fun getDashboardHtml(email: String, instanceName: String, fullPath: String): Resource
+    fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource
     fun refreshUsersAndCourses()
 }

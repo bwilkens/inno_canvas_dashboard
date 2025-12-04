@@ -28,12 +28,12 @@ class DashboardServiceImpl(
         return UsersDTO.of(user)
     }
 
-    override fun getDashboardHtml(email: String, instanceName: String, fullPath: String): Resource {
+    override fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource {
         val user = findUserInDatabaseByEmail(email)
 
 //        NOTE: we may need to add a check to see if this user has a course in their [user.courses] list with a matching instanceName for safety
         val userRole = user.role.name
-        return fileFetcherService.fetchDashboardHtml(instanceName, fullPath, userRole, user.email)
+        return fileFetcherService.fetchDashboardHtml(email, userRole, instanceName, relativeRequestPath)
     }
 
     override fun refreshUsersAndCourses() {

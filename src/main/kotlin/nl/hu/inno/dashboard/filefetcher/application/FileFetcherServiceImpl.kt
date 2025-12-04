@@ -20,7 +20,7 @@ class FileFetcherServiceImpl(
         return UrlResource(URI.create(path))
     }
 
-    override fun fetchDashboardHtml(instanceName: String, fullPath: String, role: String, email: String): Resource {
+    override fun fetchDashboardHtml(email: String, role : String, instanceName: String, relativeRequestPath: String): Resource {
         println("reached fetchDashboardHtml: $instanceName $role $email")
         val path = when (role) {
             "ADMIN", "TEACHER" -> {

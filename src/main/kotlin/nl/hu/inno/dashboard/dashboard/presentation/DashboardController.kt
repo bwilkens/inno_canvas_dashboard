@@ -29,16 +29,16 @@ class DashboardController(
 
     @GetMapping(("/{instanceName}/**"))
     fun getDashboard(@PathVariable instanceName: String, @AuthenticationPrincipal user: OAuth2User, request: HttpServletRequest): ResponseEntity<Resource> {
-        val fullPath = request.requestURI.removePrefix("/api/v1/dashboard/")
+        val relativeRequestPath = request.requestURI.removePrefix("/api/v1/dashboard/")
 //        TODO: remove prints
-        println("[CONTROLLER] fullPath: $fullPath")
+        println("[CONTROLLER] fullPath: $relativeRequestPath")
 
         val email = user.attributes["email"] as? String
         if (email.isNullOrBlank()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
-        val resource = service.getDashboardHtml(email, instanceName, fullPath)
+        val resource = service.getDashboardHtml(email, instanceName, relativeRequestPath)
         return ResponseEntity.ok(resource)
     }
 

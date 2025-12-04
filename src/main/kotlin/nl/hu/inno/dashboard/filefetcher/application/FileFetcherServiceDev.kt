@@ -21,7 +21,7 @@ class FileFetcherServiceDev(
         return UrlResource(URI.create(path))
     }
 
-    override fun fetchDashboardHtml(instanceName: String, fullPath: String, role: String, email: String): Resource {
+    override fun fetchDashboardHtml(email: String, role : String, instanceName: String, relativeRequestPath: String): Resource {
         /*
         TODO:
         - separate functionality -> move logic to domain
@@ -34,14 +34,14 @@ class FileFetcherServiceDev(
 
         val path = when (role) {
             ROLE_TEACHER -> when {
-                TEACHER_PATHS.any { fullPath.contains(it) } -> {
-                    "$baseUrlWithInstance/$fullPath"
+                TEACHER_PATHS.any { relativeRequestPath.contains(other = it) } -> {
+                    "$baseUrlWithInstance/$relativeRequestPath"
                 }
-                fullPath.equals(instanceName, true) -> {
+                instanceName.equals(other = relativeRequestPath, ignoreCase = true) -> {
                     "$baseUrlWithInstance/index.html"
                 }
                 else -> {
-                    throw InvalidPathException("Path $fullPath did not lead to an existing resource")
+                    throw InvalidPathException("Path $relativeRequestPath did not lead to an existing resource")
                 }
             }
             ROLE_STUDENT -> {
