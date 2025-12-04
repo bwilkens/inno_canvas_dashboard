@@ -1,5 +1,6 @@
 package nl.hu.inno.dashboard.filefetcher.application
 
+import nl.hu.inno.dashboard.filefetcher.domain.exception.InvalidPathException
 import nl.hu.inno.dashboard.filefetcher.domain.exception.InvalidRoleException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
@@ -21,18 +22,41 @@ class FileFetcherServiceImpl(
     }
 
     override fun fetchDashboardHtml(email: String, role : String, instanceName: String, relativeRequestPath: String): Resource {
-        println("reached fetchDashboardHtml: $instanceName $role $email")
+        val baseUrlWithInstance = "$baseUrl/$instanceName/dashboard_$instanceName"
+
         val path = when (role) {
-            "ADMIN", "TEACHER" -> {
-                "${baseUrl}/${instanceName}/dashboard_${instanceName}/index.html"
+            ROLE_TEACHER -> when {
+                TEACHER_PATHS.any { relativeRequestPath.contains(other = it) } -> {
+                    "$baseUrlWithInstance/$relativeRequestPath"
+                }
+                instanceName.equals(other = relativeRequestPath, ignoreCase = true) -> {
+                    "$baseUrlWithInstance/index.html"
+                }
+                else -> {
+                    throw InvalidPathException("Path $relativeRequestPath did not lead to an existing resource")
+                }
             }
-            "STUDENT" -> {
+            ROLE_STUDENT -> {
                 val firstPartEmail = email.substringBefore("@")
-                "${baseUrl}/${instanceName}/dashboard_${instanceName}/${instanceName}/students/${firstPartEmail}_index.html"
+                "$baseUrlWithInstance/$instanceName/students/${firstPartEmail}_index.html"
 
             }
             else -> throw InvalidRoleException("Role '$role' is not a valid role")
         }
+        println("Final path: $path")
+        println("_____")
         return UrlResource(URI.create(path))
+    }
+    companion object {
+        private const val ROLE_TEACHER = "TEACHER"
+        private const val ROLE_STUDENT = "STUDENT"
+
+        private val TEACHER_PATHS = listOf(
+            "/students/",
+            "/totals_voortgang.html",
+            "/workload_index.html",
+            "overall_opbouw.html",
+            "/standard.html"
+        )
     }
 }
