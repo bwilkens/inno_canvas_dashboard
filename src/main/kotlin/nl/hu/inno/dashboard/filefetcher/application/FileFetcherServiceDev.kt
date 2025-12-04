@@ -29,18 +29,13 @@ class FileFetcherServiceDev(
         - move constants outside of class specific companion object depending on how the spring profiles will end up working for local/prod
         -
         - remove prints
-        -
-        - clean up code, for example, there is now a baseUrl and baseUrlWithInstance
-        - consider consolidating the instanceName and fullPath variables this function receives from the dashboard controller
-        - (and refactor entire chain if necessary)
          */
-        val adjustedPath = instanceName + fullPath.substringAfterLast(instanceName)
         val baseUrlWithInstance = "$baseUrl/$instanceName/dashboard_$instanceName"
-        
+
         val path = when (role) {
             ROLE_TEACHER -> when {
                 TEACHER_PATHS.any { fullPath.contains(it) } -> {
-                    "$baseUrlWithInstance/$adjustedPath"
+                    "$baseUrlWithInstance/$fullPath"
                 }
                 fullPath.equals(instanceName, true) -> {
                     "$baseUrlWithInstance/index.html"
