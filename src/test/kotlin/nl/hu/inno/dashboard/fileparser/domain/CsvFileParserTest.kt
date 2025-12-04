@@ -94,4 +94,17 @@ class CsvFileParserTest {
         val expectedMessage = "File cannot be read"
         assertEquals(expectedMessage, actualException.message)
     }
+
+    @Test
+    fun parse_throwsException_forNonExistentResource() {
+        val mockResource = Mockito.mock(Resource::class.java)
+        Mockito.`when`(mockResource.exists()).thenReturn(false)
+        Mockito.`when`(mockResource.contentLength()).thenReturn(123L)
+
+        val actualException = assertThrows(EmptyFileException::class.java) {
+            parser.parse(mockResource)
+        }
+        val expectedMessage = "File is empty or does not exist"
+        assertEquals(expectedMessage, actualException.message)
+    }
 }
