@@ -1,13 +1,6 @@
 package nl.hu.inno.dashboard.exception
 
-import nl.hu.inno.dashboard.exception.exceptions.InvalidParseListException
-import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
-import nl.hu.inno.dashboard.exception.exceptions.UserNotInCourseException
-import nl.hu.inno.dashboard.exception.exceptions.InvalidPathException
-import nl.hu.inno.dashboard.exception.exceptions.EmptyFileException
-import nl.hu.inno.dashboard.exception.exceptions.FileCannotBeReadException
-import nl.hu.inno.dashboard.exception.exceptions.FileTypeNotSupportedException
-import nl.hu.inno.dashboard.exception.exceptions.InvalidRoleException
+import nl.hu.inno.dashboard.exception.exceptions.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
