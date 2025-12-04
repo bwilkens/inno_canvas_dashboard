@@ -1,5 +1,6 @@
 package nl.hu.inno.dashboard.filefetcher.application
 
+import nl.hu.inno.dashboard.filefetcher.domain.exception.InvalidPathException
 import nl.hu.inno.dashboard.filefetcher.domain.exception.InvalidRoleException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
@@ -40,42 +41,32 @@ class FileFetcherServiceDev(
         - consider consolidating the instanceName and fullPath variables this function receives from the dashboard controller
         - (and refactor entire chain if necessary)
          */
-        println("[FILEFETCHER] Instance name: $instanceName and fullPath: $fullPath")
         val adjustedPath = instanceName + fullPath.substringAfterLast(instanceName)
-        println("adjustedPath: $adjustedPath")
-
         val baseUrlWithInstance = "$baseUrl/$instanceName/dashboard_$instanceName"
         
         val path = when (role) {
             ROLE_TEACHER -> when {
 
                 fullPath.contains("/students/") -> {
-                    println("ran /students/ if")
                     "${baseUrlWithInstance}/${adjustedPath}"
                 }
                 fullPath.contains("/totals_voortgang.html") -> {
-                    println("ran /totals_voortgang if")
                     "${baseUrlWithInstance}/${adjustedPath}"
                 }
                 fullPath.contains("/workload_index.html") -> {
-                    println("ran /workload_index if")
                     "${baseUrlWithInstance}/${adjustedPath}"
                 }
                 fullPath.contains("/overall_opbouw.html") -> {
-                    println("ran /overall_opbouw if")
                     "${baseUrlWithInstance}/${adjustedPath}"
                 }
                 fullPath.equals(instanceName, true) -> {
-                    println("ran second if")
                     "${baseUrlWithInstance}/index.html"
                 }
                 fullPath.contains("/standard.html") -> {
-                    println("ran /standard.html")
                     "${baseUrlWithInstance}/${adjustedPath}"
                 }
                 else -> {
-                    println("ran final else")
-                    baseUrl
+                    throw InvalidPathException("Path $fullPath did not lead to an existing resource")
                 }
             }
             ROLE_STUDENT -> {
@@ -86,7 +77,6 @@ class FileFetcherServiceDev(
             else -> throw InvalidRoleException("Role '$role' is not a valid role")
         }
         println("Final path: $path")
-        println("_____")
         return UrlResource(URI.create(path))
     }
     companion object {
