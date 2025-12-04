@@ -1,0 +1,114 @@
+{
+  "name": "Nick Schneiders",
+  "id": 277889,
+  "number": "1857475",
+  "sortable_name": "Schneiders, Nick",
+  "email": "nick.schneiders@student.hu.nl",
+  "site": "",
+  "role": "CSC",
+  "progress": -1,
+  "perspectives": {
+    "portfolio": {
+      "name": "portfolio",
+      "title": "Portfolio",
+      "progress": -1,
+      "sum_score": 0,
+      "last_score": 0,
+      "assignment_group_ids": [
+        94341,
+        94909,
+        94342,
+        94910
+      ],
+      "submission_sequences": []
+    }
+  },
+  "learning_outcomes": {
+    "LU1": {
+      "id": "LU1",
+      "short": "Onderzoekend",
+      "feedback_list": []
+    },
+    "LU2": {
+      "id": "LU2",
+      "short": "Organiserend",
+      "feedback_list": []
+    },
+    "LU3": {
+      "id": "LU3",
+      "short": "Interactief",
+      "feedback_list": []
+    },
+    "LU4": {
+      "id": "LU4",
+      "short": "Zelflerend",
+      "feedback_list": []
+    },
+    "LU5": {
+      "id": "LU5",
+      "short": "Vakbekwaam",
+      "feedback_list": []
+    }
+  },
+  "general_feedback_list": [
+    {
+      "author_id": 0,
+      "author_name": "Automatisch door systeem",
+      "date": "2025-10-30T22:59:00Z",
+      "day": 60,
+      "comment": "Moet nog beoordeeld worden",
+      "positive_neutral_negative": "N",
+      "assignment_name": "Peilmoment 1",
+      "assignment_id": 377074,
+      "grade": null
+    }
+  ],
+  "student_level_moments": {
+    "name": "level_moments",
+    "assignment_groups": [
+      94344
+    ],
+    "submissions": [
+      {
+        "id": 0,
+        "student_id": 277889,
+        "status": "2",
+        "assignment": {
+          "id": 377074,
+          "name": "Peilmoment 1",
+          "group_id": 94344,
+          "points": 15,
+          "date": "2025-10-30T22:59:00Z",
+          "day": 60
+        },
+        "submitted_date": "",
+        "submitted_day": null,
+        "graded": false,
+        "grade": null,
+        "grader_name": 0,
+        "graded_date": "",
+        "score": 0.0,
+        "value": 0.0,
+        "flow": 0.0,
+        "body": null,
+        "messages": [],
+        "comments": [
+          {
+            "author_id": 0,
+            "author_name": "Automatisch door systeem",
+            "date": "2025-10-30T22:59:00Z",
+            "comment": "Moet nog beoordeeld worden"
+          }
+        ],
+        "rubrics": []
+      }
+    ]
+  },
+  "student_grade_moments": {
+    "name": "grade_moments",
+    "assignment_groups": [
+      94345
+    ],
+    "submissions": []
+  }
+}
