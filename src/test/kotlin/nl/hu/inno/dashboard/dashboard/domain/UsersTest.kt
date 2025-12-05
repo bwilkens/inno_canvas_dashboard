@@ -8,11 +8,11 @@ class UsersTest {
 
     @Test
     fun factoryMethod_createsUserCorrectly() {
-        val user = Users.of("Test@hu.nl", "Name", Role.ADMIN)
+        val user = Users.of("Test@hu.nl", "Name", Privileges.ADMIN)
 
         assertEquals("test@hu.nl", user.email)
         assertEquals("Name", user.name)
-        assertEquals(Role.ADMIN, user.role)
+        assertEquals(Privileges.ADMIN, user.privileges)
         assertTrue(user.courses.isEmpty())
     }
 
@@ -22,7 +22,7 @@ class UsersTest {
 
         assertEquals("", user.email)
         assertEquals("", user.name)
-        assertEquals(Role.STUDENT, user.role)
+        assertEquals(Privileges.STUDENT, user.privileges)
         assertTrue(user.courses.isEmpty())
     }
 

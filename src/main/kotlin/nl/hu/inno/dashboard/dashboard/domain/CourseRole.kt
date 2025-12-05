@@ -1,7 +1,6 @@
 package nl.hu.inno.dashboard.dashboard.domain
 
-enum class Role {
+enum class CourseRole {
     STUDENT,
-    TEACHER,
-    ADMIN
+    TEACHER
 }

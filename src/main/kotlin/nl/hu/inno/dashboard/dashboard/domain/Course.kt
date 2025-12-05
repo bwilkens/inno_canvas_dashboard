@@ -13,6 +13,9 @@ class Course(
     @Column(name = "COURSE_NAME")
     val courseName: String = "",
 
+    @Column(name = "COURSE_CODE")
+    val courseCode: String = "",
+
     @Column(name = "INSTANCE_NAME")
     val instanceName: String = "",
 
@@ -22,12 +25,12 @@ class Course(
     @Column(name = "END_DATE")
     val endDate: LocalDate = LocalDate.MIN,
 
-    @ManyToMany(mappedBy = "courses", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    val users: MutableSet<Users> = mutableSetOf()
+    @OneToMany(mappedBy = "course")
+    val userInCourse: MutableSet<UserInCourse> = mutableSetOf()
 ) {
     companion object {
-        fun of(canvasCourseId: Int, courseName: String, instanceName: String, startDate: LocalDate, endDate: LocalDate, users: MutableSet<Users> = mutableSetOf()): Course {
-            return Course(canvasCourseId, courseName, instanceName, startDate, endDate, users)
+        fun of(canvasCourseId: Int, courseName: String, courseCode: String, instanceName: String, startDate: LocalDate, endDate: LocalDate): Course {
+            return Course(canvasCourseId, courseName, courseCode, instanceName, startDate, endDate)
         }
     }
 
