@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { getUserData } from "../api/getUserData.js";
-import CardsGrid from "../components/CardGrid";
+import AdminActionButton from "../components/AdminActionButton";
 import UserInfo from "../components/UserInformation";
 import useAuthCheck from "../hooks/useAuthCheck";
+import "../css/admin-button-group.css";
 
 const AdminDashboard = () => {
     useAuthCheck();
@@ -30,9 +31,13 @@ const AdminDashboard = () => {
 
     return (
         <div>
-            <h1>Cursus Overzicht</h1>
             <UserInfo data={userData} />
-            <CardsGrid courses={userData.courses} />
+              <div class="button-group">
+                <AdminActionButton name="Genereer Resultaat"></AdminActionButton>
+                <AdminActionButton name="Genereer Cursus"></AdminActionButton>
+                <AdminActionButton name="Update Cursus" disabled={true}></AdminActionButton>
+                <AdminActionButton name="Health"></AdminActionButton>
+            </div>
         </div>
     );
 };
