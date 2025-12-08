@@ -13,8 +13,14 @@ data class UsersDTO (
             return UsersDTO(
                 email = user.email,
                 name = user.name,
-                role = user.role.name,
-                courses = user.courses.map { CourseDTO.of(it) }
+                role = user.privileges.name,
+//                courses = user.userInCourse.map { CourseDTO.of(it.course) }
+                courses = user.userInCourse
+                    .mapNotNull {
+                        val course = it.course
+                        val userRole = it.courseRole?.name
+                        if (course != null && userRole != null) CourseDTO.of(course, userRole) else null
+                }
             )
         }
     }

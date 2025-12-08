@@ -2,10 +2,13 @@ package nl.hu.inno.dashboard.dashboard.application
 
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
+import nl.hu.inno.dashboard.dashboard.data.UserInCourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
-import nl.hu.inno.dashboard.dashboard.domain.Role
+import nl.hu.inno.dashboard.dashboard.domain.CourseRole
+import nl.hu.inno.dashboard.dashboard.domain.UserInCourse
 import nl.hu.inno.dashboard.dashboard.domain.Users
+import nl.hu.inno.dashboard.exception.exceptions.CourseNotFoundException
 import nl.hu.inno.dashboard.exception.exceptions.InvalidRoleException
 import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
 import nl.hu.inno.dashboard.exception.exceptions.UserNotInCourseException
@@ -22,6 +25,7 @@ import java.time.LocalDate
 class DashboardServiceImpl(
     private val courseDB: CourseRepository,
     private val usersDB: UsersRepository,
+    private val userInCourseDB: UserInCourseRepository,
     private val fileParserService: FileParserService,
     private val fileFetcherService: FileFetcherService,
 ) : DashboardService {
@@ -33,13 +37,14 @@ class DashboardServiceImpl(
     override fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource {
         val user = findUserInDatabaseByEmail(email)
 
-        val userInCourse = user.courses.any { it.instanceName == instanceName }
-        if (!userInCourse) {
+        val userInCourse = user.userInCourse.firstOrNull { it.course?.instanceName == instanceName }
+        if (userInCourse == null) {
             throw UserNotInCourseException("User with email $email is not in a course with instanceName $instanceName")
         }
 
-        val userRole = user.role.name
-        return fileFetcherService.fetchDashboardHtml(email, userRole, instanceName, relativeRequestPath)
+        val userRole = userInCourse.courseRole?.name ?: throw CourseNotFoundException("Could not find course with code $instanceName")
+        val courseCode = userInCourse.course?.courseCode ?: throw CourseNotFoundException("Could not find course with code $instanceName")
+        return fileFetcherService.fetchDashboardHtml(email, userRole, courseCode, instanceName, relativeRequestPath)
     }
 
     override fun refreshUsersAndCourses() {
@@ -48,13 +53,16 @@ class DashboardServiceImpl(
 
         val usersCache = mutableMapOf<String, Users>()
         val courseCache = mutableMapOf<Int, Course>()
-        linkUsersAndCourses(records, usersCache, courseCache)
+        val userInCourseList = mutableListOf<UserInCourse>()
+        linkUsersAndCourses(records, usersCache, courseCache, userInCourseList)
 
+        userInCourseDB.deleteAll()
         courseDB.deleteAll()
         usersDB.deleteAll()
-
+        
         courseDB.saveAll(courseCache.values)
         usersDB.saveAll(usersCache.values)
+        userInCourseDB.saveAll(userInCourseList)
     }
 
     private fun findUserInDatabaseByEmail(email: String): Users {
@@ -69,51 +77,57 @@ class DashboardServiceImpl(
     private fun linkUsersAndCourses(
         records: List<List<String>>,
         usersCache: MutableMap<String, Users>,
-        courseCache: MutableMap<Int, Course>
+        courseCache: MutableMap<Int, Course>,
+        userInCourseList: MutableList<UserInCourse>
     ) {
         for (record in records) {
             val email = record[CsvColumns.USER_EMAIL]
             if (email.isBlank() || email.lowercase() == "null") continue
             val canvasCourseId = record[CsvColumns.CANVAS_COURSE_ID].toInt()
+            val courseRole = record[CsvColumns.COURSE_ROLE]
 
             val user = usersCache.getOrPut(email) { convertToUser(record) }
             val course = courseCache.getOrPut(canvasCourseId) { convertToCourse(record) }
 
-            user.linkWithCourse(course)
+            val link = UserInCourse.createAndLink(user, course, parseCourseRole(courseRole))
+            userInCourseList.add(link)
         }
     }
+
+    private fun parseCourseRole(role: String): CourseRole =
+        when (role.trim().uppercase()) {
+            "STUDENT" -> CourseRole.STUDENT
+            "TEACHER" -> CourseRole.TEACHER
+            else -> throw InvalidRoleException("Invalid course role: $role")
+        }
 
     private fun convertToCourse(record: List<String>): Course {
         val canvasCourseId = record[CsvColumns.CANVAS_COURSE_ID].toInt()
         val courseName = record[CsvColumns.COURSE_NAME]
+        val courseCode = record[CsvColumns.COURSE_CODE]
         val instanceName = record[CsvColumns.INSTANCE_NAME]
         val startDate = LocalDate.parse(record[CsvColumns.START_DATE].substring(0, 10))
         val endDate = LocalDate.parse(record[CsvColumns.END_DATE].substring(0, 10))
 
-        return Course.of(canvasCourseId, courseName, instanceName, startDate, endDate)
+        return Course.of(canvasCourseId, courseName, courseCode, instanceName, startDate, endDate)
     }
 
     private fun convertToUser(record: List<String>): Users {
         val name = record[CsvColumns.USER_NAME]
         val email = record[CsvColumns.USER_EMAIL]
-        val role = when (record[CsvColumns.USER_ROLE].uppercase()) {
-            "STUDENT" -> Role.STUDENT
-            "TEACHER" -> Role.TEACHER
-            "ADMIN" -> Role.ADMIN
-            else -> throw InvalidRoleException("Invalid role: ${record[CsvColumns.USER_ROLE]}")
-        }
 
-        return Users.of(email, name, role)
+        return Users.of(email, name)
     }
 
     private object CsvColumns {
         const val CANVAS_COURSE_ID = 0
-        const val COURSE_NAME = 1
-        const val INSTANCE_NAME = 2
-        const val START_DATE = 3
-        const val END_DATE = 4
-        const val USER_NAME = 5
-        const val USER_EMAIL = 6
-        const val USER_ROLE = 7
+        const val COURSE_CODE = 1
+        const val COURSE_NAME = 2
+        const val INSTANCE_NAME = 3
+        const val START_DATE = 4
+        const val END_DATE = 5
+        const val USER_NAME = 6
+        const val USER_EMAIL = 7
+        const val COURSE_ROLE = 8
     }
 }

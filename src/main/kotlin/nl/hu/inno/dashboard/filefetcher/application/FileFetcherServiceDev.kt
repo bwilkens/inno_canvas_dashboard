@@ -21,9 +21,7 @@ class FileFetcherServiceDev(
         return UrlResource(URI.create(path))
     }
 
-    override fun fetchDashboardHtml(email: String, role : String, instanceName: String, relativeRequestPath: String): Resource {
-        val courseCode = instanceName.substringBefore("_")
-
+    override fun fetchDashboardHtml(email: String, role: String, courseCode: String, instanceName: String, relativeRequestPath: String): Resource {
         val baseUrlWithInstance = "$baseUrl/$courseCode/$instanceName/dashboard"
         val resolvedPath = HtmlPathResolver.resolvePath(email, role, instanceName, relativeRequestPath)
         val fullPath = "$baseUrlWithInstance/$resolvedPath"

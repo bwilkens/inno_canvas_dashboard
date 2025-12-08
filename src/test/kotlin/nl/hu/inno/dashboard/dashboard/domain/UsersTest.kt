@@ -8,12 +8,12 @@ class UsersTest {
 
     @Test
     fun factoryMethod_createsUserCorrectly() {
-        val user = Users.of("Test@hu.nl", "Name", Role.ADMIN)
+        val user = Users.of("Test@hu.nl", "Name")
 
         assertEquals("test@hu.nl", user.email)
         assertEquals("Name", user.name)
-        assertEquals(Role.ADMIN, user.role)
-        assertTrue(user.courses.isEmpty())
+        assertEquals(Privileges.USER, user.privileges)
+        assertTrue(user.userInCourse.isEmpty())
     }
 
     @Test
@@ -22,8 +22,8 @@ class UsersTest {
 
         assertEquals("", user.email)
         assertEquals("", user.name)
-        assertEquals(Role.STUDENT, user.role)
-        assertTrue(user.courses.isEmpty())
+        assertEquals(Privileges.USER, user.privileges)
+        assertTrue(user.userInCourse.isEmpty())
     }
 
     @Test
@@ -49,28 +49,5 @@ class UsersTest {
         val user = Users.of("a@hu.nl", "A")
 
         assertFalse(user.equals("a@hu.nl"))
-    }
-
-    @Test
-    fun linkWithCourse_linksBothSides() {
-        val user = Users.of("x@hu.nl", "X")
-        val course = Course.of(42, "C", "I", LocalDate.MIN, LocalDate.MIN)
-
-        user.linkWithCourse(course)
-
-        assertTrue(user.courses.contains(course))
-        assertTrue(course.users.contains(user))
-    }
-
-    @Test
-    fun linkWithCourse_doesNotDuplicateLinks() {
-        val user = Users.of("x@hu.nl", "X")
-        val course = Course.of(42, "C", "I", LocalDate.MIN, LocalDate.MIN)
-
-        user.linkWithCourse(course)
-        user.linkWithCourse(course)
-
-        assertEquals(1, user.courses.size)
-        assertEquals(1, course.users.size)
     }
 }

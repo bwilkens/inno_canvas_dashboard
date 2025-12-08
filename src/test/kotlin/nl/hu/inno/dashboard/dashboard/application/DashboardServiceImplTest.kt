@@ -2,9 +2,12 @@ package nl.hu.inno.dashboard.dashboard.application
 
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
+import nl.hu.inno.dashboard.dashboard.data.UserInCourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UsersRepository
 import nl.hu.inno.dashboard.dashboard.domain.Course
-import nl.hu.inno.dashboard.dashboard.domain.Role
+import nl.hu.inno.dashboard.dashboard.domain.CourseRole
+import nl.hu.inno.dashboard.dashboard.domain.Privileges
+import nl.hu.inno.dashboard.dashboard.domain.UserInCourse
 import nl.hu.inno.dashboard.dashboard.domain.Users
 import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
 import nl.hu.inno.dashboard.exception.exceptions.UserNotInCourseException
@@ -23,6 +26,7 @@ import kotlin.test.assertEquals
 class DashboardServiceImplTest {
     private lateinit var courseDB: CourseRepository
     private lateinit var usersDB: UsersRepository
+    private lateinit var userInCourseDB: UserInCourseRepository
     private lateinit var fileParserService: FileParserService
     private lateinit var fileFetcherService: FileFetcherService
     private lateinit var service: DashboardServiceImpl
@@ -37,30 +41,31 @@ class DashboardServiceImplTest {
     fun setUp() {
         courseDB = mock()
         usersDB = mock()
+        userInCourseDB = mock()
         fileParserService = mock()
         fileFetcherService = mock()
-        service = DashboardServiceImpl(courseDB, usersDB, fileParserService, fileFetcherService)
+        service = DashboardServiceImpl(courseDB, usersDB, userInCourseDB, fileParserService, fileFetcherService)
 
-        course50304 = Course.of(50304, "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", LocalDate.parse("2025-09-01"), LocalDate.parse("2026-01-30"))
-        course9999 = Course.of(9999, "Test cursus - September 2010", "TEST-9999_SEP25", LocalDate.parse("2010-09-01"), LocalDate.parse("2011-01-30"))
+        course50304 = Course.of(50304, "Innovation Semester - September 2025", "TICT-V3SE6-25", "TICT-V3SE6-25_SEP25", LocalDate.parse("2025-09-01"), LocalDate.parse("2026-01-30"))
+        course9999 = Course.of(9999, "Test cursus - September 2010", "TEST-9999", "TEST-9999_SEP25", LocalDate.parse("2010-09-01"), LocalDate.parse("2011-01-30"))
         parsedRecords = listOf(
             listOf(
-                "50304", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "John Doe", "john.doe@student.hu.nl", "STUDENT"
+                "50304", "TICT-V3SE6-25", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "John Doe", "john.doe@student.hu.nl", "STUDENT"
             ),
             listOf(
-                "9999", "Test cursus - September 2010", "TEST-9999_SEP25", "2010-09-01 00:00:00+02:00", "2011-01-30 23:59:59+01:00", "John Doe", "john.doe@student.hu.nl", "STUDENT"
+                "9999", "TEST-9999", "Test cursus - September 2010", "TEST-9999_SEP25", "2010-09-01 00:00:00+02:00", "2011-01-30 23:59:59+01:00", "John Doe", "john.doe@student.hu.nl", "STUDENT"
             ),
             listOf(
-                "50304", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "Jane Doe", "jane.doe@hu.nl", "TEACHER"
+                "50304", "TICT-V3SE6-25", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "Jane Doe", "jane.doe@hu.nl", "TEACHER"
             ),
             listOf(
-                "50304", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "User Null", "null", "STUDENT"
+                "50304", "TICT-V3SE6-25", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "User Null", "null", "STUDENT"
             ),
             listOf(
-                "9999", "Test cursus - September 2010", "TEST-9999_SEP25", "2010-09-01 00:00:00+02:00", "2011-01-30 23:59:59+01:00", "Test User", "test.user@student.hu.nl", "STUDENT"
+                "9999", "TEST-9999", "Test cursus - September 2010", "TEST-9999_SEP25", "2010-09-01 00:00:00+02:00", "2011-01-30 23:59:59+01:00", "Test User", "test.user@student.hu.nl", "STUDENT"
             ),
             listOf(
-                "50304", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "Blank User", "", "STUDENT"
+                "50304", "TICT-V3SE6-25", "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", "2025-09-01 00:00:00+02:00", "2026-01-30 23:59:59+01:00", "Blank User", "", "STUDENT"
             )
         )
 
@@ -74,13 +79,13 @@ class DashboardServiceImplTest {
 
     @Test
     fun findUserByEmail_returnsUsersDTO_whenUserExists() {
-        val user = Users.of("john.doe@student.hu.nl", "John Doe", Role.STUDENT)
+        val user = Users.of("john.doe@student.hu.nl", "John Doe")
         `when`(usersDB.findById("john.doe@student.hu.nl")).thenReturn(Optional.of(user))
 
         val actualDTO = service.findUserByEmail("john.doe@student.hu.nl")
 
         assertNotNull(actualDTO)
-        val expectedDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "STUDENT")
+        val expectedDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "USER")
         assertEquals(expectedDTO, actualDTO)
     }
 
@@ -96,12 +101,12 @@ class DashboardServiceImplTest {
 
     @Test
     fun getDashboardHtml_returnsResource_whenUserInCourse() {
-        val user = Users.of("john.doe@student.hu.nl", "John Doe", Role.STUDENT)
-        val course = Course.of(50304, "Innovation Semester - September 2025", "TICT-V3SE6-25_SEP25", LocalDate.parse("2025-09-01"), LocalDate.parse("2026-01-30"))
-        user.linkWithCourse(course)
+        val user = Users.of("john.doe@student.hu.nl", "John Doe")
+        val course = Course.of(50304, "Innovation Semester - September 2025", "TICT-V3SE6-25", "TICT-V3SE6-25_SEP25", LocalDate.parse("2025-09-01"), LocalDate.parse("2026-01-30"))
+        UserInCourse.createAndLink(user, course, CourseRole.valueOf("STUDENT"))
         `when`(usersDB.findById("john.doe@student.hu.nl")).thenReturn(Optional.of(user))
         val expectedResult = mock(Resource::class.java)
-        `when`(fileFetcherService.fetchDashboardHtml("john.doe@student.hu.nl", "STUDENT", "TICT-V3SE6-25_SEP25", "/dashboard")).thenReturn(expectedResult)
+        `when`(fileFetcherService.fetchDashboardHtml("john.doe@student.hu.nl", "STUDENT", "TICT-V3SE6-25", "TICT-V3SE6-25_SEP25", "/dashboard")).thenReturn(expectedResult)
 
         val actualResult = service.getDashboardHtml("john.doe@student.hu.nl", "TICT-V3SE6-25_SEP25", "/dashboard")
 
@@ -110,7 +115,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun getDashboardHtml_throwsUserNotInCourseException_whenUserNotInCourse() {
-        val user = Users.of("john.doe@student.hu.nl", "John Doe", Role.STUDENT)
+        val user = Users.of("john.doe@student.hu.nl", "John Doe")
         `when`(usersDB.findById("john.doe@student.hu.nl")).thenReturn(Optional.of(user))
 
         val actualMessage = assertThrows<UserNotInCourseException> {
@@ -163,9 +168,9 @@ class DashboardServiceImplTest {
             val userJane = users.find { it.email == "jane.doe@hu.nl"}
             val userTest = users.find { it.email == "test.user@student.hu.nl" }
             userJohn != null && userJane != null && userTest != null &&
-                    userJohn.courses.map { it.canvasCourseId }.toSet() == setOf(50304, 9999) &&
-                    userJane.courses.map { it.canvasCourseId }.toSet() == setOf(50304) &&
-                    userTest.courses.map { it.canvasCourseId }.toSet() == setOf(9999)
+                    userJohn.userInCourse.mapNotNull { it.course?.canvasCourseId }.toSet() == setOf(50304, 9999) &&
+                    userJane.userInCourse.mapNotNull { it.course?.canvasCourseId }.toSet() == setOf(50304) &&
+                    userTest.userInCourse.mapNotNull { it.course?.canvasCourseId }.toSet() == setOf(9999)
         })
     }
 
@@ -177,8 +182,8 @@ class DashboardServiceImplTest {
             val course1 = courses.find { it.canvasCourseId == 50304 }
             val course2 = courses.find { it.canvasCourseId == 9999 }
             course1 != null && course2 != null &&
-                    course1.users.map { it.email }.toSet() == setOf("john.doe@student.hu.nl", "jane.doe@hu.nl") &&
-                    course2.users.map { it.email }.toSet() == setOf("john.doe@student.hu.nl", "test.user@student.hu.nl")
+                    course1.userInCourse.mapNotNull { it.user?.email }.toSet() == setOf("john.doe@student.hu.nl", "jane.doe@hu.nl") &&
+                    course2.userInCourse.mapNotNull { it.user?.email }.toSet() == setOf("john.doe@student.hu.nl", "test.user@student.hu.nl")
         })
     }
 
@@ -188,7 +193,7 @@ class DashboardServiceImplTest {
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             val user = users.find { it.email == "john.doe@student.hu.nl" }
-            user != null && user.courses.size == 2
+            user != null && user.userInCourse.size == 2
         })
     }
 
@@ -198,7 +203,7 @@ class DashboardServiceImplTest {
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             val course = courses.find { it.canvasCourseId == 50304 }
-            course != null && course.users.size == 2
+            course != null && course.userInCourse.size == 2
         })
     }
 

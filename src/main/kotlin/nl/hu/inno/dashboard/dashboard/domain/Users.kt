@@ -13,26 +13,15 @@ class Users (
     val name: String = "",
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE")
-    val role: Role = Role.STUDENT,
+    @Column(name = "PRIVILEGES")
+    val privileges: Privileges = Privileges.USER,
 
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(
-        name = "USER_COURSE",
-        joinColumns = [JoinColumn(name = "USER_EMAIL")],
-        inverseJoinColumns = [JoinColumn(name = "CANVAS_COURSE_ID")]
-    )
-    val courses: MutableSet<Course> = mutableSetOf()
+    @OneToMany(mappedBy = "user")
+    val userInCourse: MutableSet<UserInCourse> = mutableSetOf()
 ) {
     companion object {
-        fun of(email: String, name: String, role: Role = Role.STUDENT, courses: MutableSet<Course> = mutableSetOf()): Users {
-            return Users(email.lowercase(), name, role, courses)
-        }
-    }
-
-    fun linkWithCourse(course: Course) {
-        if (courses.add(course)) {
-            course.users.add(this)
+        fun of(email: String, name: String): Users {
+            return Users(email.lowercase(), name, Privileges.USER)
         }
     }
 

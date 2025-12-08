@@ -33,7 +33,8 @@ const CardGrid = ({ courses}) => {
               <h3>{item.courseName}</h3>
               <p>Start datum: {item.startDate}</p>
               <p>Eind datum: {item.endDate}</p>
-              <p>Cursus code: {item.instanceName}</p>
+              <p>Cursus code: {item.courseCode}</p>
+              <p>Rol: {item.userRole}</p>
             </div>
           </Link>
         ))}

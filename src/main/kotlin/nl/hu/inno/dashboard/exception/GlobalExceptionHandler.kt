@@ -10,6 +10,18 @@ import org.springframework.web.context.request.WebRequest
 @ControllerAdvice
 class RestExceptionHandler {
 
+    @ExceptionHandler(CourseNotFoundException::class)
+    fun handleCourseNotFound(ex: CourseNotFoundException, request: WebRequest): ResponseEntity<ExceptionBody> {
+        val status = HttpStatus.NOT_FOUND
+        val body = ExceptionBody(
+            status = status.value(),
+            error = status.reasonPhrase,
+            message = ex.message,
+            path = request.getDescription(false).removePrefix("uri=")
+        )
+        return ResponseEntity.status(status).body(body)
+    }
+
     @ExceptionHandler(EmptyFileException::class)
     fun handleEmptyFile(ex: EmptyFileException, request: WebRequest): ResponseEntity<ExceptionBody> {
         val status = HttpStatus.BAD_REQUEST

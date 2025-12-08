@@ -7,7 +7,7 @@ object HtmlPathResolver {
     private const val ROLE_STUDENT = "STUDENT"
 
     fun resolvePath(email: String, role: String, instanceName: String, relativeRequestPath: String): String {
-        return when (role) {
+        return when (role.uppercase()) {
             ROLE_TEACHER -> when {
                 instanceName.equals(other = relativeRequestPath, ignoreCase = true) -> "index.html"
                 else -> relativeRequestPath
