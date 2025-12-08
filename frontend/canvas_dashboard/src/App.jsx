@@ -5,8 +5,8 @@ import "./css/navbar.css";
 import "./css/header.css";
 import CourseOverview from "./pages/course-overview.jsx";
 import NotFoundPage from "./pages/not-found-page.jsx";
-import TokenPage from "./pages/token-page.jsx";
 import DashboardPage from "./pages/dashboard.jsx";
+import AdminPortal from "./pages/admin-portal.jsx";
 import NavBar from "./components/NavBar.jsx";
 
 function Home() {
@@ -28,12 +28,15 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar userRole={userRole} />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/course-overview" element={<CourseOverview />} />
-        <Route path="/token" element={<TokenPage />} />
+        <Route
+          path="/admin-portal"
+          element={<AdminPortal userRole={userRole} userEmail={userEmail} />}
+        />
         <Route
           path="/dashboard/:instanceName"
           element={<DashboardPage userRole={userRole} userEmail={userEmail} />}
