@@ -37,6 +37,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "3000:3000"
     volumes:
       - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
       - /etc/caddy/caddy_data:/data
@@ -50,5 +51,5 @@ services:
     image: grafana/grafana-enterprise
     container_name: grafana
     restart: unless-stopped
-    ports:
-      - '3000:3000'
+    expose:
+      - '3000'
