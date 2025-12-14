@@ -24,9 +24,12 @@ function AdminManagementTable() {
         try {
             const data = await getAdminUsers();
             
-            // sort users first by role then by name
+            // sort users first by role (SUPERADMIN > ADMIN > USER) then by name
+            const roleOrder = { SUPERADMIN: 0, ADMIN: 1, USER: 2 };
             const sorted = [...data].sort((a, b) => {
-                if (a.appRole !== b.appRole) return a.appRole.localeCompare(b.appRole);
+                if (roleOrder[a.appRole] !== roleOrder[b.appRole]) {
+                    return roleOrder[a.appRole] - roleOrder[b.appRole];
+                }
                 return a.name.localeCompare(b.name);
             });
             setAdminUsers(sorted);
