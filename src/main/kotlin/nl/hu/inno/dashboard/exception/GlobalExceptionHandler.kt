@@ -94,6 +94,18 @@ class RestExceptionHandler {
         return ResponseEntity.status(status).body(body)
     }
 
+    @ExceptionHandler(UserNotAuthorizedException::class)
+    fun handleInvalidRole(ex: UserNotAuthorizedException, request: WebRequest): ResponseEntity<ExceptionBody> {
+        val status = HttpStatus.UNAUTHORIZED
+        val body = ExceptionBody(
+            status = status.value(),
+            error = status.reasonPhrase,
+            message = ex.message,
+            path = request.getDescription(false).removePrefix("uri=")
+        )
+        return ResponseEntity.status(status).body(body)
+    }
+
     @ExceptionHandler(UserNotFoundException::class)
     fun handleUserNotFound(ex: UserNotFoundException, request: WebRequest): ResponseEntity<ExceptionBody> {
         val status = HttpStatus.NOT_FOUND
