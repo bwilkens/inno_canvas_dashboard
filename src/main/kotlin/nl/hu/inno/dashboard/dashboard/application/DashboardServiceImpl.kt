@@ -58,7 +58,7 @@ class DashboardServiceImpl(
         val updatedUserList = mutableListOf<Users>()
 
         for (changedUser in usersToUpdate) {
-            val user = findUserInDatabaseByEmail(email)
+            val user = findUserInDatabaseByEmail(changedUser.email)
 
             if (user.appRole == AppRole.SUPERADMIN) continue
 

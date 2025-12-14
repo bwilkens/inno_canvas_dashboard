@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     async function loadUser() {
       const data = await getUserData();
-      setUserRole(data.role);
+      setUserRole(data.appRole);
       setUserEmail(data.email);
     }
     loadUser();

@@ -5,7 +5,7 @@ import nl.hu.inno.dashboard.dashboard.domain.Users
 data class UsersDTO (
     val email: String,
     val name: String,
-    val role: String,
+    val appRole: String,
     val courses: List<CourseDTO> = emptyList()
 ) {
     companion object {
@@ -13,12 +13,12 @@ data class UsersDTO (
             return UsersDTO(
                 email = user.email,
                 name = user.name,
-                role = user.appRole.name,
+                appRole = user.appRole.name,
                 courses = user.userInCourse
                     .mapNotNull {
                         val course = it.course
-                        val userRole = it.courseRole?.name
-                        if (course != null && userRole != null) CourseDTO.of(course, userRole) else null
+                        val roleInCourse = it.courseRole?.name
+                        if (course != null && roleInCourse != null) CourseDTO.of(course, roleInCourse) else null
                 }
             )
         }

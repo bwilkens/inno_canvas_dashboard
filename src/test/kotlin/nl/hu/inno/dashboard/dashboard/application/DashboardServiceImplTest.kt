@@ -84,7 +84,7 @@ class DashboardServiceImplTest {
         val actualDTO = service.findUserByEmail("john.doe@student.hu.nl")
 
         assertNotNull(actualDTO)
-        val expectedDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "USER")
+        val expectedDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", appRole = "USER")
         assertEquals(expectedDTO, actualDTO)
     }
 

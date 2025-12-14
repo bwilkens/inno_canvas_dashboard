@@ -14,7 +14,7 @@ const UserInfo = ({ data }) => {
         <div id="user-info">
             <p>{data?.name}</p>
             <p>Email: {data?.email}</p>
-            <p>Role: {data?.role}</p>
+            <p>Role: {data?.appRole}</p>
         </div>
     );
 };

@@ -10,17 +10,17 @@ data class CourseDTO (
     val instanceName: String,
     val startDate: LocalDate,
     val endDate: LocalDate,
-    val userRole: String,
+    val roleInCourse: String,
 ) {
     companion object {
-        fun of(course: Course, userRole: String): CourseDTO = CourseDTO(
+        fun of(course: Course, roleInCourse: String): CourseDTO = CourseDTO(
             course.canvasCourseId,
             course.courseName,
             course.courseCode,
             course.instanceName,
             course.startDate,
             course.endDate,
-            userRole
+            roleInCourse
         )
     }
 }

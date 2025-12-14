@@ -32,7 +32,7 @@ const AdminDashboard = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading user data.</div>;
   if (!userData) return <Navigate to="/" replace />;
-  if (userData.role !== "ADMIN" && userData.role !== "SUPERADMIN") return <Navigate to="/" replace />;
+  if (userData.appRole !== "ADMIN" && userData.appRole !== "SUPERADMIN") return <Navigate to="/" replace />;
 
   function handleHealth() {
     fetch("/api/health", {
@@ -107,7 +107,7 @@ const AdminDashboard = () => {
           onClick={handleHealth}
         ></AdminActionButton>
       </div>
-      {userData.role === "SUPERADMIN" && (
+      {userData.appRole === "SUPERADMIN" && (
         <AdminManagementTable />
       )}
     </div>

@@ -34,7 +34,7 @@ const CardGrid = ({ courses}) => {
               <p>Start datum: {item.startDate}</p>
               <p>Eind datum: {item.endDate}</p>
               <p>Cursus code: {item.courseCode}</p>
-              <p>Rol: {item.userRole}</p>
+              <p>Rol: {item.roleInCourse}</p>
             </div>
           </Link>
         ))}

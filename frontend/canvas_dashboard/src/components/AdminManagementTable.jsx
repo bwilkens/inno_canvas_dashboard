@@ -26,7 +26,7 @@ function AdminManagementTable() {
             
             // sort users first by role then by name
             const sorted = [...data].sort((a, b) => {
-                if (a.role !== b.role) return a.role.localeCompare(b.role);
+                if (a.appRole !== b.appRole) return a.appRole.localeCompare(b.appRole);
                 return a.name.localeCompare(b.name);
             });
             setAdminUsers(sorted);
@@ -39,21 +39,21 @@ function AdminManagementTable() {
         }
     }
 
-    const handleRoleChange = (email, newRole) => {
+    const handleRoleChange = (email, newAppRole) => {
         setLocalUsers((prev) =>
             prev.map((user) =>
-                user.email === email ? { ...user, role: newRole } : user
+                user.email === email ? { ...user, appRole: newAppRole } : user
             )
         );
         setEditedUsers((prev) => ({
             ...prev,
-            [email]: newRole,
+            [email]: newAppRole,
         }));
     };
 
     const handleSave = async () => {
         const changed = localUsers.filter(
-            (user) => editedUsers[user.email] && user.role !== adminUsers.find(u => u.email === user.email).role
+            (user) => editedUsers[user.email] && user.appRole !== adminUsers.find(u => u.email === user.email).appRole
         );
         if (changed.length === 0) return;
         setSaving(true);
@@ -87,10 +87,10 @@ function AdminManagementTable() {
                         </thead>
                         <tbody>
                             {localUsers.map((user) => {
-                                const isSuperadmin = user.role === "SUPERADMIN";
+                                const isSuperadmin = user.appRole === "SUPERADMIN";
                                 const isChanged =
                                     editedUsers[user.email] &&
-                                    user.role !== adminUsers.find(u => u.email === user.email).role;
+                                    user.appRole !== adminUsers.find(u => u.email === user.email).appRole;
                                 return (
                                     <tr
                                         key={user.email}
@@ -103,7 +103,7 @@ function AdminManagementTable() {
                                         <td>{user.email}</td>
                                         <td>
                                             <select
-                                                value={user.role}
+                                                value={user.appRole}
                                                 disabled={isSuperadmin}
                                                 onChange={(e) =>
                                                     handleRoleChange(
@@ -115,7 +115,7 @@ function AdminManagementTable() {
                                                 {ROLE_OPTIONS.filter(
                                                     (role) =>
                                                         role !== "SUPERADMIN" ||
-                                                        user.role === "SUPERADMIN"
+                                                        user.appRole === "SUPERADMIN"
                                                 ).map((role) => (
                                                     <option key={role} value={role}>
                                                         {role}

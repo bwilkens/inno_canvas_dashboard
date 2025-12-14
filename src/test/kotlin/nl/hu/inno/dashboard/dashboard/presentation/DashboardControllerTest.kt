@@ -29,7 +29,7 @@ class DashboardControllerTest {
     fun getCurrentUser_returnsUser_whenEmailPresentAndUserFound() {
         val mockUser = mock(OAuth2User::class.java)
         `when`(mockUser.attributes).thenReturn(mapOf("email" to "John.Doe@student.hu.nl"))
-        val expectedUserDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "STUDENT")
+        val expectedUserDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", appRole = "STUDENT")
         `when`(service.findUserByEmail("John.Doe@student.hu.nl")).thenReturn(expectedUserDTO)
 
         val actualResponse = controller.getCurrentUser(mockUser)

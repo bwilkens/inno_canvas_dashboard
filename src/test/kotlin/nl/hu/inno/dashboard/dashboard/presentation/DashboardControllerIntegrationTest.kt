@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ByteArrayResource
-import org.springframework.core.io.Resource
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*
@@ -34,7 +33,7 @@ class DashboardControllerIntegrationTest {
 
     @Test
     fun getCurrentUser_returnsUser_whenEmailPresentAndUserFound() {
-        val userDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", role = "STUDENT")
+        val userDTO = UsersDTO(email = "john.doe@student.hu.nl", name = "John Doe", appRole = "STUDENT")
         `when`(service.findUserByEmail("john.doe@student.hu.nl")).thenReturn(userDTO)
 
         mockMvc.perform(
