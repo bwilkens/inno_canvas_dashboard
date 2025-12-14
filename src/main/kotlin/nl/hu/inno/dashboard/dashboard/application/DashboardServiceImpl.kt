@@ -1,6 +1,6 @@
 package nl.hu.inno.dashboard.dashboard.application
 
-import nl.hu.inno.dashboard.dashboard.application.dto.StaffDTO
+import nl.hu.inno.dashboard.dashboard.application.dto.AdminDTO
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UserInCourseRepository
@@ -37,7 +37,7 @@ class DashboardServiceImpl(
         return UsersDTO.of(user)
     }
 
-    override fun findAllAdmins(email: String): List<StaffDTO> {
+    override fun findAllAdmins(email: String): List<AdminDTO> {
         val requestUser = findUserInDatabaseByEmail(email)
         if (requestUser.appRole == AppRole.USER) {
             throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
@@ -46,10 +46,10 @@ class DashboardServiceImpl(
         val adminEmail = "@hu.nl"
         val adminList = usersDB.findAllByEmailEndingWith(adminEmail)
 
-        return adminList.map { StaffDTO.of(it) }
+        return adminList.map { AdminDTO.of(it) }
     }
 
-    override fun updateAdminUsers(email: String, usersToUpdate: List<StaffDTO>): List<StaffDTO> {
+    override fun updateAdminUsers(email: String, usersToUpdate: List<AdminDTO>): List<AdminDTO> {
         val requestUser = findUserInDatabaseByEmail(email)
         if (requestUser.appRole == AppRole.USER) {
             throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
@@ -75,7 +75,7 @@ class DashboardServiceImpl(
             }
         }
 
-        return updatedUserList.map { StaffDTO.of(it) }
+        return updatedUserList.map { AdminDTO.of(it) }
     }
 
     override fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource {
