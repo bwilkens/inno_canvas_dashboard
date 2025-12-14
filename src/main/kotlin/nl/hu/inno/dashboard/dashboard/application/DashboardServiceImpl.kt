@@ -1,5 +1,6 @@
 package nl.hu.inno.dashboard.dashboard.application
 
+import nl.hu.inno.dashboard.dashboard.application.dto.StaffDTO
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UserInCourseRepository
@@ -36,7 +37,7 @@ class DashboardServiceImpl(
         return UsersDTO.of(user)
     }
 
-    override fun findAllAdmins(email: String): List<UsersDTO> {
+    override fun findAllAdmins(email: String): List<StaffDTO> {
         val requestUser = findUserInDatabaseByEmail(email)
         if (requestUser.privilege == Privilege.USER) {
             throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
@@ -45,7 +46,36 @@ class DashboardServiceImpl(
         val adminEmail = "@hu.nl"
         val adminList = usersDB.findAllByEmailEndingWith(adminEmail)
 
-        return adminList.map { UsersDTO.of(it) }
+        return adminList.map { StaffDTO.of(it) }
+    }
+
+    override fun updateAdminUsers(email: String, usersToUpdate: List<StaffDTO>): List<StaffDTO> {
+        val requestUser = findUserInDatabaseByEmail(email)
+        if (requestUser.privilege == Privilege.USER) {
+            throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
+        }
+
+        val updatedUserList = mutableListOf<Users>()
+
+        for (changedUser in usersToUpdate) {
+            val user = findUserInDatabaseByEmail(email)
+
+            if (user.privilege == Privilege.SUPERADMIN) continue
+
+            val newPrivilege = when (changedUser.appRole) {
+                "USER" -> Privilege.USER
+                "ADMIN" -> Privilege.ADMIN
+                else -> user.privilege
+            }
+
+            if (user.privilege != newPrivilege) {
+                user.privilege = newPrivilege
+                usersDB.save(user)
+                updatedUserList.add(user)
+            }
+        }
+
+        return updatedUserList.map { StaffDTO.of(it) }
     }
 
     override fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource {
