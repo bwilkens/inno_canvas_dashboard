@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Table(name = "USER_COURSE", uniqueConstraints = [UniqueConstraint(columnNames = ["USER_EMAIL", "CANVAS_COURSE_ID"])])
 class UserInCourse (
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @ManyToOne
