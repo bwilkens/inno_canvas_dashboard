@@ -2,7 +2,7 @@ import "../css/admin-button.css";
 
 function AdminActionButton({ name, onClick, disabled }) {
   return (
-    <button class="admin-button" onClick={onClick} disabled={disabled}>
+    <button className="admin-button" onClick={onClick} disabled={disabled}>
       {name}
     </button>
   );

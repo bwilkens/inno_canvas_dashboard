@@ -86,7 +86,7 @@ const AdminDashboard = () => {
   return (
     <div>
       <UserInfo data={userData} />
-      <div class="admin-button-group">
+      <div className="admin-button-group">
         <AdminActionButton
           name="Genereer Resultaat"
           onClick={handleGenerateResult}
