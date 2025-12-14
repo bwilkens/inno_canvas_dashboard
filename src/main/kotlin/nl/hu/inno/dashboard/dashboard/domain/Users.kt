@@ -14,7 +14,7 @@ class Users (
 
     @Enumerated(EnumType.STRING)
     @Column(name = "PRIVILEGE")
-    val privilege: Privilege = Privilege.USER,
+    var privilege: Privilege = Privilege.USER,
 
     @OneToMany(mappedBy = "user")
     val userInCourse: MutableSet<UserInCourse> = mutableSetOf()
