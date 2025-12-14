@@ -96,7 +96,7 @@ class RestExceptionHandler {
 
     @ExceptionHandler(UserNotAuthorizedException::class)
     fun handleInvalidRole(ex: UserNotAuthorizedException, request: WebRequest): ResponseEntity<ExceptionBody> {
-        val status = HttpStatus.UNAUTHORIZED
+        val status = HttpStatus.FORBIDDEN
         val body = ExceptionBody(
             status = status.value(),
             error = status.reasonPhrase,
