@@ -11,6 +11,7 @@ import nl.hu.inno.dashboard.dashboard.domain.UserInCourse
 import nl.hu.inno.dashboard.dashboard.domain.Users
 import nl.hu.inno.dashboard.exception.exceptions.CourseNotFoundException
 import nl.hu.inno.dashboard.exception.exceptions.InvalidRoleException
+import nl.hu.inno.dashboard.exception.exceptions.UserNotAuthorizedException
 import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
 import nl.hu.inno.dashboard.exception.exceptions.UserNotInCourseException
 import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
@@ -33,6 +34,18 @@ class DashboardServiceImpl(
     override fun findUserByEmail(email: String): UsersDTO {
         val user = findUserInDatabaseByEmail(email)
         return UsersDTO.of(user)
+    }
+
+    override fun findAllStaff(email: String): List<UsersDTO> {
+        val requestUser = findUserInDatabaseByEmail(email)
+        if (requestUser.privilege == Privilege.USER) {
+            throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
+        }
+
+        val staffEmail = "@hu.nl"
+        val staffList = usersDB.findAllByEmailEndingWith(staffEmail)
+
+        return staffList.map { UsersDTO.of(it) }
     }
 
     override fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource {
