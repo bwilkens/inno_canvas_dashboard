@@ -20,7 +20,7 @@ function NavBar({ userRole }) {
         </li>
         {userRole === "ADMIN" || userRole ==="SUPERADMIN" && (
           <li>
-            <Link to="/admin-portal">Admin Portal</Link>
+            <Link to="/admin-portal">Admin Portaal</Link>
           </li>
         )}
         <li>
