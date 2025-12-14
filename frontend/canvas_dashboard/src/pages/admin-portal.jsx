@@ -136,9 +136,9 @@ const AdminDashboard = () => {
       </div>
       {userData.role === "SUPERADMIN" && (
         <AdminManagementTable
-            staffUsers={adminUsers}
-            staffLoading={adminLoading}
-            staffError={adminError}
+            adminUsers={adminUsers}
+            adminLoading={adminLoading}
+            adminError={adminError}
         />
       )}
     </div>

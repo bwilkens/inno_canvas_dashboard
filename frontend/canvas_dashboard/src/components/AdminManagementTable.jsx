@@ -1,14 +1,14 @@
 function AdminManagementTable({
-    staffUsers,
-    staffLoading,
-    staffError,
+    adminUsers,
+    adminLoading,
+    adminError,
 }) {
     return (
         <div className="admin-management-group">
             <h2>Beheer Gebruikers</h2>
-            {staffLoading && <div>Loading staff users...</div>}
-            {staffError && <div>Error: {staffError}</div>}
-            {!staffLoading && !staffError && (
+            {adminLoading && <div>Loading admin users...</div>}
+            {adminError && <div>Error: {adminError}</div>}
+            {!adminLoading && !adminError && (
                 <table>
                     <thead>
                         <tr>
@@ -18,7 +18,7 @@ function AdminManagementTable({
                         </tr>
                     </thead>
                     <tbody>
-                        {staffUsers.map((user) => (
+                        {adminUsers.map((user) => (
                             <tr key={user.email}>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
