@@ -58,7 +58,11 @@ function AdminManagementTable() {
 
     const handleSave = async () => {
         const changed = localUsers.filter(
-            (user) => editedUsers[user.email] && user.appRole !== adminUsers.find(u => u.email === user.email).appRole
+            (user) => {
+                if (!editedUsers[user.email]) return false;
+                const originalUser = adminUsers.find(u => u.email === user.email);
+                return originalUser && user.appRole !== originalUser.appRole;
+            }
         );
         if (changed.length === 0) return;
         setSaving(true);
