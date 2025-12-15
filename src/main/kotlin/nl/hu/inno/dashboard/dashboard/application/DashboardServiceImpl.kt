@@ -43,8 +43,9 @@ class DashboardServiceImpl(
     override fun findAllAdmins(email: String): List<AdminDTO> {
         verifyUserIsSuperAdmin(email)
 
-        val adminEmail = "@hu.nl"
-        val adminList = usersDB.findAllByEmailEndingWith(adminEmail)
+        val adminEmailSuffix = "@hu.nl"
+        val adminRoles = listOf(AppRole.ADMIN, AppRole.SUPERADMIN)
+        val adminList = usersDB.findAllAdminCandidates(adminRoles, adminEmailSuffix)
 
         return adminList.map { AdminDTO.of(it) }
     }

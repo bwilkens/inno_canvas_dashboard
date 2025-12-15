@@ -114,7 +114,7 @@ class DashboardServiceImplTest {
         val adminList = listOf(admin1, admin2)
 
         `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
-        `when`(usersDB.findAllByEmailEndingWith("@hu.nl")).thenReturn(adminList)
+        `when`(usersDB.findAllAdminCandidates(listOf(AppRole.ADMIN, AppRole.SUPERADMIN),"@hu.nl")).thenReturn(adminList)
 
         val result = service.findAllAdmins("super.admin@hu.nl")
 
