@@ -1,18 +1,23 @@
 package nl.hu.inno.dashboard.dashboard.application
 
+import nl.hu.inno.dashboard.dashboard.application.dto.AdminDTO
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UserInCourseRepository
 import nl.hu.inno.dashboard.dashboard.data.UsersRepository
+import nl.hu.inno.dashboard.dashboard.domain.AppRole
 import nl.hu.inno.dashboard.dashboard.domain.Course
 import nl.hu.inno.dashboard.dashboard.domain.CourseRole
 import nl.hu.inno.dashboard.dashboard.domain.UserInCourse
 import nl.hu.inno.dashboard.dashboard.domain.Users
+import nl.hu.inno.dashboard.exception.exceptions.UserNotAuthorizedException
 import nl.hu.inno.dashboard.exception.exceptions.UserNotFoundException
 import nl.hu.inno.dashboard.exception.exceptions.UserNotInCourseException
 import nl.hu.inno.dashboard.filefetcher.application.FileFetcherService
 import nl.hu.inno.dashboard.fileparser.application.FileParserService
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.ArgumentMatchers.argThat
 import org.mockito.Mockito.*
@@ -96,6 +101,85 @@ class DashboardServiceImplTest {
             service.findUserByEmail("not.exists@hu.nl")
         }
         assertEquals("User with email not.exists@hu.nl not found", exception.message)
+    }
+
+    @Test
+    fun findAllAdmins_returnsAdminDTOs_whenSuperAdminRequests() {
+        val superAdmin = Users.of("super.admin@hu.nl", "Super Admin").apply { appRole = AppRole.SUPERADMIN }
+        val admin1 = Users.of("admin1@hu.nl", "Admin One").apply { appRole = AppRole.ADMIN }
+        val admin2 = Users.of("admin2@hu.nl", "Admin Two").apply { appRole = AppRole.ADMIN }
+        val adminList = listOf(admin1, admin2)
+
+        `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
+        `when`(usersDB.findAllByEmailEndingWith("@hu.nl")).thenReturn(adminList)
+
+        val result = service.findAllAdmins("super.admin@hu.nl")
+
+        assertEquals(2, result.size)
+        assertEquals("admin1@hu.nl", result[0].email)
+        assertEquals("admin2@hu.nl", result[1].email)
+    }
+
+    @Test
+    fun findAllAdmins_throwsUserNotAuthorizedException_whenNotSuperAdmin() {
+        val admin = Users.of("admin@hu.nl", "Admin").apply { appRole = AppRole.ADMIN }
+        `when`(usersDB.findById("admin@hu.nl")).thenReturn(Optional.of(admin))
+
+        val exception = assertThrows<UserNotAuthorizedException> {
+            service.findAllAdmins("admin@hu.nl")
+        }
+        assertEquals("User with admin@hu.nl does not have the authorization to make this request", exception.message)
+    }
+
+    @Test
+    fun updateAdminUsers_updatesRoles_whenSuperAdminRequests() {
+        val superAdmin = Users.of("super.admin@hu.nl", "Super Admin").apply { appRole = AppRole.SUPERADMIN }
+        val admin = Users.of("admin@hu.nl", "Admin").apply { appRole = AppRole.ADMIN }
+        val user = Users.of("user@hu.nl", "User").apply { appRole = AppRole.USER }
+
+        val adminDTO = AdminDTO(email = "admin@hu.nl", name = "Admin", appRole = "USER")
+        val userDTO = AdminDTO(email = "user@hu.nl", name = "User", appRole = "ADMIN")
+        val superAdminDTO = AdminDTO(email = "super.admin@hu.nl", name = "Super Admin", appRole = "USER")
+
+        `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
+        `when`(usersDB.findById("admin@hu.nl")).thenReturn(Optional.of(admin))
+        `when`(usersDB.findById("user@hu.nl")).thenReturn( Optional.of(user))
+        `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
+        `when`(usersDB.save(any(Users::class.java))).thenAnswer { it.getArgument(0) }
+
+        val result = service.updateAdminUsers("super.admin@hu.nl", listOf(adminDTO, userDTO, superAdminDTO))
+
+        assertEquals(2, result.size)
+        assertTrue(result.any { it.email == "admin@hu.nl" && it.appRole == "USER" })
+        assertTrue(result.any { it.email == "user@hu.nl" && it.appRole == "ADMIN" })
+        assertFalse(result.any { it.email == "super.admin@hu.nl" })
+    }
+
+    @Test
+    fun updateAdminUsers_throwsUserNotAuthorizedException_whenNotSuperAdmin() {
+        val admin = Users.of("admin@hu.nl", "Admin").apply { appRole = AppRole.ADMIN }
+        val adminDTO = AdminDTO(email = "admin@hu.nl", name = "Admin", appRole = "USER")
+        `when`(usersDB.findById("admin@hu.nl")).thenReturn(Optional.of(admin))
+
+        val exception = assertThrows<UserNotAuthorizedException> {
+            service.updateAdminUsers("admin@hu.nl", listOf(adminDTO))
+        }
+        assertEquals("User with admin@hu.nl does not have the authorization to make this request", exception.message)
+    }
+
+    @Test
+    fun updateAdminUsers_doesNotUpdateIfRoleIsSame() {
+        val superAdmin = Users.of("super.admin@hu.nl", "Super Admin").apply { appRole = AppRole.SUPERADMIN }
+        val admin = Users.of("admin@hu.nl", "Admin").apply { appRole = AppRole.ADMIN }
+        val adminDTO = AdminDTO(email = "admin@hu.nl", name = "Admin", appRole = "ADMIN")
+
+        `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
+        `when`(usersDB.findById("admin@hu.nl")).thenReturn(Optional.of(admin))
+
+        val result = service.updateAdminUsers("super.admin@hu.nl", listOf(adminDTO))
+
+        assertTrue(result.isEmpty())
+        verify(usersDB, never()).save(admin)
     }
 
     @Test
