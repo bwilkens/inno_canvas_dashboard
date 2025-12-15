@@ -38,11 +38,7 @@ class DashboardServiceImpl(
     }
 
     override fun findAllAdmins(email: String): List<AdminDTO> {
-//        SUPERADMIN only function
-        val requestUser = findUserInDatabaseByEmail(email)
-        if (requestUser.appRole != AppRole.SUPERADMIN) {
-            throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
-        }
+        verifyUserIsSuperAdmin(email)
 
         val adminEmail = "@hu.nl"
         val adminList = usersDB.findAllByEmailEndingWith(adminEmail)
@@ -51,11 +47,7 @@ class DashboardServiceImpl(
     }
 
     override fun updateAdminUsers(email: String, usersToUpdate: List<AdminDTO>): List<AdminDTO> {
-//        SUPERADMIN only function
-        val requestUser = findUserInDatabaseByEmail(email)
-        if (requestUser.appRole != AppRole.SUPERADMIN) {
-            throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
-        }
+        verifyUserIsSuperAdmin(email)
 
         val updatedUserList = mutableListOf<Users>()
 
@@ -67,7 +59,7 @@ class DashboardServiceImpl(
             val newAppRole = when (changedUser.appRole) {
                 "USER" -> AppRole.USER
                 "ADMIN" -> AppRole.ADMIN
-                else -> user.appRole
+                else -> throw InvalidRoleException("AppRole ${changedUser.appRole} is not a valid role")
             }
 
             if (user.appRole != newAppRole) {
@@ -104,6 +96,7 @@ class DashboardServiceImpl(
 
         userInCourseDB.deleteAll()
         courseDB.deleteAll()
+//        when refreshing users in the database, we preserve existing ADMIN and SUPERADMIN users
         usersDB.deleteAllByAppRole(AppRole.USER)
 
         courseDB.saveAll(courseCache.values)
@@ -118,6 +111,13 @@ class DashboardServiceImpl(
         return user
     }
 
+    private fun verifyUserIsSuperAdmin(email: String) {
+        val requestUser = findUserInDatabaseByEmail(email)
+        if (requestUser.appRole != AppRole.SUPERADMIN) {
+            throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
+        }
+    }
+
     private fun linkUsersAndCourses(
         records: List<List<String>>,
         usersCache: MutableMap<String, Users>,
@@ -130,6 +130,7 @@ class DashboardServiceImpl(
             val canvasCourseId = record[CsvColumns.CANVAS_COURSE_ID].toInt()
             val courseRole = record[CsvColumns.COURSE_ROLE]
 
+//            when refreshing users in the database, we preserve existing ADMIN and SUPERADMIN users
             val user = usersCache.getOrPut(email) {
                 usersDB.findByIdOrNull(email.lowercase()) ?: convertToUser(record)
             }
