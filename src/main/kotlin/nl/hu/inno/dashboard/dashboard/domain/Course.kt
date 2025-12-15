@@ -25,7 +25,7 @@ class Course(
     @Column(name = "END_DATE")
     val endDate: LocalDate = LocalDate.MIN,
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", orphanRemoval = true)
     val userInCourse: MutableSet<UserInCourse> = mutableSetOf()
 ) {
     companion object {

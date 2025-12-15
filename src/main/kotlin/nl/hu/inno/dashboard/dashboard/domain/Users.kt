@@ -16,7 +16,7 @@ class Users (
     @Column(name = "APP_ROLE")
     var appRole: AppRole = AppRole.USER,
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     val userInCourse: MutableSet<UserInCourse> = mutableSetOf()
 ) {
     companion object {

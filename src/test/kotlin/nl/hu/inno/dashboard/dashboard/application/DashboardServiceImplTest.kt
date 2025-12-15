@@ -1,5 +1,6 @@
 package nl.hu.inno.dashboard.dashboard.application
 
+import jakarta.persistence.EntityManager
 import nl.hu.inno.dashboard.dashboard.application.dto.AdminDTO
 import nl.hu.inno.dashboard.dashboard.application.dto.UsersDTO
 import nl.hu.inno.dashboard.dashboard.data.CourseRepository
@@ -34,6 +35,7 @@ class DashboardServiceImplTest {
     private lateinit var fileParserService: FileParserService
     private lateinit var fileFetcherService: FileFetcherService
     private lateinit var service: DashboardServiceImpl
+    private lateinit var entityManager: EntityManager
 
     private lateinit var course50304: Course
     private lateinit var course9999: Course
@@ -48,7 +50,8 @@ class DashboardServiceImplTest {
         userInCourseDB = mock()
         fileParserService = mock()
         fileFetcherService = mock()
-        service = DashboardServiceImpl(courseDB, usersDB, userInCourseDB, fileParserService, fileFetcherService)
+        entityManager = mock()
+        service = DashboardServiceImpl(courseDB, usersDB, userInCourseDB, fileParserService, fileFetcherService, entityManager)
 
         course50304 = Course.of(50304, "Innovation Semester - September 2025", "TICT-V3SE6-25", "TICT-V3SE6-25_SEP25", LocalDate.parse("2025-09-01"), LocalDate.parse("2026-01-30"))
         course9999 = Course.of(9999, "Test cursus - September 2010", "TEST-9999", "TEST-9999_SEP25", LocalDate.parse("2010-09-01"), LocalDate.parse("2011-01-30"))
@@ -111,7 +114,7 @@ class DashboardServiceImplTest {
         val adminList = listOf(admin1, admin2)
 
         `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
-        `when`(usersDB.findAllByEmailEndingWith("@hu.nl")).thenReturn(adminList)
+        `when`(usersDB.findAllAdminCandidates(listOf(AppRole.ADMIN, AppRole.SUPERADMIN),"@hu.nl")).thenReturn(adminList)
 
         val result = service.findAllAdmins("super.admin@hu.nl")
 
