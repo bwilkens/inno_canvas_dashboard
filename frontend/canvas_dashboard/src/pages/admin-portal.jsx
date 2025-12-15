@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { getUserData } from "../api/getUserData.js";
-import { getAdminUsers } from "../api/getAdminUsers.js";
 import AdminActionButton from "../components/AdminActionButton";
 import UserInfo from "../components/UserInformation";
 import useAuthCheck from "../hooks/useAuthCheck";
