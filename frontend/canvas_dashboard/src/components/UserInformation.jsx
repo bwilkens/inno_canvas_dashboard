@@ -11,10 +11,12 @@ const UserInfo = ({ data }) => {
   }
 
     return (
-        <div id="user-info">
-            <p>{data?.name}</p>
-            <p>Email: {data?.email}</p>
-            <p>Role: {data?.appRole}</p>
+        <div id="user-container">
+            <div id="user-card">
+                <p>Naam: {data?.name}</p>
+                <p>Email: {data?.email}</p>
+                <p>Rol: {data?.appRole}</p>
+            </div>
         </div>
     );
 };
