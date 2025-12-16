@@ -8,7 +8,7 @@ function LogoutButton() {
 
     return (
         <a href={VITE_LOGOUT_URL} onClick={handleLogout}>
-            Logout
+            Uitloggen
         </a>
     );
 }

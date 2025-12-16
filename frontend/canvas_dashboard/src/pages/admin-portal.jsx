@@ -86,7 +86,10 @@ const AdminDashboard = () => {
 
   return (
     <div>
+        <h1>Admin Portaal</h1>
       <UserInfo data={userData} />
+
+      <h2>Admin Acties</h2>
       <div className="admin-button-group">
         <AdminActionButton
           name="Genereer Resultaat"

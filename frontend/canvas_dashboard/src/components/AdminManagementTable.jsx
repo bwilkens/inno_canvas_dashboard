@@ -83,71 +83,73 @@ function AdminManagementTable() {
 
     return (
         <div className="admin-management-group">
-            <h2>Beheer admins</h2>
-            {adminLoading && <div>Loading admin users...</div>}
-            {adminError && <div>Error: {adminError}</div>}
-            {!adminLoading && !adminError && (
-                <>
-                    <table 
-                    aria-label="Admin gebruikers tabel">
-                        <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Email</th>
-                                <th>Rol</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {localUsers.map((user) => {
-                                const isSuperadmin = user.appRole === "SUPERADMIN";
-                                const isChanged = isUserChanged(user, adminUsers, editedUsers)
-                                return (
-                                    <tr
-                                        key={user.email}
-                                        className={
-                                            (isChanged ? "row-changed " : "") +
-                                            (isSuperadmin ? "row-superadmin" : "")
-                                        }
-                                    >
-                                        <td>{user.name}</td>
-                                        <td>{user.email}</td>
-                                        <td>
-                                            <select
-                                                aria-label={`Rol voor ${user.name}`}
-                                                value={user.appRole}
-                                                disabled={isSuperadmin}
-                                                onChange={(e) =>
-                                                    handleRoleChange(
-                                                        user.email,
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                {ROLE_OPTIONS.filter(
-                                                    (role) =>
-                                                        role !== "SUPERADMIN" ||
-                                                        user.appRole === "SUPERADMIN"
-                                                ).map((role) => (
-                                                    <option key={role} value={role}>
-                                                        {role}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                    <button
-                        onClick={handleSave}
-                        disabled={Object.keys(editedUsers).length === 0 || saving}
-                        className="save-button"
-                    >
-                        {saving ? "Opslaan..." : "Opslaan"}
-                    </button>
-                </>
-            )}
+            <h2>Beheer Admins</h2>
+            <div className="admin-management-table-wrapper">
+                {adminLoading && <div>Loading admin users...</div>}
+                {adminError && <div>Error: {adminError}</div>}
+                {!adminLoading && !adminError && (
+                    <>
+                        <table 
+                        aria-label="Admin gebruikers tabel">
+                            <thead>
+                                <tr>
+                                    <th>Naam</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {localUsers.map((user) => {
+                                    const isSuperadmin = user.appRole === "SUPERADMIN";
+                                    const isChanged = isUserChanged(user, adminUsers, editedUsers)
+                                    return (
+                                        <tr
+                                            key={user.email}
+                                            className={
+                                                (isChanged ? "row-changed " : "") +
+                                                (isSuperadmin ? "row-superadmin" : "")
+                                            }
+                                        >
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td>
+                                                <select
+                                                    aria-label={`Rol voor ${user.name}`}
+                                                    value={user.appRole}
+                                                    disabled={isSuperadmin}
+                                                    onChange={(e) =>
+                                                        handleRoleChange(
+                                                            user.email,
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                >
+                                                    {ROLE_OPTIONS.filter(
+                                                        (role) =>
+                                                            role !== "SUPERADMIN" ||
+                                                            user.appRole === "SUPERADMIN"
+                                                    ).map((role) => (
+                                                        <option key={role} value={role}>
+                                                            {role}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                        <button
+                            onClick={handleSave}
+                            disabled={Object.keys(editedUsers).length === 0 || saving}
+                            className="save-button"
+                        >
+                            {saving ? "Opslaan..." : "Opslaan"}
+                        </button>
+                    </>
+                )}
+            </div>
             <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );

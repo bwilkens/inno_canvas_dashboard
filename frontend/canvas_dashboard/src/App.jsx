@@ -8,10 +8,7 @@ import NotFoundPage from "./pages/not-found-page.jsx";
 import DashboardPage from "./pages/dashboard.jsx";
 import AdminPortal from "./pages/admin-portal.jsx";
 import NavBar from "./components/NavBar.jsx";
-
-function Home() {
-  return <h1>Home Page</h1>;
-}
+import HomePage from "./pages/home.jsx";
 
 function App() {
   const [userRole, setUserRole] = useState("");
@@ -31,7 +28,7 @@ function App() {
       <NavBar userRole={userRole} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/course-overview" element={<CourseOverview />} />
         <Route
           path="/admin-portal"
