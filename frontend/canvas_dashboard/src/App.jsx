@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUserData } from "./api/getUserData.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./css/navbar.css";
 import "./css/header.css";
 import CourseOverview from "./pages/course-overview.jsx";
@@ -8,6 +10,8 @@ import NotFoundPage from "./pages/not-found-page.jsx";
 import DashboardPage from "./pages/dashboard.jsx";
 import AdminPortal from "./pages/admin-portal.jsx";
 import NavBar from "./components/NavBar.jsx";
+
+const FIVE_SECONDS = 5000;
 
 function Home() {
   return <h1>Home Page</h1>;
@@ -29,6 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar userRole={userRole} />
+      <ToastContainer position="top-right" autoClose={FIVE_SECONDS} />
 
       <Routes>
         <Route path="/" element={<Home />} />
