@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { getUserData } from "../api/getUserData.js";
+import { toast } from "react-toastify";
 import AdminActionButton from "../components/AdminActionButton";
 import UserInfo from "../components/UserInformation";
 import useAuthCheck from "../hooks/useAuthCheck";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "../css/admin-button.css";
 import AdminManagementTable from "../components/AdminManagementTable.jsx";
 
@@ -114,7 +113,6 @@ const AdminDashboard = () => {
       {userData.appRole === "SUPERADMIN" && (
         <AdminManagementTable />
       )}
-      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

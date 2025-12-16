@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { updateAdminUsers } from "../api/updateAdminUsers.js";
 import { getAdminUsers } from "../api/getAdminUsers.js";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import "../css/admin-management.css";
 
 const ROLE_OPTIONS = ["USER", "ADMIN", "SUPERADMIN"];
@@ -150,7 +149,6 @@ function AdminManagementTable() {
                     </>
                 )}
             </div>
-            <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );
 }
