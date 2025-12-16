@@ -1,10 +1,10 @@
 .admin-button-group {
     padding: 10px 10px;
     cursor: pointer;
-    width: 30%;
-    display: grid;
-    justify-content: end;
-    gap: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 0 auto;
 }
 
 .admin-button {
@@ -17,6 +17,7 @@
     font-size: 16px;
     cursor: pointer;
     border-radius: 14px;
+    width: 160px;
 }
 
 button:disabled {

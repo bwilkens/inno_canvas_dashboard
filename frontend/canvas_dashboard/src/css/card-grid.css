@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  padding: 60px;
+  padding: 3rem;
 }
 
 .grid-container a {
@@ -33,7 +33,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  padding: 60px;
   opacity: 0;
   animation: fadeIn 0.4s ease-in forwards;
 }

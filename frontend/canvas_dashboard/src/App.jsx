@@ -10,12 +10,9 @@ import NotFoundPage from "./pages/not-found-page.jsx";
 import DashboardPage from "./pages/dashboard.jsx";
 import AdminPortal from "./pages/admin-portal.jsx";
 import NavBar from "./components/NavBar.jsx";
+import HomePage from "./pages/home.jsx";
 
 const FIVE_SECONDS = 5000;
-
-function Home() {
-  return <h1>Home Page</h1>;
-}
 
 function App() {
   const [userRole, setUserRole] = useState("");
@@ -36,7 +33,7 @@ function App() {
       <ToastContainer position="top-right" autoClose={FIVE_SECONDS} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/course-overview" element={<CourseOverview />} />
         <Route
           path="/admin-portal"

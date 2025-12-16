@@ -1,4 +1,10 @@
-#user-info {
-    padding: 12px;
-    text-align: center;
+#user-card {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #4e73df;
+    border-radius: 0.35rem;
+}
+
+#user-container {
+    padding: 1rem 3rem;
 }

@@ -1,11 +1,86 @@
+.admin-management-group {
+    margin-top: 2em;
+}
+
+.admin-management-table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-management-group table {
+    border-collapse: collapse;
+    margin: 1em 0;
+    min-width: 500px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.admin-management-group th, 
+.admin-management-group td {
+    padding: 0.75em 1.5em;
+    text-align: left;
+}
+
+.admin-management-group th {
+    background: #f5f5f5;
+    font-weight: bold;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.admin-management-group tr {
+    border-bottom: 1px solid #eee;
+}
+
+.admin-management-group tr:last-child {
+    border-bottom: none;
+}
+
+.admin-management-group select {
+    width: 120px;
+    padding: 0.5em 1.5em 0.5em 0.75em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #f8f9fa;
+    transition: border 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.admin-management-group select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px #cce5ff;
+}
+
+.admin-management-group select:disabled {
+    background: #f5f5f5;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.save-button {
+    margin: 1.5em 0 3rem 0;
+    padding: 0.75em 2em;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.save-button:disabled {
+    background: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
+}
+
 .row-changed {
     background: #ffeeba;
 }
 
 .row-superadmin {
     opacity: 0.6;
-}
-
-.save-button {
-    margin-top: 1em;
 }
