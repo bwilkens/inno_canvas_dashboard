@@ -30,6 +30,7 @@ zodat goal.
 - Tests zijn geschreven en uitgevoerd, alle tests slagen; indien mogelijk is er voldoende code coverage.
 - Software deliverables doorlopen deployment pipeline.
 - Documentatie is bijgewerkt.
+- Opgeleverd werk is gecontroleerd door AI (bijvoorbeeld GitHub Copilot code-reviews voor PRs) en feedback is door developers bekeken en indien nodig verwerkt.
 
 ### References/additional information
 - x
