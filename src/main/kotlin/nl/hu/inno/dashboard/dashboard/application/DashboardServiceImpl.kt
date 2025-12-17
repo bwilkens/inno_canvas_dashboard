@@ -92,23 +92,64 @@ class DashboardServiceImpl(
     override fun refreshUsersAndCourses() {
         val resource = fileFetcherService.fetchCsvFile()
         val records = fileParserService.parseFile(resource)
+        println("parsed records")
 
 //        we ensure userInCourse records get removed from the DB through orphanRemoval = true
         usersDB.findAll().forEach { it.userInCourse.clear() }
         courseDB.findAll().forEach { it.userInCourse.clear() }
+        println("cleared users and course-dbs")
 
         courseDB.deleteAll()
 //        when refreshing users in the database, we preserve existing ADMIN and SUPERADMIN users
         usersDB.deleteAllByAppRole(AppRole.USER)
         clearPersistenceContext()
+        println("cleared persistence context")
 
-        val usersCache = mutableMapOf<String, Users>()
-        val courseCache = mutableMapOf<Int, Course>()
-        val userInCourseList = mutableListOf<UserInCourse>()
-        linkUsersAndCourses(records, usersCache, courseCache, userInCourseList)
+         val usersCache = mutableMapOf<String, Users>()
+         val courseCache = mutableMapOf<Int, Course>()
+//         val userInCourseList = mutableListOf<UserInCourse>()
+        // linkUsersAndCourses(records, usersCache, courseCache, userInCourseList)
+        // println("linked all users, courses and userInCourses")
 
+        // courseDB.saveAll(courseCache.values)
+        // println("saved courses")
+        // usersDB.saveAll(usersCache.values)
+        // println("saved users")
+        // userInCourseDB.saveAll(userInCourseList)
+        // println("saved userInCourses")
+
+        // 1. Maak users en courses aan, voeg GEEN UserInCourse toe
+        for (record in records) {
+            val email = record[CsvColumns.USER_EMAIL]
+            if (email.isBlank() || email.lowercase() == "null") continue
+            val canvasCourseId = record[CsvColumns.CANVAS_COURSE_ID].toInt()
+
+            usersCache.getOrPut(email) {
+                usersDB.findByIdOrNull(email.lowercase()) ?: convertToUser(record)
+            }
+            courseCache.getOrPut(canvasCourseId) { convertToCourse(record) }
+        }
+
+        // 2. Sla eerst users en courses op
         courseDB.saveAll(courseCache.values)
         usersDB.saveAll(usersCache.values)
+        // clearPersistenceContext()
+
+        // 3. Maak nu pas UserInCourse-objecten aan en koppel ze
+        val userInCourseList = mutableListOf<UserInCourse>()
+        for (record in records) {
+            val email = record[CsvColumns.USER_EMAIL]
+            if (email.isBlank() || email.lowercase() == "null") continue
+            val canvasCourseId = record[CsvColumns.CANVAS_COURSE_ID].toInt()
+            val courseRole = record[CsvColumns.COURSE_ROLE]
+
+            val user = usersCache[email]!!
+            val course = courseCache[canvasCourseId]!!
+            val link = UserInCourse.createAndLink(user, course, parseCourseRole(courseRole))
+            userInCourseList.add(link)
+        }
+
+        // 4. Sla nu de UserInCourse-objecten op
         userInCourseDB.saveAll(userInCourseList)
     }
 
