@@ -46,9 +46,14 @@ services:
     ports:
       - "5000:80"
 
-  grafana:
+grafana:
     image: grafana/grafana-enterprise
     container_name: grafana
     restart: unless-stopped
-    ports:
-      - '3000:3000'
+    expose:
+      - 3000
+    environment:
+      - GF_SERVER_ROOT_URL=https://inno-dashboard.duckdns.org/health/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    volumes:
+      - grafana_data:/var/lib/grafana
