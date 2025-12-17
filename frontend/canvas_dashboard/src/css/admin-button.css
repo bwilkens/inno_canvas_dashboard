@@ -1,6 +1,5 @@
 .admin-button-group {
     padding: 10px 10px;
-    cursor: pointer;
     display: flex;
     justify-content: center;
     gap: 40px;
