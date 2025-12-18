@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.core.io.FileSystemResource
 import org.springframework.core.io.Resource
-import org.springframework.core.io.UrlResource
 import org.springframework.stereotype.Service
-import java.net.URI
 
 @Service
 @Profile("dev")
@@ -21,7 +19,6 @@ class FileFetcherServiceDev(
 
     override fun fetchCsvFile(): Resource {
         val path = "${pathToSharedDataVolume}$coursesDirectory/user_data.csv"
-        println("path = $path")
         return FileSystemResource(path)
     }
 
@@ -29,8 +26,6 @@ class FileFetcherServiceDev(
         val baseUrlWithInstance = "$pathToSharedDataVolume$coursesDirectory/$courseCode/$instanceName/dashboard"
         val resolvedPath = HtmlPathResolver.resolvePath(email, role, instanceName, relativeRequestPath)
         val fullPath = "$baseUrlWithInstance/$resolvedPath"
-
-        println("fullPath: $fullPath")
 
         val resource = FileSystemResource(fullPath)
         if (!resource.exists()) {
