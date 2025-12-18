@@ -1,0 +1,118 @@
+{
+  "name": "Nick Schneiders",
+  "id": 277889,
+  "number": "1857475",
+  "sortable_name": "Schneiders, Nick",
+  "email": "nick.schneiders@student.hu.nl",
+  "site": "",
+  "role": "CSC",
+  "progress": -1,
+  "perspectives": {
+    "portfolio": {
+      "name": "portfolio",
+      "title": "Portfolio",
+      "progress": -1,
+      "sum_score": 0,
+      "last_score": 0,
+      "assignment_group_ids": [
+        94341,
+        94909,
+        94342,
+        94910
+      ],
+      "submission_sequences": []
+    }
+  },
+  "learning_outcomes": {
+    "LU1": {
+      "id": "LU1",
+      "short": "Onderzoekend",
+      "feedback_list": []
+    },
+    "LU2": {
+      "id": "LU2",
+      "short": "Organiserend",
+      "feedback_list": []
+    },
+    "LU3": {
+      "id": "LU3",
+      "short": "Interactief",
+      "feedback_list": []
+    },
+    "LU4": {
+      "id": "LU4",
+      "short": "Zelflerend",
+      "feedback_list": []
+    },
+    "LU5": {
+      "id": "LU5",
+      "short": "Vakbekwaam",
+      "feedback_list": []
+    }
+  },
+  "general_feedback_list": [],
+  "student_level_moments": {
+    "name": "level_moments",
+    "assignment_groups": [
+      94344
+    ],
+    "submissions": [
+      {
+        "id": 22521324,
+        "student_id": 277889,
+        "status": "3",
+        "assignment": {
+          "id": 377074,
+          "name": "Peilmoment 1",
+          "group_id": 94344,
+          "points": 15,
+          "date": "2025-10-30T22:59:00Z",
+          "day": 60
+        },
+        "submitted_date": "2025-10-30T22:59:00Z",
+        "submitted_day": 60,
+        "graded": false,
+        "posted": false,
+        "grade": null,
+        "grader_name": "Turan S\u00fcsl\u00fc",
+        "graded_date": "2025-12-08T09:46:12Z",
+        "score": 0.0,
+        "value": 0.0,
+        "flow": 0.0,
+        "body": null,
+        "messages": [
+          "FOUT Er is een rubric niet goed ingevuld bij het peilmonent (Canvas-opdracht) Nick Schneiders. Opdracht is nu niet zichtbaar in portfolio of voortgang. Actie vereist!",
+          "FOUT Er is een rubric niet goed ingevuld bij de opdracht (Canvas-opdracht resultaat INCOMPLETE) Nick Schneiders. Opdracht is nu niet zichtbaar in portfolio of voortgang. Actie vereist!"
+        ],
+        "comments": [
+          {
+            "author_id": 277756,
+            "author_name": "Turan S\u00fcsl\u00fc",
+            "date": "2025-12-08T09:46:14Z",
+            "comment": "Vind ik niet kunnen NIck"
+          },
+          {
+            "author_id": 1,
+            "author_name": "Automatisch door systeem",
+            "date": "2025-12-11T22:56:05Z",
+            "comment": "FOUT Er is een rubric niet goed ingevuld bij het peilmonent (Canvas-opdracht) Nick Schneiders. Opdracht is nu niet zichtbaar in portfolio of voortgang. Actie vereist!"
+          },
+          {
+            "author_id": 1,
+            "author_name": "Automatisch door systeem",
+            "date": "2025-12-11T22:56:05Z",
+            "comment": "FOUT Er is een rubric niet goed ingevuld bij de opdracht (Canvas-opdracht resultaat INCOMPLETE) Nick Schneiders. Opdracht is nu niet zichtbaar in portfolio of voortgang. Actie vereist!"
+          }
+        ],
+        "rubrics": []
+      }
+    ]
+  },
+  "student_grade_moments": {
+    "name": "grade_moments",
+    "assignment_groups": [
+      94345
+    ],
+    "submissions": []
+  }
+}

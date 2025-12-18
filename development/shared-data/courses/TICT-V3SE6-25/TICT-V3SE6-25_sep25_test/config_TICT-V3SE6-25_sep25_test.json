@@ -1,0 +1,353 @@
+{
+  "course_code": "TICT-V3SE6-25",
+  "canvas_id": "2600",
+  "name": "TEST - Innovation Semester",
+  "student_count": 0,
+  "start_date": "2025-09-01T00:00:00Z",
+  "end_date": "2026-01-30T23:59:59Z",
+  "improvement_period": 14,
+  "principal_assignment_group_id": 0,
+  "sections": [
+    {
+      "id": 3011,
+      "name": "AI",
+      "role": "AI"
+    },
+    {
+      "id": 57633,
+      "name": "BIM",
+      "role": "BIM"
+    },
+    {
+      "id": 57632,
+      "name": "CSC",
+      "role": "CSC"
+    },
+    {
+      "id": 57630,
+      "name": "SD",
+      "role": "SD"
+    },
+    {
+      "id": 57631,
+      "name": "TI",
+      "role": "TI"
+    }
+  ],
+  "attendance": null,
+  "level_moments": {
+    "name": "level_moments",
+    "title": "Peilmomenten",
+    "assignment_groups": [
+      94344
+    ]
+  },
+  "grade_moments": {
+    "name": "grade_moments",
+    "title": "Beoordelingsmomenten",
+    "assignment_groups": [
+      94345
+    ]
+  },
+  "perspectives": {
+    "portfolio": {
+      "name": "portfolio",
+      "title": "Portfolio",
+      "show_points": true,
+      "show_flow": false,
+      "total_points": 0,
+      "assignment_group_ids": [
+        94341,
+        94909,
+        94342,
+        94910
+      ],
+      "assignment_sequences": [],
+      "bandwidth": {
+        "points": []
+      }
+    }
+  },
+  "learning_outcomes": [
+    {
+      "id": "LU1",
+      "short": "Onderzoekend",
+      "description": "De student analyseert een niet volledig afgebakende praktijksituatie, formuleert het praktijkprobleem en verzamelt in een (complexe) situatie vanuit een nieuwgierige en kritische houding zelfstandig nieuwe herleidbare en relevante informatie om onderbouwde keuzes te maken ten behoeve van de oplossing van een zelf geconstateerd (complex) praktijkvraagstuk, analyseert de verkregen informatie en trekt op basis daarvan conclusies met betrekking tot het vraagstuk, rekening houdend met (de consequenties voor) mens en maatschappij.",
+      "min_items": 1,
+      "min_score": null,
+      "above_items": 2,
+      "above_score": null,
+      "assignment_sequences": []
+    },
+    {
+      "id": "LU2",
+      "short": "Organiserend",
+      "description": "De student stelt zelfstandig of in teamverband, in overleg met directe stakeholders, een planning op voor een (complex) project, voor zichzelf en andere betrokkenen (directe stakeholders) rekening houdend met be\u00efnvloedende omgevingsfactoren zoals volgordelijkheid, middelen, tijd, ethische kwesties, duurzaamheid, potenti\u00eble risico\u2019s, en relevante wetten en regels, en past deze planning rekening houdend met beoogd eindresultaat aan. Daarbij verantwoordt de student de eventuele wijzigingen (op passende wijze) naar relevante stakeholders.",
+      "min_items": 1,
+      "min_score": null,
+      "above_items": 2,
+      "above_score": null,
+      "assignment_sequences": []
+    },
+    {
+      "id": "LU3",
+      "short": "Interactief",
+      "description": "De student werkt op grond van de eigen rol binnen de context van een project of taak zelfstandig, effectief, co\u00f6peratief en respectvol samen met relevante directe en indirecte stakeholders en maakt problemen binnen de samenwerking bespreekbaar. Student communiceert conform de communicatiedoelstelling zowel mondeling als schriftelijk met aandacht voor de doelgroep en maakt onderscheid tussen feiten en meningen. In de interactie met de doelgroep houdt de student rekening met sociale en culturele verschillen en worden vragen op passende wijze beantwoord en gesteld.",
+      "min_items": 1,
+      "min_score": null,
+      "above_items": 2,
+      "above_score": null,
+      "assignment_sequences": []
+    },
+    {
+      "id": "LU4",
+      "short": "Zelflerend",
+      "description": "Student onderkent toekomstige problemen en kansen met betrekking tot de eigen loopbaan/carri\u00e8re tijdig, reflecteert in relatie hiermee en op basis van feedback van relevante stakeholders / derden op eigen houding en gedrag  en op houding en gedrag van het team en onderneemt (beargumenteerd en tijdig) passende actie met betrekking tot de professionele ontwikkeling, rekening houdend met de in de context geldende normen en waarden zonder daarbij het eigen morele kompas uit het oog te verliezen.",
+      "min_items": 1,
+      "min_score": null,
+      "above_items": 2,
+      "above_score": null,
+      "assignment_sequences": []
+    },
+    {
+      "id": "LU5",
+      "short": "Vakbekwaam",
+      "description": "Student analyseert een gegeven situatie, ontwerpt en realiseert vanuit diens rol in een multidisciplinair team ict-beroepsproducten en adviseert hierover, co\u00f6rdineert dit en levert deze op een adequate manier op aan relevante stakeholders met veranderlijke en verschillende vereisten en prioriteiten.\n",
+      "min_items": 1,
+      "min_score": null,
+      "above_items": 2,
+      "above_score": null,
+      "assignment_sequences": []
+    }
+  ],
+  "roles": [
+    {
+      "short": "AI",
+      "name": "AI and data Engineer",
+      "major": "Artificial Intelligence",
+      "btn_color": "border-warning",
+      "students": []
+    },
+    {
+      "short": "BIM",
+      "name": "Business Analist",
+      "major": "Business and IT Management",
+      "btn_color": "border-success",
+      "students": []
+    },
+    {
+      "short": "CSC",
+      "name": "Cloud and Security Engineer",
+      "major": "Cyber Security and Cloud",
+      "btn_color": "border-danger",
+      "students": []
+    },
+    {
+      "short": "SD",
+      "name": "Full stack developer",
+      "major": "Software Development",
+      "btn_color": "border-dark",
+      "students": []
+    },
+    {
+      "short": "TI",
+      "name": "Embedded engineer",
+      "major": "Technische Informatica",
+      "btn_color": "border-primary",
+      "students": []
+    }
+  ],
+  "teachers": [
+    {
+      "id": 257906,
+      "name": "Patrick Damkat",
+      "email": "patrick.damkat@student.hu.nl",
+      "responsibilities": [
+        {
+          "student_group_collection": "project_groups",
+          "student_groups": [
+            "001 - Projectgroep A",
+            "002 - Projectgroep B",
+            "003 - Projectgroep C",
+            "004 - Projectgroep D"
+          ],
+          "assignment_group_id": 94341
+        },
+        {
+          "student_group_collection": "project_groups",
+          "student_groups": [
+            "001 - Projectgroep A",
+            "002 - Projectgroep B",
+            "003 - Projectgroep C",
+            "004 - Projectgroep D"
+          ],
+          "assignment_group_id": 94342
+        },
+        {
+          "student_group_collection": "project_groups",
+          "student_groups": [
+            "001 - Projectgroep A",
+            "002 - Projectgroep B",
+            "003 - Projectgroep C",
+            "004 - Projectgroep D"
+          ],
+          "assignment_group_id": 94910
+        },
+        {
+          "student_group_collection": "project_groups",
+          "student_groups": [
+            "001 - Projectgroep A",
+            "002 - Projectgroep B",
+            "003 - Projectgroep C",
+            "004 - Projectgroep D"
+          ],
+          "assignment_group_id": 94344
+        },
+        {
+          "student_group_collection": "project_groups",
+          "student_groups": [
+            "001 - Projectgroep A",
+            "002 - Projectgroep B",
+            "003 - Projectgroep C",
+            "004 - Projectgroep D"
+          ],
+          "assignment_group_id": 94345
+        }
+      ]
+    },
+    {
+      "id": 277756,
+      "name": "Turan S\u00fcsl\u00fc",
+      "email": "turan.suslu@student.hu.nl",
+      "responsibilities": [
+        {
+          "student_group_collection": "guild_groups",
+          "student_groups": [
+            "Gilde van Berend"
+          ],
+          "assignment_group_id": 94909
+        }
+      ]
+    }
+  ],
+  "assignment_groups": [
+    {
+      "name": "Project",
+      "id": 94341,
+      "groups": "project",
+      "strategy": "EXP_POINTS",
+      "lower_c": 1,
+      "upper_c": 7,
+      "total_points": 214.0,
+      "lower_points": 58,
+      "upper_points": 74,
+      "levels": "samen",
+      "marker": "circle"
+    },
+    {
+      "name": "Gilde",
+      "id": 94909,
+      "groups": "gilde",
+      "strategy": "LIN_POINTS",
+      "lower_c": 0,
+      "upper_c": 0,
+      "total_points": 56.0,
+      "lower_points": 20,
+      "upper_points": 32,
+      "levels": "gilde",
+      "marker": "square"
+    },
+    {
+      "name": "Hackathons",
+      "id": 94342,
+      "groups": "project",
+      "strategy": "POINTS",
+      "lower_c": 0,
+      "upper_c": 0,
+      "total_points": 45.0,
+      "lower_points": 14,
+      "upper_points": 18,
+      "levels": "niveau",
+      "marker": "diamond"
+    },
+    {
+      "name": "LS - Project",
+      "id": 94910,
+      "groups": "project",
+      "strategy": "POINTS",
+      "lower_c": 0,
+      "upper_c": 0,
+      "total_points": 42.0,
+      "lower_points": 14,
+      "upper_points": 18,
+      "levels": "niveau",
+      "marker": "triangle-down"
+    },
+    {
+      "name": "Peilmomenten",
+      "id": 94344,
+      "groups": "project",
+      "strategy": "NONE",
+      "lower_c": 0,
+      "upper_c": 0,
+      "total_points": 21.0,
+      "lower_points": 0,
+      "upper_points": 0,
+      "levels": "progress",
+      "marker": "triangle-up"
+    },
+    {
+      "name": "Beoordelingsmomenten",
+      "id": 94345,
+      "groups": "project",
+      "strategy": "NONE",
+      "lower_c": 0,
+      "upper_c": 0,
+      "total_points": 18.0,
+      "lower_points": 0,
+      "upper_points": 0,
+      "levels": "grade",
+      "marker": "triangle-up"
+    }
+  ],
+  "project_groups": [
+    {
+      "id": 92606,
+      "name": "001 - Projectgroep A",
+      "principal_assessor": 0,
+      "assessors": [],
+      "students": []
+    },
+    {
+      "id": 92607,
+      "name": "002 - Projectgroep B",
+      "principal_assessor": 0,
+      "assessors": [],
+      "students": []
+    },
+    {
+      "id": 92608,
+      "name": "003 - Projectgroep C",
+      "principal_assessor": 0,
+      "assessors": [],
+      "students": []
+    },
+    {
+      "id": 123665,
+      "name": "004 - Projectgroep D",
+      "principal_assessor": 0,
+      "assessors": [],
+      "students": []
+    }
+  ],
+  "guild_groups": [
+    {
+      "id": 126727,
+      "name": "Gilde van Berend",
+      "principal_assessor": 0,
+      "assessors": [],
+      "students": []
+    }
+  ],
+  "students": []
+}

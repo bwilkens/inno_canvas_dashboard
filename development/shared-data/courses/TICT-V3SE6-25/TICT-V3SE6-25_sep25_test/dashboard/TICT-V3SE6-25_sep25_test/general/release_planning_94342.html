@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Berend Wilkens, Hogeschool Utrecht">
+    <title>Release planning Hackathons</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .status_complete {background-color: #3C7D22; color: white;}
+        .status_incomplete {background-color: #0070C0; color: white;}
+        .status_missed {background-color: black; color: white;}
+        .status_pending {background-color: #E97132; color: white;}
+        .status_comming {background-color: #BFBFBF; color: white;}
+        .status_no_lo {background-color: white; color: #aaaaaa;}
+    </style>
+    <script>
+         function setView(view) {
+            const views = document.getElementsByClassName("release_view");
+            for (i = views.length - 1; i >= 0; --i) {
+                if (views[i].className.includes(view)) {
+                    views[i].style.display = "block";
+                } else {
+                    views[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</head>
+<body id="page-top">
+    <div id="content" class="text-secondary">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 mt-1 mb-1">
+                    <div class="card shadow mt-1 mb-1">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">Hackathons (94342)</h5>
+                        </div>
+                        <div class="card-body">
+                            Strategie: POINTS<br>
+                            Onder niveau: 14, Boven niveau: 18, Totaal: 24
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="release_view planning">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a onclick="setView('planning')" class="nav-link active" aria-current="page" href="#">Release planning</a></li>
+                            <li class="nav-item"><a onclick="setView('opbouw')" class="nav-link " aria-current="false" href="#">Opbouw</a></li>
+                        </ul>
+                    </div>
+                    <div style="display: None" class="release_view opbouw">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a onclick="setView('planning')" class="nav-link " aria-current="false" href="#">Release planning</a></li>
+                            <li class="nav-item"><a onclick="setView('opbouw')" class="nav-link active" aria-current="page" href="#">Opbouw</a></li>
+                        </ul>
+                    </div>
+                    <div class="release_view planning">
+                        
+   <div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Modellen 1 Visueel samenwerken casus, tag: 377070, schaal: pass_fail, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/377070">Modellen 1 Visueel samenwerken casus</a></th>
+    <td>31-08-2025</td>
+    <td>02-09-2025</td>
+    <td>pass_fail</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Beschrijving van criterium</td><td>Boven niveau: 3.0 ptn, Volgens acceptatiecriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Applied-AI 1 Prompting casus, tag: 377052, schaal: points, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/377052">Applied-AI 1 Prompting casus</a></th>
+    <td>14-09-2025</td>
+    <td>18-09-2025</td>
+    <td>points</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Beschrijving van criterium</td><td>Boven niveau: 3.0 ptn, Volgens kwaliteitscriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Modellen 2 Valideren casus, tag: 377072, schaal: points, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/377072">Modellen 2 Valideren casus</a></th>
+    <td>29-09-2025</td>
+    <td>30-09-2025</td>
+    <td>points</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Niveau</td><td>Boven niveau: 3.0 ptn, Volgens kwaliteitscriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Applied-AI 2 Ethiek casus, tag: 377054, schaal: points, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/377054">Applied-AI 2 Ethiek casus</a></th>
+    <td>13-10-2025</td>
+    <td>14-10-2025</td>
+    <td>points</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Beschrijving van criterium</td><td>Boven niveau: 3.0 ptn, Volgens kwaliteitscriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Modellen 3 - Alternatieven ontwerpen - Casus, tag: 385761, schaal: points, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/385761">Modellen 3 - Alternatieven ontwerpen - Casus</a></th>
+    <td>03-11-2025</td>
+    <td>04-11-2025</td>
+    <td>points</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Beschrijving van criterium</td><td>Boven niveau: 3.0 ptn, Volgens kwaliteitscriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Applied-AI 3 Verifiëren casus, tag: 377057, schaal: points, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/377057">Applied-AI 3 Verifiëren casus</a></th>
+    <td>17-11-2025</td>
+    <td>18-11-2025</td>
+    <td>points</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Beschrijving van criterium</td><td>Boven niveau: 3.0 ptn, Volgens kwaliteitscriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Modellen 4 Overdracht casus, tag: 380086, schaal: points, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/380086">Modellen 4 Overdracht casus</a></th>
+    <td>01-12-2025</td>
+    <td>02-12-2025</td>
+    <td>points</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Beschrijving van criterium</td><td>Boven niveau: 3.0 ptn, Volgens kwaliteitscriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-1 mb-1">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-header">
+            <h5>Applied-AI 4 Genereren casus, tag: 377059, schaal: points, punten 3</h5>
+        </div>
+        <div class="card-body">
+            <div class="no-gutters align-items-center">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opdracht (Canvas)</th>
+                            <th scope="col">Openingsdatum</th>
+                            <th scope="col">Sluitingsdatum</th>
+                            <th scope="col">Beoordelingsschaal</th>
+                            <th scope="col">Opdrachtpunten</th>
+                            <th scope="col">Rubriekspunten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <th scope="row"><a target="_blank" href="https://canvas.hu.nl/courses/2600/assignments/377059">Applied-AI 4 Genereren casus</a></th>
+    <td>07-12-2025</td>
+    <td>16-12-2025</td>
+    <td>points</td>
+    <td>3</td>
+    <td>3.0</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Secties</td>
+    <td colspan="4">Geen specifieke secties</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>Rubrieken</td>
+    <td colspan="4"><div class="card border-danger"><table class="table-sm"><tr><td>3.0 ptn, Beschrijving van criterium</td><td>Boven niveau: 3.0 ptn, Volgens kwaliteitscriteria: 2.0 ptn, Niet op niveau: 1.0 ptn, Niets laten zien: 0.0 ptn, </td></tr></table></div></td>
+</tr>
+
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+                    </div>
+                    <div class="release_view opbouw">
+                        <h2 class="mt-2">Opbouw</h2><html><head><meta charset="utf-8" /></head><body><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script><script charset="utf-8" src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>                <div id="5d9a5ce7-58db-4615-978f-ee3b137bce5e" class="plotly-graph-div" style="height:800px; width:1200px;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("5d9a5ce7-58db-4615-978f-ee3b137bce5e")) {                    Plotly.newPlot(                        "5d9a5ce7-58db-4615-978f-ee3b137bce5e",                        [{"fill":"toself","fillcolor":"rgba(7, 107, 32, 0.5)","hoverinfo":"skip","line":{"color":"rgba(255,255,255,0)"},"showlegend":false,"x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,153,152,151,150,149,148,147,146,145,144,143,142,141,140,139,138,137,136,135,134,133,132,131,130,129,128,127,126,125,124,123,122,121,120,119,118,117,116,115,114,113,112,111,110,109,108,107,106,105,104,103,102,101,100,99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0],"y":[24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,24.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,17.83,17.67,17.51,17.35,17.19,17.03,16.87,16.71,16.55,16.39,16.23,16.07,15.91,15.75,15.58,15.42,15.26,15.1,14.94,14.78,14.62,14.46,14.3,14.14,13.98,13.82,13.66,13.5,13.33,13.17,13.01,12.85,12.69,12.53,12.37,12.21,12.05,11.89,11.73,11.57,11.41,11.25,11.14,11.03,10.92,10.82,10.71,10.6,10.5,10.39,10.28,10.17,10.07,9.96,9.85,9.75,9.64,9.53,9.42,9.32,9.21,9.1,9.0,8.83,8.67,8.51,8.35,8.19,8.03,7.87,7.71,7.55,7.39,7.23,7.07,6.91,6.75,6.56,6.37,6.18,6.0,5.81,5.62,5.43,5.25,5.06,4.87,4.68,4.5,4.35,4.21,4.07,3.93,3.79,3.65,3.51,3.37,3.23,3.09,2.95,2.81,2.67,2.53,2.39,2.25,1.12,0.0],"type":"scatter"},{"fill":"toself","fillcolor":"rgba(114, 232, 93, 0.5)","hoverinfo":"skip","line":{"color":"rgba(255,255,255,0)"},"showlegend":false,"x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,153,152,151,150,149,148,147,146,145,144,143,142,141,140,139,138,137,136,135,134,133,132,131,130,129,128,127,126,125,124,123,122,121,120,119,118,117,116,115,114,113,112,111,110,109,108,107,106,105,104,103,102,101,100,99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0],"y":[0.0,1.12,2.25,2.39,2.53,2.67,2.81,2.95,3.09,3.23,3.37,3.51,3.65,3.79,3.93,4.07,4.21,4.35,4.5,4.68,4.87,5.06,5.25,5.43,5.62,5.81,6.0,6.18,6.37,6.56,6.75,6.91,7.07,7.23,7.39,7.55,7.71,7.87,8.03,8.19,8.35,8.51,8.67,8.83,9.0,9.1,9.21,9.32,9.42,9.53,9.64,9.75,9.85,9.96,10.07,10.17,10.28,10.39,10.5,10.6,10.71,10.82,10.92,11.03,11.14,11.25,11.41,11.57,11.73,11.89,12.05,12.21,12.37,12.53,12.69,12.85,13.01,13.17,13.33,13.5,13.66,13.82,13.98,14.14,14.3,14.46,14.62,14.78,14.94,15.1,15.26,15.42,15.58,15.75,15.91,16.07,16.23,16.39,16.55,16.71,16.87,17.03,17.19,17.35,17.51,17.67,17.83,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,13.87,13.75,13.62,13.5,13.37,13.25,13.12,13.0,12.87,12.75,12.62,12.5,12.37,12.25,12.12,12.0,11.87,11.75,11.62,11.5,11.37,11.25,11.12,11.0,10.87,10.75,10.62,10.5,10.37,10.25,10.12,10.0,9.87,9.75,9.62,9.5,9.37,9.25,9.12,9.0,8.87,8.75,8.66,8.58,8.5,8.41,8.33,8.25,8.16,8.08,8.0,7.91,7.83,7.75,7.66,7.58,7.5,7.41,7.33,7.25,7.16,7.08,7.0,6.87,6.75,6.62,6.5,6.37,6.25,6.12,6.0,5.87,5.75,5.62,5.5,5.37,5.25,5.1,4.95,4.81,4.66,4.52,4.37,4.22,4.08,3.93,3.79,3.64,3.5,3.39,3.28,3.17,3.06,2.95,2.84,2.73,2.62,2.51,2.4,2.29,2.18,2.07,1.96,1.85,1.75,0.87,0.0],"type":"scatter"},{"fill":"toself","fillcolor":"rgba(232, 117, 2, 0.5)","hoverinfo":"skip","line":{"color":"rgba(255,255,255,0)"},"showlegend":false,"x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,153,152,151,150,149,148,147,146,145,144,143,142,141,140,139,138,137,136,135,134,133,132,131,130,129,128,127,126,125,124,123,122,121,120,119,118,117,116,115,114,113,112,111,110,109,108,107,106,105,104,103,102,101,100,99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0],"y":[0.0,0.87,1.75,1.85,1.96,2.07,2.18,2.29,2.4,2.51,2.62,2.73,2.84,2.95,3.06,3.17,3.28,3.39,3.5,3.64,3.79,3.93,4.08,4.22,4.37,4.52,4.66,4.81,4.95,5.1,5.25,5.37,5.5,5.62,5.75,5.87,6.0,6.12,6.25,6.37,6.5,6.62,6.75,6.87,7.0,7.08,7.16,7.25,7.33,7.41,7.5,7.58,7.66,7.75,7.83,7.91,8.0,8.08,8.16,8.25,8.33,8.41,8.5,8.58,8.66,8.75,8.87,9.0,9.12,9.25,9.37,9.5,9.62,9.75,9.87,10.0,10.12,10.25,10.37,10.5,10.62,10.75,10.87,11.0,11.12,11.25,11.37,11.5,11.62,11.75,11.87,12.0,12.12,12.25,12.37,12.5,12.62,12.75,12.87,13.0,13.12,13.25,13.37,13.5,13.62,13.75,13.87,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,14.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"type":"scatter"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Modellen 1 Visueel samenwerken casus</b><br>Deadline 02-09-2025, 3 punten","<b>Modellen 1 Visueel samenwerken casus</b><br>Deadline 02-09-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[0,2],"y":[3,3],"type":"scatter","xaxis":"x","yaxis":"y"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Applied-AI 1 Prompting casus</b><br>Deadline 18-09-2025, 3 punten","<b>Applied-AI 1 Prompting casus</b><br>Deadline 18-09-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[14,18],"y":[6,6],"type":"scatter","xaxis":"x","yaxis":"y"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Modellen 2 Valideren casus</b><br>Deadline 30-09-2025, 3 punten","<b>Modellen 2 Valideren casus</b><br>Deadline 30-09-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[29,30],"y":[9,9],"type":"scatter","xaxis":"x","yaxis":"y"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Applied-AI 2 Ethiek casus</b><br>Deadline 14-10-2025, 3 punten","<b>Applied-AI 2 Ethiek casus</b><br>Deadline 14-10-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[43,44],"y":[12,12],"type":"scatter","xaxis":"x","yaxis":"y"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Modellen 3 - Alternatieven ontwerpen - Casus</b><br>Deadline 04-11-2025, 3 punten","<b>Modellen 3 - Alternatieven ontwerpen - Casus</b><br>Deadline 04-11-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[65,65],"y":[15,15],"type":"scatter","xaxis":"x","yaxis":"y"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Applied-AI 3 Verifi\u00ebren casus</b><br>Deadline 18-11-2025, 3 punten","<b>Applied-AI 3 Verifi\u00ebren casus</b><br>Deadline 18-11-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[79,79],"y":[18,18],"type":"scatter","xaxis":"x","yaxis":"y"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Modellen 4 Overdracht casus</b><br>Deadline 02-12-2025, 3 punten","<b>Modellen 4 Overdracht casus</b><br>Deadline 02-12-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[93,93],"y":[21,21],"type":"scatter","xaxis":"x","yaxis":"y"},{"hoverinfo":"text","hoverlabel":{"bgcolor":"#eeeeee","font":{"family":"Helvetica","size":16}},"hovertext":["<b>Applied-AI 4 Genereren casus</b><br>Deadline 16-12-2025, 3 punten","<b>Applied-AI 4 Genereren casus</b><br>Deadline 16-12-2025, 3 punten"],"line":{"color":"#444444"},"marker":{"color":["#2bad4e","#f25829"],"line":{"width":2},"opacity":1.0,"size":[12,16]},"mode":"lines+markers","x":[99,107],"y":[24,24],"type":"scatter","xaxis":"x","yaxis":"y"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.94],"title":{"text":"Dagen in onderwijsperiode"},"range":[0,153]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Punten"},"range":[0,24.0]},"yaxis2":{"anchor":"x","overlaying":"y","side":"right","title":{"text":"Punten"},"range":[0,24.0]},"height":800,"width":1200,"showlegend":false,"title":{"text":"Hackathons, strategy POINTS"}},                        {"responsive": true}                    )                };                            </script>        </div></body></html>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            setView("planning");
+        </script>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha512-ahmSZKApTDNd3gVuqL5TQ3MBTj8tL5p2tYV05Xxzcfu6/ecvt1A0j6tfudSGBVuteSoTRMqMljbfdU0g2eDNUA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/js/sb-admin-2.min.js" integrity="sha512-+QnjQxxaOpoJ+AAeNgvVatHiUWEDbvHja9l46BHhmzvP0blLTXC4LsvwDVeNhGgqqGQYBQLFhdKFyjzPX6HGmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

@@ -1,9 +1,0 @@
-canvas_course_id,course_code,course_name,instance_name,start_date,end_date,user_name,user_email,user_role
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Matthew Bijlhout,matthew.bijlhout@student.hu.nl,STUDENT
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Gurkan Igçi,gurkan.igci@student.hu.nl,STUDENT
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Nick Schneiders,nick.schneiders@student.hu.nl,STUDENT
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Patrick Damkat,patrick.damkat@student.hu.nl,TEACHER
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Turan Süslü,turan.suslu@student.hu.nl,TEACHER
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Bilal Bakkali Kasmi,bilal.bakkalikasmi@student.hu.nl,STUDENT
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Wouter van Dijkhuizen,wouter.vandijkhuizen@student.hu.nl,STUDENT
-2600,TICT-V3SE6-25,TEST - Innovation Semester,TICT-V3SE6-25_sep25_test,2025-09-01T00:00:00Z,2026-01-30T23:59:59Z,Berend Wilkens,berend.wilkens@hu.nl,TEACHER
