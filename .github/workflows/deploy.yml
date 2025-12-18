@@ -42,6 +42,13 @@ jobs:
           echo "AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" > .env
           echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> .env
           echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+
+      - name: Secure env file
+        run: chmod 600 .env
+
 
         # ---- BUILD STATIC-SERVICE IMAGE (temporary step to mock retrieving data from python service) ----
       - name: Build static-service image

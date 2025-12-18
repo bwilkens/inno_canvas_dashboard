@@ -1,17 +1,9 @@
-DO
-$$
-BEGIN
-   IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'inno-dashboard') THEN
-      CREATE USER "inno-dashboard" WITH CREATEDB PASSWORD 'inno-dashboard';
-   END IF;
-END
-$$;
+-- init.sql
 
-DO
-$$
-BEGIN
-   IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'inno-dashboard') THEN
-      CREATE DATABASE "inno-dashboard" OWNER "inno-dashboard";
-   END IF;
-END
-$$;
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE IF NOT EXISTS users (
+                                     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email TEXT NOT NULL UNIQUE,
+    created_at TIMESTAMPTZ DEFAULT now()
+    );
