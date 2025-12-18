@@ -9,7 +9,6 @@ import org.springframework.core.io.Resource
 import org.springframework.stereotype.Service
 
 @Service
-@Profile("prod")
 class FileFetcherServiceImpl(
     @Value("\${volumes.path.shared-data}")
     private val pathToSharedDataVolume: String,
