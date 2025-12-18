@@ -103,11 +103,20 @@ jobs:
           docker pull ${{ env.REGISTRY}}/${{ env.REPO_OWNER_LOWERCASE }}/inno_canvas_dashboard-frontend:latest
         
         # ---- MAKE SECRETS AVAILABLE ----
-      - name: Write secrets to .env file
+      - name: Create .env file
         run: |
-          echo "AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" > .env
-          echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> .env
-          echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> .env
+          cat <<EOF > .env
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          
+          AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
+          EOF
+
+      - name: Secure env file
+        run: chmod 600 .env
 
         # ---- BUILD STATIC-SERVICE IMAGE (temporary step to mock retrieving data from python service) ----
       - name: Build static-service image
