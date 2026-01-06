@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light;
-  color: dark;
+  color: black;
   background-color: white;
 
   font-synthesis: none;
@@ -22,6 +22,8 @@
   --color-blue-shimmer-dark: #000dff;
   --color-disabled-bg: #cccccc;
   --color-disabled-text: #888888;
+  --color-gray-light: #f5f5f5;
+  --color-banana: #ffeeba;
   --border-radius-sm: 4px;
   --border-radius-md: 6px;
   --border-radius-lg: 8px;
