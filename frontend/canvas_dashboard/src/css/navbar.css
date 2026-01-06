@@ -14,12 +14,12 @@
 }
 
 #navbar li a:hover {
-  color: blue;
+  color: var(--color-blue-shimmer-dark, #000dff);
 }
 
 #navbar li a {
     display: block;
-    color: rgb(0, 0, 0);
+    color: var(--color-black, black);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -33,7 +33,7 @@
     left: 0;
     width: 0;
     height: 4px;
-    background: linear-gradient(90deg, #00a2ff, #000dff);
+    background: linear-gradient(90deg, var(--color-blue-shimmer-light, #00a2ff), var(--color-blue-shimmer-dark, #000dff));
     border-radius: 0;
     transition: all 0.5s ease-in-out;
   }

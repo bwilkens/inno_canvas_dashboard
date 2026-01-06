@@ -1,8 +1,8 @@
 #user-card {
     padding: 0.75rem;
     text-align: left;
-    border: 1px solid #4e73df;
-    border-radius: 0.35rem;
+    border: 1px solid var(--color-blue-shimmer-dark, #000dff);
+    border-radius: var(--border-radius-lg, 8px);
 }
 
 #user-container {
