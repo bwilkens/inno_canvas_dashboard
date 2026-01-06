@@ -15,9 +15,9 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    white 5%,
-    rgba(255,255,255,0.7) 85px,
-    rgba(255,255,255,0) 160px);
+    white 7%,
+    rgba(255,255,255,0.7) 100px,
+    rgba(255,255,255,0) 130px);
 }
 
 .home-background > * {
