@@ -141,7 +141,10 @@ function AdminManagementTable() {
                         </table>
                         <button
                             onClick={handleSave}
-                            disabled={Object.keys(editedUsers).length === 0 || saving}
+                            disabled={
+                                localUsers.filter(user => isUserChanged(user, adminUsers, editedUsers)).length === 0
+                                || saving
+                            }
                             className="save-button"
                         >
                             {saving ? "Opslaan..." : "Opslaan"}

@@ -7,21 +7,22 @@
 }
 
 .admin-button {
-    background-color: grey;
-    color: white;
     padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 14px;
     width: 160px;
+    border-radius: var(--border-radius-xl, 12px);
 }
 
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-color: #cccccc;
-  color: #888888;
+  background-color: var(--color-disabled-bg, #cccccc);
+  color: var(--color-disabled-text, #888888);
+}
+
+button:disabled:hover, button:disabled:active {
+  background-color: var(--color-disabled-bg, #cccccc);
+  box-shadow: none;
+  transform: none;
+  color: var(--color-disabled-text, #888888);
 }

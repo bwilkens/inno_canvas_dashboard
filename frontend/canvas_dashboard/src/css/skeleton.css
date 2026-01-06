@@ -23,11 +23,11 @@
   );
   background-size: 400% 100%;
   animation: shimmer 1.5s infinite;
-  border-radius: 4px;
+  border-radius: var(--border-radius-sm, 4px);
 }
 
 .skeleton-card {
-  border-radius: 8px;
+  border-radius: var(--border-radius-lg, 8px);
   border: 1px solid #ccc;
   padding: 12px;
   display: flex;

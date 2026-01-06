@@ -11,7 +11,7 @@
 
 .card {
   border: 1px solid #000000;
-  border-radius: 8px;
+  border-radius: var(--border-radius-lg, 8px);
   padding: 12px;
   transition: border 0.3s, box-shadow 0.3s;
 }
