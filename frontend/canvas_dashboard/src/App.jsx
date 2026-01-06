@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUserData } from "./api/getUserData.js";
 import { ToastContainer } from "react-toastify";
@@ -33,7 +33,7 @@ function App() {
       <ToastContainer position="top-right" autoClose={FIVE_SECONDS} />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage userRole={userRole} />} />
         <Route path="/course-overview" element={<CourseOverview />} />
         <Route
           path="/admin-portal"
