@@ -3,7 +3,6 @@ import HomeCardGrid from "../components/HomeCardGrid";
 
 const HomePage = ({userRole}) => {
 
-
     return (
         <div className="home-container">
             <div className="home-background">
