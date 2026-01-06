@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { getUserData } from "../api/getUserData.js";
 import { toast } from "react-toastify";
 import AdminActionButton from "../components/AdminActionButton";
@@ -10,6 +10,7 @@ import AdminManagementTable from "../components/AdminManagementTable.jsx";
 
 const AdminDashboard = () => {
   useAuthCheck();
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,23 +36,9 @@ const AdminDashboard = () => {
   if (userData.appRole !== "ADMIN" && userData.appRole !== "SUPERADMIN") return <Navigate to="/" replace />;
 
   function handleHealth() {
-    fetch("/api/health", {
-      method: "POST",
-      credentials: "include",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Health check failed");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Health check successful:", data);
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+    navigate('/health');
   }
+
   function handleGenerateResult() {
     fetch("", {
       method: "POST",
