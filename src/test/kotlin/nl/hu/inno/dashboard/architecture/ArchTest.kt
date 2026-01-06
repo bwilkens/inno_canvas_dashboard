@@ -19,16 +19,14 @@ class ArchTest {
             .layer("Service").definedBy("..application..")
             .layer("Domain").definedBy("..domain..")
             .layer("Persistence").definedBy("..data..")
-            .layer("Exception").definedBy("..exception..")
 
             .whereLayer("Controller").mayNotBeAccessedByAnyLayer()
             .whereLayer("Controller").mayOnlyAccessLayers("Service")
 
             .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller", "Service")
-            .whereLayer("Service").mayOnlyAccessLayers("Service", "Domain", "Persistence", "Exception")
+            .whereLayer("Service").mayOnlyAccessLayers("Service", "Domain", "Persistence")
 
             .whereLayer("Domain").mayOnlyBeAccessedByLayers("Service", "Persistence")
-            .whereLayer("Domain").mayOnlyAccessLayers("Exception")
 
             .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service")
             .whereLayer("Persistence").mayOnlyAccessLayers("Domain")
@@ -41,7 +39,8 @@ class ArchTest {
                     "org.springframework..",
                     "org.apache.commons..",
                     "kotlin..",
-                    "org.jetbrains.."
+                    "org.jetbrains..",
+                    "nl.hu.inno.dashboard.exception.."
                 )
             )
 
