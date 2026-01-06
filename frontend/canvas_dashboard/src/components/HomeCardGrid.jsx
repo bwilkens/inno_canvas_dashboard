@@ -1,16 +1,23 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../css/home-card-grid.css";
 
 const HomeCardGrid = ({ userRole }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="card-wrapper">
       <div className="card-content-wrapper">
         <div className="card-content">
           <h2>Cursus Overzicht</h2>
           <p>Hier vind je een overzicht van je huidige en in het verleden gevolgde cursussen.</p>
-          <Link to="/course-overview" className="card-button" aria-label="Navigeer naar Cursus Overzicht pagina">
+          <button
+            className="card-button"
+            aria-label="Navigeer naar Cursus Overzicht pagina"
+            onClick={() => navigate("/course-overview")}
+            type="button"
+          >
             Ga naar Cursus Overzicht
-          </Link>
+          </button>
         </div>
       </div>
       {(userRole === "ADMIN" || userRole === "SUPERADMIN") && (
@@ -18,9 +25,14 @@ const HomeCardGrid = ({ userRole }) => {
           <div className="card-content">
             <h2>Admin Portaal</h2>
             <p>Vernieuw gegevens van de applicatie en beheer gebruikers via het admin portaal.</p>
-            <Link to="/admin-portal" className="card-button" aria-label="Navigeer naar Admin Portaal pagina">
+            <button
+              className="card-button"
+              aria-label="Navigeer naar Admin Portaal pagina"
+              onClick={() => navigate("/admin-portal")}
+              type="button"
+            >
               Ga naar Admin Portaal
-            </Link>
+            </button>
           </div>
         </div>
       )}
