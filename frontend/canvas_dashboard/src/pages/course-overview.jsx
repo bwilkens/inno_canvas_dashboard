@@ -25,8 +25,12 @@ const CourseOverview = () => {
         loadData();
     }, []);
 
-    if (loading) {return <div>Loading...</div>;}
-    if (error) {return <div>Error loading user data.</div>;}
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error loading user data.</div>;
+    }
 
     return (
         <div>

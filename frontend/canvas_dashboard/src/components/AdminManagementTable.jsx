@@ -59,7 +59,9 @@ function AdminManagementTable() {
         const changed = localUsers.filter(
             (user) => isUserChanged(user, adminUsers, editedUsers)
         );
-        if (changed.length === 0) {return;}
+        if (changed.length === 0) {
+            return;
+        }
         setSaving(true);
         try {
             await updateAdminUsers(changed);
@@ -75,7 +77,9 @@ function AdminManagementTable() {
     };
 
     function isUserChanged(user, adminUsers, editedUsers) {
-        if (!editedUsers[user.email]) {return false;}
+        if (!editedUsers[user.email]) {
+            return false;
+        }
         const originalUser = adminUsers.find(u => u.email === user.email);
         return originalUser && user.appRole !== originalUser.appRole;
     }

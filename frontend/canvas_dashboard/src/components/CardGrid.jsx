@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import '../css/card-grid.css';
 
 const CardGrid = ({ courses }) => {
-    if (!courses) {return <CardGridSkeleton />;}
+    if (!courses) {
+        return <CardGridSkeleton />;
+    }
 
     const currentDate = new Date();
 

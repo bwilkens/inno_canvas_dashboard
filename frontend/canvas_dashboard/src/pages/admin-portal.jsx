@@ -30,10 +30,18 @@ const AdminDashboard = () => {
         loadData();
     }, []);
 
-    if (loading) {return <div>Loading...</div>;}
-    if (error) {return <div>Error loading user data.</div>;}
-    if (!userData) {return <Navigate to="/" replace />;}
-    if (userData.appRole !== 'ADMIN' && userData.appRole !== 'SUPERADMIN') {return <Navigate to="/" replace />;}
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error loading user data.</div>;
+    }
+    if (!userData) {
+        return <Navigate to="/" replace />;
+    }
+    if (userData.appRole !== 'ADMIN' && userData.appRole !== 'SUPERADMIN') {
+        return <Navigate to="/" replace />;
+    }
 
     function handleHealth() {
         navigate('/health');
