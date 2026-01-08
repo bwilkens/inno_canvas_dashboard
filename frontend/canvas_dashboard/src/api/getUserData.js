@@ -3,11 +3,7 @@ export async function getUserData() {
     method: "GET",
     credentials: "include"
   });
-  const unauthorizedStatus = 401;
-  
-  if (response.status === unauthorizedStatus) {
-    return null;
-  }
+
   if (!response.ok) {
     throw new Error("Could not fetch user data");
   }
