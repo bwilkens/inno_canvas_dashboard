@@ -8,8 +8,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "15432:5432"
-    volumes:
-      - ./prod/db:/docker-entrypoint-initdb.d
 
   backend:
     image: ghcr.io/overgrown9363/inno_canvas_dashboard-backend:latest
