@@ -24,7 +24,7 @@ function NavBar({ userRole }) {
           </li>
         )}
         <li>
-          <LogoutButton />
+          <LogoutButton userRole={userRole} />
         </li>
       </ul>
     </nav>

@@ -1,16 +1,28 @@
-const VITE_LOGOUT_URL = import.meta.env.VITE_LOGOUT_URL;
 
-function LogoutButton() {
-    const handleLogout = (event) => {
-        event.preventDefault();
-        window.location.href = VITE_LOGOUT_URL;
-    };
+const LOGOUT_URL = import.meta.env.VITE_LOGOUT_URL;
+import { redirectToLogin } from "../hooks/useAuthCheck";
 
-    return (
-        <a href={VITE_LOGOUT_URL} onClick={handleLogout}>
-            Uitloggen
-        </a>
-    );
+function LogoutButton({ userRole }) {
+  const isLoggedIn = !!userRole;
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    if (isLoggedIn) {
+      window.location.href = LOGOUT_URL;
+    } else {
+      redirectToLogin();
+    }
+  };
+
+  return (
+    <a
+      href="#"
+      onClick={handleClick}
+      className={isLoggedIn ? "logout" : "login"}
+    >
+      {isLoggedIn ? "Uitloggen" : "Inloggen"}
+    </a>
+  );
 }
 
 export default LogoutButton;
