@@ -81,7 +81,8 @@ class UserDataCsvMonitorService(
         val (changed, newHash) = hashChecker.isContentChanged(file, lastHash)
         if (changed) {
             lastHash = newHash
-            println("_____ running handleFileChange -> detected change and hash difference _____")
+            println("_____ running handleFileChange -> calling dashboard service _____")
+            dashboardService.refreshUsersAndCoursesFromFileMonitor()
         }
     }
 
