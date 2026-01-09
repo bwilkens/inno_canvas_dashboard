@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../css/navbar.css';
-import LogoutButton from '../components/LogoutButton';
+import LoginLogoutButton from '../components/LoginLogoutButton';
 import HuLogo from '../assets/hu-logo.svg';
 
 function NavBar({ userRole }) {
@@ -24,7 +24,7 @@ function NavBar({ userRole }) {
           </li>
         )}
         <li>
-          <LogoutButton userRole={userRole} />
+          <LoginLogoutButton userRole={userRole} />
         </li>
       </ul>
     </nav>

@@ -1,14 +1,14 @@
 
-const LOGOUT_URL = import.meta.env.VITE_LOGOUT_URL;
 import { redirectToLogin } from "../hooks/useAuthCheck";
+const LogoutUrl = import.meta.env.VITE_LOGOUT_URL;
 
-function LogoutButton({ userRole }) {
+function LoginLogoutButton({ userRole }) {
   const isLoggedIn = !!userRole;
 
   const handleClick = (event) => {
     event.preventDefault();
     if (isLoggedIn) {
-      window.location.href = LOGOUT_URL;
+      window.location.href = LogoutUrl;
     } else {
       redirectToLogin();
     }
@@ -25,4 +25,4 @@ function LogoutButton({ userRole }) {
   );
 }
 
-export default LogoutButton;
+export default LoginLogoutButton;
