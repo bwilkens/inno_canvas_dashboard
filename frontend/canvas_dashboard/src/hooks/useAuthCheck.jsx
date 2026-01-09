@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 const VITE_AUTH_URL = import.meta.env.VITE_AUTH_URL;
 
-function redirectToLogin() {
+export function redirectToLogin() {
     const returnTo = encodeURIComponent(window.location.href);
     fetch('/api/v1/security/redirect', {
         method: 'POST',
