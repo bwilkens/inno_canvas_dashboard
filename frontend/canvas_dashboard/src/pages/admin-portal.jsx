@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getUserData } from '../api/getUserData.js';
 import { toast } from 'react-toastify';
+import { updateDatabase } from '../api/updateDatabase.js';
 import AdminActionButton from '../components/AdminActionButton';
 import UserInfo from '../components/UserInformation';
 import useAuthCheck from '../hooks/useAuthCheck';
@@ -78,6 +79,15 @@ const AdminDashboard = () => {
             });
     }
 
+    async function handleRefreshDatabase() {
+        try {
+            await updateDatabase();
+            toast.success('Database is succesvol geüpdatet.');
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
     return (
         <div>
             <h1>Admin Portaal</h1>
@@ -96,12 +106,12 @@ const AdminDashboard = () => {
                 ></AdminActionButton>
 
                 <AdminActionButton
-                    name="Update Cursus"
-                    disabled={true}
+                    name="Database Updaten"
+                    onClick={handleRefreshDatabase}
                 ></AdminActionButton>
 
                 <AdminActionButton
-                    name="Health"
+                    name="Grafana Server Health"
                     onClick={handleHealth}
                 ></AdminActionButton>
             </div>
