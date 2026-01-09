@@ -1,4 +1,3 @@
-
 import { redirectToLogin } from "../hooks/useAuthCheck";
 const LogoutUrl = import.meta.env.VITE_LOGOUT_URL;
 
