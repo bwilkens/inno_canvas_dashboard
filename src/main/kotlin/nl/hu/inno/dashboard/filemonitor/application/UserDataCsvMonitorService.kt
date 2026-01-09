@@ -23,7 +23,7 @@ class UserDataCsvMonitorService(
     private val hashChecker: HashChecker
 ) : FileMonitorService {
 
-    private lateinit var monitor: FileAlterationMonitor
+    private var monitor: FileAlterationMonitor? = null
     private val csvFileName = "user_data.csv"
     private val csvDirectoryPath: String = Paths.get(pathToSharedDataVolume, coursesDirectory).toString()
 
@@ -36,15 +36,23 @@ class UserDataCsvMonitorService(
         val intervalInMillis: Long = 5000
         monitor = FileAlterationMonitor(intervalInMillis, observer)
 
-        monitor.start()
+        try {
+        monitor?.start()
         println("_____ monitor successfully started _____")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     @PreDestroy
     override fun stopWatching() {
-        println("_____ stopping monitor _____")
-        monitor.stop()
-        println("_____ monitor successfully stopped _____")
+        try {
+            println("_____ stopping monitor _____")
+            monitor?.stop()
+            println("_____ monitor successfully stopped _____")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun createObserver(): FileAlterationObserver {
