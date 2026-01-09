@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { updateAdminUsers } from "../api/updateAdminUsers.js";
-import { getAdminUsers } from "../api/getAdminUsers.js";
-import { toast } from "react-toastify";
-import "../css/admin-management.css";
+import { useState, useEffect } from 'react';
+import { updateAdminUsers } from '../api/updateAdminUsers.js';
+import { getAdminUsers } from '../api/getAdminUsers.js';
+import { toast } from 'react-toastify';
+import '../css/admin-management.css';
 
-const ROLE_OPTIONS = ["USER", "ADMIN", "SUPERADMIN"];
+const ROLE_OPTIONS = ['USER', 'ADMIN', 'SUPERADMIN'];
 
 function AdminManagementTable() {
     const [adminUsers, setAdminUsers] = useState([]);
@@ -59,23 +59,27 @@ function AdminManagementTable() {
         const changed = localUsers.filter(
             (user) => isUserChanged(user, adminUsers, editedUsers)
         );
-        if (changed.length === 0) return;
+        if (changed.length === 0) {
+            return;
+        }
         setSaving(true);
         try {
             await updateAdminUsers(changed);
 
             // renew user list after updating roles
             await fetchUsers();
-            toast.success("Wijzigingen succesvol opgeslagen!");
+            toast.success('Wijzigingen succesvol opgeslagen!');
         } catch (err) {
-            toast.error("Fout bij opslaan: " + err.message);
+            toast.error('Fout bij opslaan: ' + err.message);
         } finally {
             setSaving(false);
         }
     };
 
     function isUserChanged(user, adminUsers, editedUsers) {
-        if (!editedUsers[user.email]) return false;
+        if (!editedUsers[user.email]) {
+            return false;
+        }
         const originalUser = adminUsers.find(u => u.email === user.email);
         return originalUser && user.appRole !== originalUser.appRole;
     }
@@ -89,7 +93,7 @@ function AdminManagementTable() {
                 {!adminLoading && !adminError && (
                     <>
                         <table 
-                        aria-label="Admin gebruikers tabel">
+                            aria-label="Admin gebruikers tabel">
                             <thead>
                                 <tr>
                                     <th>Naam</th>
@@ -99,14 +103,14 @@ function AdminManagementTable() {
                             </thead>
                             <tbody>
                                 {localUsers.map((user) => {
-                                    const isSuperadmin = user.appRole === "SUPERADMIN";
-                                    const isChanged = isUserChanged(user, adminUsers, editedUsers)
+                                    const isSuperadmin = user.appRole === 'SUPERADMIN';
+                                    const isChanged = isUserChanged(user, adminUsers, editedUsers);
                                     return (
                                         <tr
                                             key={user.email}
                                             className={
-                                                (isChanged ? "row-changed " : "") +
-                                                (isSuperadmin ? "row-superadmin" : "")
+                                                (isChanged ? 'row-changed ' : '') +
+                                                (isSuperadmin ? 'row-superadmin' : '')
                                             }
                                         >
                                             <td>{user.name}</td>
@@ -125,8 +129,8 @@ function AdminManagementTable() {
                                                 >
                                                     {ROLE_OPTIONS.filter(
                                                         (role) =>
-                                                            role !== "SUPERADMIN" ||
-                                                            user.appRole === "SUPERADMIN"
+                                                            role !== 'SUPERADMIN' ||
+                                                            user.appRole === 'SUPERADMIN'
                                                     ).map((role) => (
                                                         <option key={role} value={role}>
                                                             {role}
@@ -147,7 +151,7 @@ function AdminManagementTable() {
                             }
                             className="save-button"
                         >
-                            {saving ? "Opslaan..." : "Opslaan"}
+                            {saving ? 'Opslaan...' : 'Opslaan'}
                         </button>
                     </>
                 )}

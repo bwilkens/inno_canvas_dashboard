@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { getUserData } from "../api/getUserData.js";
-import CardsGrid from "../components/CardGrid";
-import UserInfo from "../components/UserInformation";
-import useAuthCheck from "../hooks/useAuthCheck";
+import { useState, useEffect } from 'react';
+import { getUserData } from '../api/getUserData.js';
+import CardsGrid from '../components/CardGrid';
+import UserInfo from '../components/UserInformation';
+import useAuthCheck from '../hooks/useAuthCheck';
 
 const CourseOverview = () => {
     useAuthCheck();
@@ -25,8 +25,12 @@ const CourseOverview = () => {
         loadData();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error loading user data.</div>;
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error loading user data.</div>;
+    }
 
     return (
         <div>

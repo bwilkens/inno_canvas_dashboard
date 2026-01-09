@@ -1,14 +1,14 @@
-import UserInfoSkeleton from "./UserInformationSkeleton.jsx";
-import "../css/user-information.css";
+import UserInfoSkeleton from './UserInformationSkeleton.jsx';
+import '../css/user-information.css';
 
 const UserInfo = ({ data }) => {
-  if (!data) {
-    return (
-      <div className="skeleton-wrapper">
-        <UserInfoSkeleton />
-      </div>
-    );
-  }
+    if (!data) {
+        return (
+            <div className="skeleton-wrapper">
+                <UserInfoSkeleton />
+            </div>
+        );
+    }
 
     return (
         <div id="user-container">

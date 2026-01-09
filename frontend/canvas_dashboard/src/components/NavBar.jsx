@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import "../css/navbar.css";
-import LogoutButton from "../components/LogoutButton";
-import HuLogo from "../assets/hu-logo.svg";
+import { Link } from 'react-router-dom';
+import '../css/navbar.css';
+import LogoutButton from '../components/LogoutButton';
+import HuLogo from '../assets/hu-logo.svg';
 
 function NavBar({ userRole }) {
   return (
