@@ -82,7 +82,7 @@ class UserDataCsvMonitorService(
         if (changed) {
             lastHash = newHash
             println("_____ running handleFileChange -> calling dashboard service _____")
-            dashboardService.refreshUsersAndCoursesFromFileMonitor()
+            dashboardService.refreshUsersAndCoursesInternal()
         }
     }
 

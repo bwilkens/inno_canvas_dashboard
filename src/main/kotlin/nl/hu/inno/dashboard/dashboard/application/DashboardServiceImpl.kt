@@ -92,15 +92,15 @@ class DashboardServiceImpl(
     override fun refreshUsersAndCoursesWithRoleCheck(email: String) {
 //        entry point to refreshUsersAndCoursesInternal from REST API (admin portal)
         verifyUserIsAdminOrSuperAdmin(email)
-        refreshUsersAndCoursesInternal()
+        refreshUsersAndCourses()
     }
 
-    override fun refreshUsersAndCoursesFromFileMonitor() {
+    override fun refreshUsersAndCoursesInternal() {
 //        entry point to refreshUsersAndCoursesInternal from FileMonitor component
-        refreshUsersAndCoursesInternal()
+        refreshUsersAndCourses()
     }
 
-    private fun refreshUsersAndCoursesInternal() {
+    private fun refreshUsersAndCourses() {
         val resource = fileFetcherService.fetchCsvFile()
         val records = fileParserService.parseFile(resource)
 

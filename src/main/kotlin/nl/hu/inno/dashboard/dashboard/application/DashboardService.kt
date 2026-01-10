@@ -10,5 +10,5 @@ interface DashboardService {
     fun updateAdminUsers(email: String, usersToUpdate: List<AdminDTO>): List<AdminDTO>
     fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource
     fun refreshUsersAndCoursesWithRoleCheck(email: String)
-    fun refreshUsersAndCoursesFromFileMonitor()
+    fun refreshUsersAndCoursesInternal()
 }
