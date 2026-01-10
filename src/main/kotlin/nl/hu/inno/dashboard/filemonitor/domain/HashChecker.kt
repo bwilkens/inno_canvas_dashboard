@@ -7,12 +7,9 @@ import java.security.MessageDigest
 @Component
 class HashChecker {
     fun isContentChanged(file: File, lastHash: String?): Pair<Boolean, String?> {
-        println("_____ comparing hash _____")
         val currentHash = calculateFileHash(file)
         val changed = currentHash != null && currentHash != lastHash
 
-        println("_____ hash changed is: $changed _____")
-        println("_____ hash previous: $lastHash || hash new: $currentHash")
         return Pair(changed, currentHash)
     }
 

@@ -34,7 +34,7 @@ class UserDataCsvMonitorService(
 
     @PostConstruct
     override fun startWatching() {
-        println("_____ initializing monitor _____")
+        println("_____ initializing monitor on user_data.csv _____")
         val observer = createObserver()
         monitor = FileAlterationMonitor(intervalInMillis, observer)
 
@@ -49,7 +49,7 @@ class UserDataCsvMonitorService(
     @PreDestroy
     override fun stopWatching() {
         try {
-            println("_____ stopping monitor _____")
+            println("_____ gracefully stopping monitor on user_data.csv _____")
             monitor?.stop()
             println("_____ monitor successfully stopped _____")
         } catch (e: Exception) {
@@ -58,8 +58,6 @@ class UserDataCsvMonitorService(
     }
 
     private fun createObserver(): FileAlterationObserver {
-        println("_____ creating observer _____")
-
         verifyCsvDirectoryExists()
 
         val observer = FileAlterationObserver.builder()
@@ -72,8 +70,6 @@ class UserDataCsvMonitorService(
             override fun onFileCreate(file: File) = handleFileChange(file)
         })
 
-        println("_____ successfully created observer _____")
-
         return observer
     }
 
@@ -81,7 +77,6 @@ class UserDataCsvMonitorService(
         val (changed, newHash) = hashChecker.isContentChanged(file, lastHash)
         if (changed) {
             lastHash = newHash
-            println("_____ running handleFileChange -> calling dashboard service _____")
             dashboardService.refreshUsersAndCoursesInternal()
         }
     }
