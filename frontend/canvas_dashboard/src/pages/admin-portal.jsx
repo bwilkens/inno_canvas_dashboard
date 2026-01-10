@@ -90,47 +90,49 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div>
-            <h1>Admin Portaal</h1>
-            <UserInfo data={userData} />
+        <div className='admin-container'>
+            <div className='admin-background'>
+                <h1>Admin Portaal</h1>
+                <UserInfo data={userData} />
 
-            <h2>Admin Acties</h2>
-            <div className="admin-card-wrapper">
-                <CardButton
-                    cardHeading="Genereer Resultaat"
-                    cardText="TODO"
-                    buttonText="Genereer Resultaat"
-                    buttonAriaLabel="Genereer Resultaat"
-                    buttonOnClick={handleGenerateResult}
-                ></CardButton>
+                <h2>Admin Acties</h2>
+                <div className="admin-card-wrapper">
+                    <CardButton
+                        cardHeading="Genereer Resultaat"
+                        cardText="TODO"
+                        buttonText="Genereer Resultaat"
+                        buttonAriaLabel="Genereer Resultaat"
+                        buttonOnClick={handleGenerateResult}
+                    ></CardButton>
 
-                <CardButton
-                    cardHeading="Genereer Cursus"
-                    cardText="TODO"
-                    buttonText="Genereer Cursus"
-                    buttonAriaLabel="Genereer Cursus"
-                    buttonOnClick={handleGenerateCourse}
-                ></CardButton>
+                    <CardButton
+                        cardHeading="Genereer Cursus"
+                        cardText="TODO"
+                        buttonText="Genereer Cursus"
+                        buttonAriaLabel="Genereer Cursus"
+                        buttonOnClick={handleGenerateCourse}
+                    ></CardButton>
 
-                <CardButton
-                    cardHeading="Database Updaten"
-                    cardText="Klik hier om de database te updaten met de laatste gebruiker- en cursusinformatie die aangeleverd is door de Python applicatie."
-                    buttonText="Update database"
-                    buttonAriaLabel="Update database"
-                    buttonOnClick={handleRefreshDatabase}
-                ></CardButton>
+                    <CardButton
+                        cardHeading="Database Updaten"
+                        cardText="Klik hier om de database te updaten met de laatste gebruiker- en cursusinformatie die aangeleverd is door de Python applicatie."
+                        buttonText="Update database"
+                        buttonAriaLabel="Update database"
+                        buttonOnClick={handleRefreshDatabase}
+                    ></CardButton>
 
-                <CardButton 
-                    cardHeading="Grafana Dashboard"
-                    cardText="Klik hier om te navigeren naar het Grafana dashboard en de server te monitoren."
-                    buttonText="Ga naar Grafana dashboard"
-                    buttonAriaLabel="Ga naar Grafana dashboard"
-                    buttonOnClick={handleHealth}
-                ></CardButton>
+                    <CardButton 
+                        cardHeading="Grafana Dashboard"
+                        cardText="Klik hier om te navigeren naar het Grafana dashboard en de server te monitoren."
+                        buttonText="Ga naar Grafana dashboard"
+                        buttonAriaLabel="Ga naar Grafana dashboard"
+                        buttonOnClick={handleHealth}
+                    ></CardButton>
+                </div>
+                {userData.appRole === 'SUPERADMIN' && (
+                    <AdminManagementTable />
+                )}
             </div>
-            {userData.appRole === 'SUPERADMIN' && (
-                <AdminManagementTable />
-            )}
         </div>
     );
 };

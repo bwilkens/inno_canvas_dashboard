@@ -1,10 +1,12 @@
 .home-background {
-    position: relative;
+  position: relative;
   background-image: url('/gebouwen_heidelberglaan-15.jpg');
-    background-size: cover;
+  background-size: cover;
   background-position: center 20%;
   background-repeat: no-repeat;
   min-height: 100vh;
+  height: 100vh;
+  overflow: auto;
 }
 
 .home-background::before {

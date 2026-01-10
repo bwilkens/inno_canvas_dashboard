@@ -1,10 +1,12 @@
 .overview-background {
-    position: relative;
-  background-image: url('/gebouwen_padualaan-97.jpg');
-    background-size: cover;
+  position: relative;
+  background-image: url('/gebouwen_heidelberglaan-15.jpg');
+  background-size: cover;
   background-position: center 20%;
   background-repeat: no-repeat;
   min-height: 100vh;
+  height: 100vh;
+  overflow: auto;
 }
 
 .overview-background::before {
