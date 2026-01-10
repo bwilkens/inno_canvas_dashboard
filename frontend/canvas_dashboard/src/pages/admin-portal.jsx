@@ -91,10 +91,11 @@ const AdminDashboard = () => {
 
     return (
         <div className='admin-container'>
-            <div className='admin-background'>
-                <h1>Admin Portaal</h1>
-                <UserInfo data={userData} />
+            <div className='admin-background'></div>
+            <h1>Admin Portaal</h1>
+            <UserInfo data={userData} />
 
+            <div className='admin-card-container'>
                 <h2>Admin Acties</h2>
                 <div className="admin-card-wrapper">
                     <CardButton
@@ -129,10 +130,10 @@ const AdminDashboard = () => {
                         buttonOnClick={handleHealth}
                     ></CardButton>
                 </div>
-                {userData.appRole === 'SUPERADMIN' && (
-                    <AdminManagementTable />
-                )}
             </div>
+            {userData.appRole === 'SUPERADMIN' && (
+                <AdminManagementTable />
+            )}
         </div>
     );
 };
