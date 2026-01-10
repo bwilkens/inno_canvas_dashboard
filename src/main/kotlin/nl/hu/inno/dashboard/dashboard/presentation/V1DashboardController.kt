@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/dashboard/")
-class DashboardController(
+class V1DashboardController(
     private val service: DashboardServiceImpl
     ) {
 

@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 
-@WebMvcTest(DashboardController::class)
-class DashboardControllerIntegrationTest {
+@WebMvcTest(V1DashboardController::class)
+class V1DashboardControllerIntegrationTest {
 
     @Autowired
     lateinit var mockMvc: MockMvc
