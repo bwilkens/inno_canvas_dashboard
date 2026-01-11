@@ -22,7 +22,7 @@ const CardGrid = ({ courses }) => {
     });
 
     return (
-        <div>
+        <div className='grid-container-wrapper'>
             {/* Active cards */}
             <div className="grid-container">
                 {activeCards.map((item, index) => (
@@ -32,35 +32,37 @@ const CardGrid = ({ courses }) => {
                         className="card-link"
                     >
                         <div className="card">
-                            <h3>{item.courseName}</h3>
+                            <h3 className='card-h3'>{item.courseName}</h3>
                             <p>Start datum: {item.startDate}</p>
                             <p>Eind datum: {item.endDate}</p>
                             <p>Cursus code: {item.courseCode}</p>
-                            <p>Rol: {item.roleInCourse}</p>
+                            <p className='card-final-p'>Rol: {item.roleInCourse}</p>
                         </div>
                     </Link>
                 ))}
             </div>
 
+            {/* Non-active cards, only render if there are any */}
             {nonActiveCards.length > 0 && <hr className="separator-line" />}
 
-            {/* Non-active cards */}
-            <div className="grid-container">
-                {nonActiveCards.map((item, index) => (
-                    <Link
-                        to={`/dashboard/${item.instanceName}`}
-                        key={index}
-                        className="card-link"
-                    >
-                        <div className="card outdated">
-                            <h3>{item.courseName}</h3>
-                            <p>Start datum: {item.startDate}</p>
-                            <p>Eind datum: {item.endDate}</p>
-                            <p>Cursus Code: {item.instanceName}</p>
-                        </div>
-                    </Link>
-                ))}
-            </div>
+            {nonActiveCards.length > 0 && (
+                <div className="grid-container">
+                    {nonActiveCards.map((item, index) => (
+                        <Link
+                            to={`/dashboard/${item.instanceName}`}
+                            key={index}
+                            className="card-link"
+                        >
+                            <div className="card outdated">
+                                <h3 className='card-h3'>{item.courseName}</h3>
+                                <p>Start datum: {item.startDate}</p>
+                                <p>Eind datum: {item.endDate}</p>
+                                <p className='card-final-p'>Cursus Code: {item.instanceName}</p>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

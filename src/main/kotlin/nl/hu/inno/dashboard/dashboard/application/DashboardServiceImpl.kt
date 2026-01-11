@@ -89,7 +89,18 @@ class DashboardServiceImpl(
         return fileFetcherService.fetchDashboardHtml(email, userRole, courseCode, instanceName, relativeRequestPath)
     }
 
-    override fun refreshUsersAndCourses() {
+    override fun refreshUsersAndCoursesWithRoleCheck(email: String) {
+//        entry point to refreshUsersAndCourses from REST API (admin portal)
+        verifyUserIsAdminOrSuperAdmin(email)
+        refreshUsersAndCourses()
+    }
+
+    override fun refreshUsersAndCoursesInternal() {
+//        entry point to refreshUsersAndCourses from FileMonitor component
+        refreshUsersAndCourses()
+    }
+
+    private fun refreshUsersAndCourses() {
         val resource = fileFetcherService.fetchCsvFile()
         val records = fileParserService.parseFile(resource)
         println("parsed records")
@@ -168,6 +179,13 @@ class DashboardServiceImpl(
     private fun verifyUserIsSuperAdmin(email: String) {
         val requestUser = findUserInDatabaseByEmail(email)
         if (requestUser.appRole != AppRole.SUPERADMIN) {
+            throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
+        }
+    }
+
+    private fun verifyUserIsAdminOrSuperAdmin(email: String) {
+        val requestUser = findUserInDatabaseByEmail(email)
+        if (requestUser.appRole != AppRole.SUPERADMIN && requestUser.appRole != AppRole.ADMIN) {
             throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
         }
     }

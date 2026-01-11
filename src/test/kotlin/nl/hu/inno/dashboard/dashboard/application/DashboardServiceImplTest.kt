@@ -226,7 +226,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsEachUniqueCourseOnce() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             courses.count { it.canvasCourseId == 50304 } == 1 &&
@@ -236,7 +236,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsEachUniqueUserOnce() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             users.count { it.email == "john.doe@student.hu.nl"} == 1 &&
@@ -247,7 +247,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsAllUniqueUsersWithTheirCourses() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             val userJohn = users.find { it.email == "john.doe@student.hu.nl"}
@@ -262,7 +262,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsAllUniqueCoursesWithTheirUsers() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             val course1 = courses.find { it.canvasCourseId == 50304 }
@@ -275,7 +275,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_userCanHaveMultipleCourses() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             val user = users.find { it.email == "john.doe@student.hu.nl" }
@@ -285,7 +285,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_courseCanHaveMultipleUsers() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             val course = courses.find { it.canvasCourseId == 50304 }
@@ -295,7 +295,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_skipsUsersWithNullEmailAddress() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             users.none { it.email == "null"}

@@ -1,8 +1,13 @@
+.grid-container-wrapper {
+  background: rgba(255,255,255,0.40);
+  backdrop-filter: blur(4px);
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  padding: 3rem;
+  padding: 2em 3em;
 }
 
 .grid-container a {
@@ -14,11 +19,25 @@
   border-radius: var(--border-radius-lg, 8px);
   padding: 12px;
   transition: border 0.3s, box-shadow 0.3s;
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--color-border-gray, #e3e3e3);
+  backdrop-filter: blur(4px);
 }
 
 .card:hover {
   border-color: #000dff;
   box-shadow: 0 0 0 4px #00a2ff33, 0 2px 8px #000dff22;
+}
+
+.card-h3 {
+    margin-top: 0;
+}
+
+.card-final-p {
+    margin-bottom: 0;
 }
 
 .separator-line {
@@ -30,6 +49,7 @@
 }
 
 .grid-container {
+  margin-top: 60px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;

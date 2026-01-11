@@ -1,5 +1,0 @@
-### Refresh users and courses in the database - locally
-POST http://localhost:8080/api/v1/dashboard/internal/users/refresh
-
-### Refresh users and courses in the database - live server
-POST https://inno-dashboard.duckdns.org/api/v1/dashboard/internal/users/refresh

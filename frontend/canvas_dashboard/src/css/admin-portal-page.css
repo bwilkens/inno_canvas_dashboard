@@ -1,0 +1,38 @@
+.admin-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #909090;
+    pointer-events: none;
+    z-index: -2;
+}
+
+.admin-content-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 80px; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      white 7%,
+      rgba(255,255,255,0.7) 100px,
+      rgba(255,255,255,0) 130px);
+    z-index: -1;
+
+}
+
+.admin-card-container {
+    margin-top: 60px;
+}
+
+.admin-card-wrapper {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
