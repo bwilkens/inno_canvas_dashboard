@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getUserData } from '../api/getUserData.js';
 import { toast } from 'react-toastify';
-import { updateDatabase } from '../api/updateDatabase.js';
+import { refreshCanvasData, refreshDashboards, updateDatabase } from '../api/adminApi.js';
 import CardButton from '../components/CardButton';
 import UserInfo from '../components/UserInformation';
 import useAuthCheck from '../hooks/useAuthCheck';
@@ -49,35 +49,22 @@ const AdminDashboard = () => {
         navigate('/health');
     }
 
-    function handleGenerateResult() {
-        fetch('', {
-            method: 'POST',
-            credentials: 'include',
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Generate result failed');
-                }
-                return response.json();
-            })
-            .catch((error) => {
-                toast.error(error.message);
-            });
+    async function handleRefreshResults() {
+        try {
+            await refreshCanvasData();
+            toast.success('Canvas-gegevens zijn succesvol ververst.');
+        } catch (error) {
+            toast.error(error.message);
+        }
     }
-    function handleGenerateCourse() {
-        fetch('', {
-            method: 'POST',
-            credentials: 'include',
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Generate course failed');
-                }
-                return response.json();
-            })
-            .catch((error) => {
-                toast.error(error.message);
-            });
+
+    async function handleRefreshDashboards() {
+        try {
+            await refreshDashboards();
+            toast.success('Dashboards zijn succesvol vernieuwd.');
+        } catch (error) {
+            toast.error(error.message);
+        }
     }
 
     async function handleRefreshDatabase() {
@@ -100,19 +87,19 @@ const AdminDashboard = () => {
                     <h2>Admin Acties</h2>
                     <div className="admin-card-wrapper">
                         <CardButton
-                            cardHeading="Genereer Resultaat"
-                            cardText="TODO"
-                            buttonText="Genereer Resultaat"
-                            buttonAriaLabel="Genereer Resultaat"
-                            buttonOnClick={handleGenerateResult}
+                            cardHeading="Vernieuw Resultaten"
+                            cardText="Klik hier om handmatig de resultaten te updaten met de laatste gegevens vanuit Canvas."
+                            buttonText="Resultaten vernieuwen"
+                            buttonAriaLabel="Resultaten vernieuwen"
+                            buttonOnClick={handleRefreshResults}
                         ></CardButton>
 
                         <CardButton
-                            cardHeading="Genereer Cursus"
-                            cardText="TODO"
-                            buttonText="Genereer Cursus"
-                            buttonAriaLabel="Genereer Cursus"
-                            buttonOnClick={handleGenerateCourse}
+                            cardHeading="Vernieuw Dashboards"
+                            cardText="Klik hier om handmatig de dashboard HTML-pagina's te genereren met de laatste resultaten die zijn opgehaald uit Canvas."
+                            buttonText="Dashboards vernieuwen"
+                            buttonAriaLabel="Dashboards vernieuwen"
+                            buttonOnClick={handleRefreshDashboards}
                         ></CardButton>
 
                         <CardButton
