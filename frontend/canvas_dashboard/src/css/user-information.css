@@ -1,10 +1,14 @@
 #user-card {
     padding: 0.75rem;
     text-align: left;
-    border: 1px solid var(--color-blue-shimmer-dark, #000dff);
+    border: 1px solid var(--color-border-gray, #e3e3e3);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     border-radius: var(--border-radius-lg, 8px);
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(8px) grayscale(1);
 }
 
 #user-container {
-    padding: 1rem 3rem;
+    margin-top: 60px;
+    padding: 0 3em;
 }

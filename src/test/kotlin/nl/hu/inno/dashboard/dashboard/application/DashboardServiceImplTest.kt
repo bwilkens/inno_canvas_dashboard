@@ -150,7 +150,7 @@ class DashboardServiceImplTest {
         `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
         `when`(usersDB.save(any(Users::class.java))).thenAnswer { it.getArgument(0) }
 
-        val result = service.updateAdminUsers("super.admin@hu.nl", listOf(adminDTO, userDTO, superAdminDTO))
+        val result = service.updateAdminUserRoles("super.admin@hu.nl", listOf(adminDTO, userDTO, superAdminDTO))
 
         assertEquals(2, result.size)
         assertTrue(result.any { it.email == "admin@hu.nl" && it.appRole == "USER" })
@@ -165,7 +165,7 @@ class DashboardServiceImplTest {
         `when`(usersDB.findById("admin@hu.nl")).thenReturn(Optional.of(admin))
 
         val exception = assertThrows<UserNotAuthorizedException> {
-            service.updateAdminUsers("admin@hu.nl", listOf(adminDTO))
+            service.updateAdminUserRoles("admin@hu.nl", listOf(adminDTO))
         }
         assertEquals("User with admin@hu.nl does not have the authorization to make this request", exception.message)
     }
@@ -179,7 +179,7 @@ class DashboardServiceImplTest {
         `when`(usersDB.findById("super.admin@hu.nl")).thenReturn(Optional.of(superAdmin))
         `when`(usersDB.findById("admin@hu.nl")).thenReturn(Optional.of(admin))
 
-        val result = service.updateAdminUsers("super.admin@hu.nl", listOf(adminDTO))
+        val result = service.updateAdminUserRoles("super.admin@hu.nl", listOf(adminDTO))
 
         assertTrue(result.isEmpty())
         verify(usersDB, never()).save(admin)
@@ -226,7 +226,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsEachUniqueCourseOnce() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             courses.count { it.canvasCourseId == 50304 } == 1 &&
@@ -236,7 +236,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsEachUniqueUserOnce() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             users.count { it.email == "john.doe@student.hu.nl"} == 1 &&
@@ -247,7 +247,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsAllUniqueUsersWithTheirCourses() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             val userJohn = users.find { it.email == "john.doe@student.hu.nl"}
@@ -262,7 +262,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_persistsAllUniqueCoursesWithTheirUsers() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             val course1 = courses.find { it.canvasCourseId == 50304 }
@@ -275,7 +275,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_userCanHaveMultipleCourses() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             val user = users.find { it.email == "john.doe@student.hu.nl" }
@@ -285,7 +285,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_courseCanHaveMultipleUsers() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(courseDB).saveAll(argThat { courses: Collection<Course> ->
             val course = courses.find { it.canvasCourseId == 50304 }
@@ -295,7 +295,7 @@ class DashboardServiceImplTest {
 
     @Test
     fun refreshUsersAndCourses_skipsUsersWithNullEmailAddress() {
-        service.refreshUsersAndCourses()
+        service.refreshUsersAndCoursesInternal()
 
         verify(usersDB).saveAll(argThat { users: Collection<Users> ->
             users.none { it.email == "null"}

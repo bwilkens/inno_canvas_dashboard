@@ -29,4 +29,8 @@ class Users (
         this === other || (other is Users && email == other.email)
 
     override fun hashCode(): Int = email.hashCode()
+
+    override fun toString(): String {
+        return "Users(email='$email', name='$name', appRole=$appRole)"
+    }
 }

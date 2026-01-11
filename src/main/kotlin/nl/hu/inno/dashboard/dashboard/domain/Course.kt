@@ -38,4 +38,8 @@ class Course(
         this === other || (other is Course && canvasCourseId == other.canvasCourseId)
 
     override fun hashCode(): Int = canvasCourseId.hashCode()
+
+    override fun toString(): String {
+        return "Course(canvasCourseId=$canvasCourseId, courseName='$courseName', courseCode='$courseCode', instanceName='$instanceName', startDate=$startDate, endDate=$endDate)"
+    }
 }

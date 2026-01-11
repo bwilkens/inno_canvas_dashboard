@@ -7,7 +7,8 @@ import org.springframework.core.io.Resource
 interface DashboardService {
     fun findUserByEmail(email: String): UsersDTO
     fun findAllAdmins(email: String): List<AdminDTO>
-    fun updateAdminUsers(email: String, usersToUpdate: List<AdminDTO>): List<AdminDTO>
+    fun updateAdminUserRoles(email: String, usersToUpdate: List<AdminDTO>): List<AdminDTO>
     fun getDashboardHtml(email: String, instanceName: String, relativeRequestPath: String): Resource
-    fun refreshUsersAndCourses()
+    fun refreshUsersAndCoursesWithRoleCheck(email: String)
+    fun refreshUsersAndCoursesInternal()
 }
