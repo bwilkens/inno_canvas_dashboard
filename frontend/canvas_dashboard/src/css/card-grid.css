@@ -48,6 +48,7 @@
   margin-right: auto;
   height: 2px;
   background: linear-gradient(90deg, var(--color-blue-shimmer-light, #00a2ff), var(--color-blue-shimmer-dark, #000dff));
+  border: none;
 }
 
 .grid-container {
