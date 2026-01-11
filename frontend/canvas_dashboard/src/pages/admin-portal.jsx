@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getUserData } from '../api/getUserData.js';
 import { toast } from 'react-toastify';
-import { refreshCanvasData, refreshDashboards, updateDatabase } from '../api/adminApi.js';
+import { refreshCanvasData, refreshDashboards, updateDatabase } from '../api/adminPortalApi.js';
 import CardButton from '../components/CardButton';
 import UserInfo from '../components/UserInformation';
 import useAuthCheck from '../hooks/useAuthCheck';

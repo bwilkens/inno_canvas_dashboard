@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { updateAdminUsers } from '../api/updateAdminUsers.js';
+import { updateAdminUserRoles } from '../api/updateAdminUserRoles.js';
 import { getAdminUsers } from '../api/getAdminUsers.js';
 import { toast } from 'react-toastify';
 import '../css/admin-management.css';
@@ -64,13 +64,13 @@ function AdminManagementTable() {
         }
         setSaving(true);
         try {
-            await updateAdminUsers(changed);
+            await updateAdminUserRoles(changed);
 
             // renew user list after updating roles
             await fetchUsers();
             toast.success('Wijzigingen succesvol opgeslagen!');
-        } catch (err) {
-            toast.error('Fout bij opslaan: ' + err.message);
+        } catch (error) {
+            toast.error(error.message);
         } finally {
             setSaving(false);
         }
