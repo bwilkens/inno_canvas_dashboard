@@ -117,6 +117,7 @@ class DashboardServiceImpl(
             if (email.isBlank() || email.lowercase() == "null") continue
             val canvasCourseId = record[CsvColumns.CANVAS_COURSE_ID].toInt()
 
+//            when refreshing users in the database, we preserve existing ADMIN and SUPERADMIN users
             usersCache.getOrPut(email) {
                 usersDb.findByIdOrNull(email.lowercase()) ?: convertToUser(record)
             }
@@ -191,29 +192,6 @@ class DashboardServiceImpl(
         val requestUser = findUserInDatabaseByEmail(email)
         if (requestUser.appRole != AppRole.SUPERADMIN && requestUser.appRole != AppRole.ADMIN) {
             throw UserNotAuthorizedException("User with $email does not have the authorization to make this request")
-        }
-    }
-
-    private fun linkUsersAndCourses(
-        records: List<List<String>>,
-        usersCache: MutableMap<String, Users>,
-        courseCache: MutableMap<Int, Course>,
-        userInCourseList: MutableList<UserInCourse>
-    ) {
-        for (record in records) {
-            val email = record[CsvColumns.USER_EMAIL]
-            if (email.isBlank() || email.lowercase() == "null") continue
-            val canvasCourseId = record[CsvColumns.CANVAS_COURSE_ID].toInt()
-            val courseRole = record[CsvColumns.COURSE_ROLE]
-
-//            when refreshing users in the database, we preserve existing ADMIN and SUPERADMIN users
-            val user = usersCache.getOrPut(email) {
-                usersDb.findByIdOrNull(email.lowercase()) ?: convertToUser(record)
-            }
-            val course = courseCache.getOrPut(canvasCourseId) { convertToCourse(record) }
-
-            val link = UserInCourse.createAndLink(user, course, parseCourseRole(courseRole))
-            userInCourseList.add(link)
         }
     }
 
