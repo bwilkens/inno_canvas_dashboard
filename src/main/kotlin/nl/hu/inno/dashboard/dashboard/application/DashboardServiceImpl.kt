@@ -104,18 +104,30 @@ class DashboardServiceImpl(
         val userDataCsvFile = fileFetcherService.fetchCsvFile()
         val parsedRecords = fileParserService.parseFile(userDataCsvFile)
 
-        val start = System.currentTimeMillis()
-
+//        ensure UserInCourse associations are deleted first
         userInCourseDb.deleteAllUserInCourseRecords()
         courseDb.deleteAll()
 //        when refreshing users in the database, we preserve existing ADMIN and SUPERADMIN users
         usersDb.deleteAllByAppRole(AppRole.USER)
         clearPersistenceContext()
 
+//        create Users and Course objects and persist them
         val usersCache = mutableMapOf<String, Users>()
         val courseCache = mutableMapOf<Int, Course>()
+        createUsersAndCoursesFromCsvRecords(parsedRecords, usersCache, courseCache)
+        courseDb.saveAll(courseCache.values)
+        usersDb.saveAll(usersCache.values)
 
-        // 1. Maak users en courses aan, voeg GEEN UserInCourse toe
+//        add the UserInCourse associations and persist them
+        val userInCourseList = createUserInCourseAssociations(parsedRecords, usersCache, courseCache)
+        userInCourseDb.saveAll(userInCourseList)
+    }
+
+    private fun createUsersAndCoursesFromCsvRecords(
+        parsedRecords: List<List<String>>,
+        usersCache: MutableMap<String, Users>,
+        courseCache: MutableMap<Int, Course>
+    ) {
         for (record in parsedRecords) {
             val email = record[CsvColumns.USER_EMAIL]
             if (email.isBlank() || email.lowercase() == "null") continue
@@ -126,12 +138,13 @@ class DashboardServiceImpl(
             }
             courseCache.getOrPut(canvasCourseId) { convertToCourse(record) }
         }
+    }
 
-        // 2. Sla eerst users en courses op
-        courseDb.saveAll(courseCache.values)
-        usersDb.saveAll(usersCache.values)
-
-        // 3. Maak nu pas UserInCourse-objecten aan en koppel ze
+    private fun createUserInCourseAssociations(
+        parsedRecords: List<List<String>>,
+        usersCache: MutableMap<String, Users>,
+        courseCache: MutableMap<Int, Course>
+    ): MutableList<UserInCourse> {
         val userInCourseList = mutableListOf<UserInCourse>()
         for (record in parsedRecords) {
             val email = record[CsvColumns.USER_EMAIL]
@@ -144,12 +157,7 @@ class DashboardServiceImpl(
             val link = UserInCourse.createAndLink(user, course, parseCourseRole(courseRole))
             userInCourseList.add(link)
         }
-
-        // 4. Sla nu de UserInCourse-objecten op
-        userInCourseDb.saveAll(userInCourseList)
-
-        val end = System.currentTimeMillis()
-        println("function took: ${end - start}ms to complete")
+        return userInCourseList
     }
 
     private fun clearPersistenceContext() {
