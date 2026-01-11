@@ -82,6 +82,18 @@ class RestExceptionHandler {
         return ResponseEntity.status(status).body(body)
     }
 
+    @ExceptionHandler(InvalidPythonEnvironmentException::class)
+    fun handleInvalidPythonEnvironment(ex: InvalidPythonEnvironmentException, request: WebRequest): ResponseEntity<ExceptionBody> {
+        val status = HttpStatus.BAD_REQUEST
+        val body = ExceptionBody(
+            status = status.value(),
+            error = status.reasonPhrase,
+            message = ex.message,
+            path = request.getDescription(false).removePrefix("uri=")
+        )
+        return ResponseEntity.status(status).body(body)
+    }
+
     @ExceptionHandler(InvalidRoleException::class)
     fun handleInvalidRole(ex: InvalidRoleException, request: WebRequest): ResponseEntity<ExceptionBody> {
         val status = HttpStatus.NOT_FOUND
