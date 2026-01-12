@@ -106,6 +106,18 @@ class RestExceptionHandler {
         return ResponseEntity.status(status).body(body)
     }
 
+    @ExceptionHandler(PythonGatewayException::class)
+    fun handlePythonGateway(ex: PythonGatewayException, request: WebRequest): ResponseEntity<ExceptionBody> {
+        val status = HttpStatus.BAD_GATEWAY
+        val body = ExceptionBody(
+            status = status.value(),
+            error = status.reasonPhrase,
+            message = ex.message,
+            path = request.getDescription(false).removePrefix("uri=")
+        )
+        return ResponseEntity.status(status).body(body)
+    }
+
     @ExceptionHandler(UserNotAuthorizedException::class)
     fun handleInvalidRole(ex: UserNotAuthorizedException, request: WebRequest): ResponseEntity<ExceptionBody> {
         val status = HttpStatus.FORBIDDEN
