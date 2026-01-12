@@ -54,4 +54,14 @@ class CourseTest {
 
         assertFalse(course.equals("not a course"))
     }
+
+    @Test
+    fun toString_returnsExpectedString() {
+        val course = Course.of(
+            1, "Test", "Code", "Instance",
+            LocalDate.of(2025, 1, 1), LocalDate.of(2025, 12, 31)
+        )
+        val expected = "Course(canvasCourseId=1, courseName='Test', courseCode='Code', instanceName='Instance', startDate=2025-01-01, endDate=2025-12-31)"
+        assertEquals(expected, course.toString())
+    }
 }

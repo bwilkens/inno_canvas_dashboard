@@ -49,4 +49,11 @@ class UsersTest {
 
         assertFalse(user.equals("a@hu.nl"))
     }
+
+    @Test
+    fun toString_returnsExpectedString() {
+        val user = Users.of("Test@hu.nl", "Name")
+        val expected = "Users(email='test@hu.nl', name='Name', appRole=USER)"
+        assertEquals(expected, user.toString())
+    }
 }
