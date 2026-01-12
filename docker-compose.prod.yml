@@ -23,7 +23,6 @@ services:
       AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
     volumes:
       - shared-data:/shared-data
-      - ./development/shared-data:/shared-data
     expose:
       - "8080"
 

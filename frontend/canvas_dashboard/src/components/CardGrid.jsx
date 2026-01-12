@@ -57,7 +57,8 @@ const CardGrid = ({ courses }) => {
                                 <h3 className='card-h3'>{item.courseName}</h3>
                                 <p>Start datum: {item.startDate}</p>
                                 <p>Eind datum: {item.endDate}</p>
-                                <p className='card-final-p'>Cursus Code: {item.instanceName}</p>
+                                <p>Cursus code: {item.courseCode}</p>
+                                <p className='card-final-p'>Rol: {item.roleInCourse}</p>
                             </div>
                         </Link>
                     ))}

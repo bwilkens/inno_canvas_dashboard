@@ -1,6 +1,7 @@
 .grid-container-wrapper {
   background: rgba(255,255,255,0.40);
   backdrop-filter: blur(4px);
+  margin-top: 60px;
 }
 
 .grid-container {
@@ -41,15 +42,16 @@
 }
 
 .separator-line {
-  border-top: 2px solid #000000;
   margin: 5px 0 5px;
   width: 95%;
   margin-left: auto;
   margin-right: auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-blue-shimmer-light, #00a2ff), var(--color-blue-shimmer-dark, #000dff));
+  border: none;
 }
 
 .grid-container {
-  margin-top: 60px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;

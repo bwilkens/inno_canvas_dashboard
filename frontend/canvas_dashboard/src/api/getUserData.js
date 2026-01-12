@@ -11,5 +11,6 @@ export async function getUserData() {
   if (!response.ok) {
     throw new Error("Could not fetch user data");
   }
+  
   return await response.json();
 }
