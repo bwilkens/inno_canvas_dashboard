@@ -2,12 +2,20 @@ package nl.hu.inno.dashboard.filefetcher.domain
 
 import nl.hu.inno.dashboard.exception.exceptions.InvalidRoleException
 import org.junit.jupiter.api.Assertions.*
-import kotlin.test.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class HtmlPathResolverTest {
+    private lateinit var resolver: HtmlPathResolver
+
+    @BeforeEach
+    fun setUp() {
+        resolver = HtmlPathResolver()
+    }
+
     @Test
     fun resolvePath_returnsIndexHtml_forTeacher_whenInstanceEqualsPath() {
-        val actualPath = HtmlPathResolver.resolvePath(
+        val actualPath = resolver.resolvePath(
             email = "docent@hu.nl",
             role = "TEACHER",
             instanceName = "TICT-V3SE6-25_SEP25",
@@ -20,7 +28,7 @@ class HtmlPathResolverTest {
 
     @Test
     fun resolvePath_returnsRelativePath_forTeacher_whenInstanceNotEqualsPath() {
-        val actualPath = HtmlPathResolver.resolvePath(
+        val actualPath = resolver.resolvePath(
             email = "docent@hu.nl",
             role = "TEACHER",
             instanceName = "TICT-V3SE6-25_SEP25",
@@ -33,7 +41,7 @@ class HtmlPathResolverTest {
 
     @Test
     fun resolvePath_returnsStudentPath_forStudent() {
-        val actualPath = HtmlPathResolver.resolvePath(
+        val actualPath = resolver.resolvePath(
             email = "student123@hu.nl",
             role = "STUDENT",
             instanceName = "TICT-V3SE6-25_SEP25",
@@ -46,16 +54,16 @@ class HtmlPathResolverTest {
 
     @Test
     fun resolvePath_throwsException_forInvalidRole() {
-        val actualMessage = assertThrows(InvalidRoleException::class.java) {
-            HtmlPathResolver.resolvePath(
+        val exception = assertThrows(InvalidRoleException::class.java) {
+            resolver.resolvePath(
                 email = "user@hu.nl",
                 role = "ADMIN",
                 instanceName = "TICT-V3SE6-25_SEP25",
                 relativeRequestPath = "dashboard"
             )
         }
-        
+
         val expectedMessage = "Role 'ADMIN' is not a valid role"
-        assertEquals(expectedMessage, actualMessage.message)
+        assertEquals(expectedMessage, exception.message)
     }
 }
