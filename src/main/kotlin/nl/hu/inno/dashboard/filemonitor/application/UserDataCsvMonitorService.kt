@@ -58,7 +58,7 @@ class UserDataCsvMonitorService(
     }
 
     private fun createObserver(): FileAlterationObserver {
-        verifyCsvDirectoryExists()
+        verifyCoursesDirectoryExists()
 
         val observer = FileAlterationObserver.builder()
             .setPath(csvDirectoryPath)
@@ -81,8 +81,13 @@ class UserDataCsvMonitorService(
         }
     }
 
-    private fun verifyCsvDirectoryExists() {
+    private fun verifyCoursesDirectoryExists() {
         val dir = File(csvDirectoryPath)
+
+        if (!dir.exists()) {
+//            create the courses folder inside the shared-data volume if it does not exist
+            dir.mkdirs()
+        }
         if (!dir.exists() || !dir.isDirectory || !dir.canRead()) {
             throw IllegalStateException("Directory $csvDirectoryPath does not exist or is not readable.")
         }

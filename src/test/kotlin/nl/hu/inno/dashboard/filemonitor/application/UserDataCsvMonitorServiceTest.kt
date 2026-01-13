@@ -59,21 +59,41 @@ class UserDataCsvMonitorServiceTest {
     }
 
     @Test
-    fun createObserver_throwsException_whenDirectoryDoesNotExist() {
-        val serviceWithInvalidDir = UserDataCsvMonitorService(
-            "/invalid/path",
-            "invalid",
-            intervalInMillis,
-            dashboardService,
-            hashChecker
-        )
-        val method = UserDataCsvMonitorService::class.java.getDeclaredMethod("createObserver")
+    fun verifyCoursesDirectoryExists_throwsException_whenDirectoryDoesNotExistAfterCreation() {
+        val dirPath = "$pathToSharedDataVolume/$coursesDirectory"
+        val dir = File(dirPath)
+        if (dir.exists()) {
+            dir.deleteRecursively()
+        }
+        dir.parentFile.mkdirs()
+        dir.createNewFile()
+
+        val method = UserDataCsvMonitorService::class.java.getDeclaredMethod("verifyCoursesDirectoryExists")
         method.isAccessible = true
 
         val exception = assertThrows(InvocationTargetException::class.java) {
-            method.invoke(serviceWithInvalidDir)
+            method.invoke(service)
         }
         assertTrue(exception.cause is IllegalStateException)
+        dir.delete()
+    }
+
+    @Test
+    fun verifyCoursesDirectoryExists_createsDirectory_whenMissing() {
+        val dirPath = "$pathToSharedDataVolume/$coursesDirectory"
+        val dir = File(dirPath)
+        if (dir.exists()) {
+            dir.deleteRecursively()
+        }
+        assertFalse(dir.exists())
+
+        val method = UserDataCsvMonitorService::class.java.getDeclaredMethod("verifyCoursesDirectoryExists")
+        method.isAccessible = true
+
+        assertDoesNotThrow { method.invoke(service) }
+        assertTrue(dir.exists())
+        assertTrue(dir.isDirectory)
+        dir.deleteRecursively()
     }
 
     @Test
