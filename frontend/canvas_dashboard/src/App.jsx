@@ -18,19 +18,19 @@ function App() {
     const [userRole, setUserRole] = useState('');
     const [userEmail, setUserEmail] = useState('');
   
-  useEffect(() => {
-    async function loadUser() {
-    const data = await getUserData();
-    if (data) {
-      setUserRole(data.appRole);
-      setUserEmail(data.email);
-    } else {
-      setUserRole("");
-      setUserEmail("");
-    }
-  }
-    loadUser();
-  }, []);
+    useEffect(() => {
+        async function loadUser() {
+            const data = await getUserData();
+            if (data) {
+                setUserRole(data.appRole);
+                setUserEmail(data.email);
+            } else {
+                setUserRole('');
+                setUserEmail('');
+            }
+        }
+        loadUser();
+    }, []);
 
     return (
         <BrowserRouter>

@@ -108,11 +108,11 @@ function AdminManagementTable() {
                                         const isChanged = isUserChanged(user, adminUsers, editedUsers);
                                         return (
                                             <tr
-                                            key={user.email}
-                                            className={
-                                                (isChanged ? 'row-changed ' : '') +
+                                                key={user.email}
+                                                className={
+                                                    (isChanged ? 'row-changed ' : '') +
                                                 (isSuperadmin ? 'row-superadmin' : '')
-                                            }
+                                                }
                                             >
                                                 <td>{user.name}</td>
                                                 <td>{user.email}</td>
@@ -127,7 +127,7 @@ function AdminManagementTable() {
                                                                 e.target.value
                                                             )
                                                         }
-                                                        >
+                                                    >
                                                         {ROLE_OPTIONS.filter(
                                                             (role) =>
                                                                 role !== 'SUPERADMIN' ||
@@ -151,7 +151,7 @@ function AdminManagementTable() {
                                     || saving
                                 }
                                 className="save-button"
-                                >
+                            >
                                 {saving ? 'Opslaan...' : 'Opslaan'}
                             </button>
                         </>
