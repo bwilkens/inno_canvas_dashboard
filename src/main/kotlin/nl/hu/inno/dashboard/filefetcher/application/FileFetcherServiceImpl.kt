@@ -7,6 +7,7 @@ import org.springframework.core.io.FileSystemResource
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Service
 import java.nio.file.Paths
+import org.slf4j.LoggerFactory
 
 @Service
 class FileFetcherServiceImpl(
@@ -16,7 +17,7 @@ class FileFetcherServiceImpl(
     private val coursesDirectory: String,
     private val htmlPathResolver: HtmlPathResolver
 ) : FileFetcherService {
-
+    
     override fun fetchCsvFile(): Resource {
         val path = Paths.get(pathToSharedDataVolume, coursesDirectory, "user_data.csv").toString()
         return FileSystemResource(path)
@@ -29,9 +30,14 @@ class FileFetcherServiceImpl(
 
         val resource = FileSystemResource(fullPath)
         if (!resource.exists()) {
+            log.warn("Dashboard HTML not found: email={}, role={}, resolvedPath={}", email, role,resolvedPath)
             throw InvalidPathException("Path $resolvedPath did not lead to an existing resource")
         }
 
         return resource
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(FileFetcherServiceImpl::class.java)
     }
 }

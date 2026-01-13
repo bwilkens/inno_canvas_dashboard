@@ -4,6 +4,7 @@ import nl.hu.inno.dashboard.exception.exceptions.EmptyFileException
 import nl.hu.inno.dashboard.exception.exceptions.FileCannotBeReadException
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
+import org.slf4j.LoggerFactory
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
 import java.io.IOException
@@ -17,6 +18,7 @@ class CsvFileParser : FileParser {
 
     override fun parse(resource: Resource): List<List<String>> {
         if (!resource.exists() || resource.contentLength() == 0L) {
+            log.warn("CSV file is empty or does not exist: filename={}", resource.filename)
             throw EmptyFileException("File is empty or does not exist")
         }
 
@@ -35,7 +37,12 @@ class CsvFileParser : FileParser {
             }
 
         } catch (e: IOException) {
+            log.error("Error reading CSV file: ${resource.filename}", e)
             throw FileCannotBeReadException("File cannot be read")
         }
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(CsvFileParser::class.java)
     }
 }

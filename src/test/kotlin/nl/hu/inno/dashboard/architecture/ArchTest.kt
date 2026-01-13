@@ -40,7 +40,8 @@ class ArchTest {
                     "org.apache.commons..",
                     "kotlin..",
                     "org.jetbrains..",
-                    "nl.hu.inno.dashboard.exception.."
+                    "nl.hu.inno.dashboard.exception..",
+                    "org.slf4j.."
                 )
             )
 

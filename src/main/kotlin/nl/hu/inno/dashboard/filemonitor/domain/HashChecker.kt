@@ -1,5 +1,6 @@
 package nl.hu.inno.dashboard.filemonitor.domain
 
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.io.File
 import java.security.MessageDigest
@@ -29,8 +30,12 @@ class HashChecker {
 
             digest.joinToString("") { "%02x".format(it) }
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("Error calculating file hash for file: ${file.path}", e)
             null
         }
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(HashChecker::class.java)
     }
 }

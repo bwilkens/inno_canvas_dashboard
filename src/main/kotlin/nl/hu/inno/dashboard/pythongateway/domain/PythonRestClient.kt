@@ -1,6 +1,7 @@
 package nl.hu.inno.dashboard.pythongateway.domain
 
 import nl.hu.inno.dashboard.exception.exceptions.PythonGatewayException
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
@@ -23,7 +24,12 @@ class PythonRestClient(
         try {
             restTemplate.postForEntity<Void>(url)
         } catch (ex: Exception) {
+            log.error("Error posting to python environment: env={}, error={}", environment, ex.message)
             throw PythonGatewayException("Python environment unreachable: ${ex.message}")
         }
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(PythonRestClient::class.java)
     }
 }

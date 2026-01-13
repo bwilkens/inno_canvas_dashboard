@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.File
 import java.nio.file.Paths
+import org.slf4j.LoggerFactory
 
 @Service
 class UserDataCsvMonitorService(
@@ -30,30 +31,26 @@ class UserDataCsvMonitorService(
     private val csvDirectoryPath: String = Paths.get(pathToSharedDataVolume, coursesDirectory).toString()
     private var lastHash: String? = null
 
-//    TODO: replace println's and e.printStackTrace()'s here and in HashChecker with proper logging
-
     @PostConstruct
     override fun startWatching() {
-        println("_____ initializing monitor on user_data.csv _____")
+        log.info("Initializing monitor on {}", csvFileName)
         val observer = createObserver()
         monitor = FileAlterationMonitor(intervalInMillis, observer)
 
         try {
         monitor?.start()
-        println("_____ monitor successfully started _____")
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("Error starting monitor", e)
         }
     }
 
     @PreDestroy
     override fun stopWatching() {
         try {
-            println("_____ gracefully stopping monitor on user_data.csv _____")
+            log.info("Gracefully stopping monitor on {}", csvFileName)
             monitor?.stop()
-            println("_____ monitor successfully stopped _____")
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("Error stopping monitor", e)
         }
     }
 
@@ -70,12 +67,14 @@ class UserDataCsvMonitorService(
             override fun onFileCreate(file: File) = handleFileChange(file)
         })
 
+        log.debug("File observer created for path={} file={}", csvDirectoryPath, csvFileName)
         return observer
     }
 
     private fun handleFileChange(file: File) {
         val (changed, newHash) = hashChecker.isContentChanged(file, lastHash)
         if (changed) {
+            log.info("File content changed (hash changed). Triggering function: refreshUsersAndCoursesInternal. file={}", file.name)
             lastHash = newHash
             dashboardService.refreshUsersAndCoursesInternal()
         }
@@ -89,7 +88,12 @@ class UserDataCsvMonitorService(
             dir.mkdirs()
         }
         if (!dir.exists() || !dir.isDirectory || !dir.canRead()) {
+            log.error("CSV directory not readable/does not exist: path={}", csvDirectoryPath)
             throw IllegalStateException("Directory $csvDirectoryPath does not exist or is not readable.")
         }
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(UserDataCsvMonitorService::class.java)
     }
 }

@@ -1,6 +1,7 @@
 package nl.hu.inno.dashboard.filefetcher.domain
 
 import nl.hu.inno.dashboard.exception.exceptions.InvalidRoleException
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
@@ -17,12 +18,17 @@ class HtmlPathResolver {
                 "$instanceName/students/${firstPartEmail}_index.html"
             }
 
-            else -> throw InvalidRoleException("Role '$role' is not a valid role")
+            else -> {
+                log.warn("Invalid role provided for HTML path resolution: email={}, role={}", email, role)
+                throw InvalidRoleException("Role '$role' is not a valid role")
+            }
         }
     }
 
     companion object {
         private const val ROLE_TEACHER = "TEACHER"
         private const val ROLE_STUDENT = "STUDENT"
+
+        private val log = LoggerFactory.getLogger(HtmlPathResolver::class.java)
     }
 }
