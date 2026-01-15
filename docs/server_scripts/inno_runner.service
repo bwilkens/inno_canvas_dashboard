@@ -1,0 +1,13 @@
+[Unit]
+Description=GitHub Actions Runner script
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/etc/actions-runner/run.sh
+Restart=always
+RestartSec=5
+User=nts
+
+[Install]
+WantedBy=multi-user.target
