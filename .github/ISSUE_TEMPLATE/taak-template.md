@@ -9,8 +9,6 @@ assignees: ''
 
 # Taak
 
-## User story
-- #
 
 ## Beschrijving
 
