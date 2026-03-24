@@ -16,6 +16,7 @@ zodat goal.
 
 
 ### Definition of Ready
+
 - [ ] 1. Het item heeft een duidelijk doel en beschrijft welke waarde het oplevert.
 - [ ] 2. Het item is klein en concreet genoeg om binnen één sprint af te ronden en scope in en uit is helder.
 - [ ] 3. De beoogde uitkomst is duidelijk en toetsbaar via acceptatiecriteria.
@@ -32,13 +33,6 @@ zodat goal.
 - x
 
 ### Definition of Done
-Acceptatiecriteria volledig behaald
-Functionaliteit werkend opgeleverd en gedemonstreerd
-Taak is gecontroleerd en akkoord gegeven (“done”)
-Voldoet aan WCAG AA, AVG en ISO 27001
-Tests uitgevoerd en geslaagd
-Geen blokkerende bugs
-Documentatie bijgewerkt en beschikbaar
 
 - [ ] 1. Alle acceptatiecriteria van de user story zijn behaald.
 - [ ] 2. Deliverables doorstaan peer review door minimaal één teamlid (Software in Pull Requests).
