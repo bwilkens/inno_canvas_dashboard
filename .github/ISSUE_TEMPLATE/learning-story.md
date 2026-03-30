@@ -33,11 +33,11 @@ zodat toepassing.
 
 ### Definition of Done
 - [ ] 1. Alle acceptatiecriteria van de user story zijn behaald.
-- [ ] 2. Deliverables doorstaan peer review door minimaal één teamlid (Software in Pull Requests).
-- [ ] 3. Tests zijn geschreven en uitgevoerd, alle tests slagen; indien mogelijk is er voldoende code coverage.
-- [ ] 4. Software deliverables doorlopen deployment pipeline.
-- [ ] 5. Documentatie is bijgewerkt.
-- [ ] 6. Opgeleverd werk is gecontroleerd door AI (bijvoorbeeld GitHub Copilot code-reviews voor PRs) en feedback is door developers bekeken en indien nodig verwerkt.
+- [ ] 2. Taken zijn gecontroleerd en akkoord gegeven (“done”)
+- [ ] 3. Tests zijn geschreven en uitgevoerd
+- [ ] 4. Software deliverables doorlopen deployment pipeline
+- [ ] 5. Geen blokkerende bugs
+- [ ] 6. Documentatie bijgewerkt en beschikbaar
 
 ### References/additional information
 - x
